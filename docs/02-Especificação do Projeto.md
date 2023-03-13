@@ -119,6 +119,40 @@ Enumere as restrições à sua solução. Lembre-se de que as restrições geral
 > - [O que são Requisitos Funcionais e Requisitos Não Funcionais?](https://codificar.com.br/requisitos-funcionais-nao-funcionais/)
 > - [O que são requisitos funcionais e requisitos não funcionais?](https://analisederequisitos.com.br/requisitos-funcionais-e-requisitos-nao-funcionais-o-que-sao/)
 
+## Documentação da Arquitetura
+### Representação Arquitetural
+
+IMAGEM AQUI
+
+### Descrição dos Microsserviços
+
+- **Autenticação Externa -** Deve abstrair a complexidade da construção de um serviço de autenticação utilizando uma API externa para tal fim. Além de realizar a autenticação, também será utilizada afim de configurar as permissões de acesso aos recursos da aplicação. A API que será utilizada será OAuth do Google.  
+
+- **API Gateway -** Fornece um ponto de acess aos microsserviços, disponibilizando interface para os clientes e definindo as rotas para da aplicação.  
+ 
+- **Orquestrador -** Gerencia e coordena a comunicação entre os microsserviços, monitorando o desempenho e a disponibilidade, em caso de falhas, redirecionar solicitações para garantir a disponibilidade do serviço. 
+
+- **Microsserviço Cadastro de Usuário -** Responsável por disponibilizar ao usuário as funcionalidades CRUD de cadastro na plataforma, caso o usuário não opte por autenticação via Google.
+
+- **Microsserviço de Perfil de Usuário -** Responsável por gerenciar tudo que diz respeito ao perfil do usuário, como nome, foto, email e senha. 
+
+- **Microsserviço de tarefas -** Responsável por disponibilizar as funcionalidades de CRUD para o usuário definir suas tarefas.  
+
+- **Microsserviço de Projeto -** Responsável por implementar as operações de CRUD para os projetos. Possui a integração com os microsserviços de tarefas, pois as mesmas serão incluídas dentro dele. 
+
+- **Microsserviços de Status -** Responsável por implementar os status de um projeto ou tarefa. 
+
+- **Microsserviço de Histórico -** Responsável por exibir os dados referente ao projeto e tarefas vinculadas ao projeto, tais como descrição, datas e status. 
+
+- **Microsserviço de Compartilhamento de Projetos –** Gerencia a relação dos usuários vinculados a um mesmo projeto, disponibilizando ferramentas para o próprio compartilhamento entre os usuários. 
+
+- **Microsserviço de Notificações -** Gerencia as notificações referentes as tarefas e projetos com alertas para prazos de entrega, novas tarefas, conclusão de tarefas, status de prioridade  e quando um usuário é adicionado dentro de um projeto 
+
+- **Banco de Dados de Usuários -** Responsável por armazenar os dados referentes ao microsserviço de cadastro de usuário, sendo utilizado um Banco de Dados Relacional. 
+
+- **Banco de Dados da Aplicação -** Responsável por armazenamento dos dados dos microsserviços, sendo utilizado um Banco de Dados Não-Relacional para cada microsserviço. 
+
+
 ## Diagrama de Casos de Uso
 
 O diagrama de casos de uso é o próximo passo após a elicitação de requisitos, que utiliza um modelo gráfico e uma tabela com as descrições sucintas dos casos de uso e dos atores. Ele contempla a fronteira do sistema e o detalhamento dos requisitos funcionais com a indicação dos atores, casos de uso e seus relacionamentos. 
