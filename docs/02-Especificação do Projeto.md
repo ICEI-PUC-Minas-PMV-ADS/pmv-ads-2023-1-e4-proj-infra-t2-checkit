@@ -120,7 +120,11 @@ Enumere as restrições à sua solução. Lembre-se de que as restrições geral
 > - [O que são requisitos funcionais e requisitos não funcionais?](https://analisederequisitos.com.br/requisitos-funcionais-e-requisitos-nao-funcionais-o-que-sao/)
 
 ## Documentação da Arquitetura
-### Representação Arquitetural
+A Arquitetura Geral do CheckIt abranje  os seguintes padrões arquiteturais: Cliente-servidor e microsserviços.  
+
+A aplicação fará o uso de uma API gateway, aonde será responsável por gerenciar e validar as requisições vindas do web app ou da aplicação mobile e redirecionado para um container de orquestração de microsserviços somente as requisições autenticadas por uma API externa.  
+
+A API tem o propósito de realizar autenticação e validação dos usuários do APP, sendo um componente desacoplado da aplicação, como também algo seguro, flexível e prático. Para cumprir com tais características será utilizado a API OAuth do Google. 
 
 IMAGEM AQUI
 
