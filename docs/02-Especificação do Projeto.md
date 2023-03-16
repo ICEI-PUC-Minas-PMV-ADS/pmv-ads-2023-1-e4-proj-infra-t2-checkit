@@ -77,7 +77,7 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 
 ### Requisitos Funcionais
 
-|:ID:| :Descrição do Requisito:  | :Prioridade: |
+|ID| Descrição do Requisito  | Prioridade |
 |------|-----------------------------------------|----|
 |RF-01| O usuário deve ser capaz de adicionar novas tarefas com um título e uma descrição opcional | ALTA | 
 |RF-02| O usuário deve ser capaz de editar as informações de uma tarefa existente, incluindo o título e a descrição. | ALTA |
@@ -92,7 +92,7 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 
 ### Requisitos não Funcionais
 
-|:ID:     | :Descrição do Requisito:  |:Prioridade: |
+|ID    | Descrição do Requisito  |Prioridade |
 |-------|-------------------------|----|
 |RNF-01| As informações sensíveis do usuário como senha, devem ser criptografadas  | ALTA | 
 |RNF-02| O aplicativo deve estar disponível 24 horas 7 dias da semana | MÉDIA | 
@@ -102,7 +102,7 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 
 ## Restrições
 
-|:ID:|:Descrição do Requisito:|
+|ID|Descrição do Requisito|
 |-------|-------------------------|
 |R-01| O Projeto deverá ser entregue em 26/06/2023  |
 |R-02| Deverá ser utilizada Arquitetura Distribuída  |
