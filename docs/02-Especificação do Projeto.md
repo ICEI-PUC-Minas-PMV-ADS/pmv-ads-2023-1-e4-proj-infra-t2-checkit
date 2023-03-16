@@ -73,51 +73,40 @@ Obs.: todas as informações para gerar os indicadores devem estar no diagrama d
 
 ## Requisitos
 
-As tabelas que se seguem apresentam os requisitos funcionais e não funcionais que detalham o escopo do projeto. Para determinar a prioridade de requisitos, aplicar uma técnica de priorização de requisitos e detalhar como a técnica foi aplicada.
+As tabelas que se seguem apresentam os requisitos funcionais e não funcionais que detalham o escopo do projeto, assim como sua prioridade.
 
 ### Requisitos Funcionais
 
-|ID    | Descrição do Requisito  | Prioridade |
+|:ID:| :Descrição do Requisito:  | :Prioridade: |
 |------|-----------------------------------------|----|
-|RF-001| Permitir que o usuário cadastre tarefas | ALTA | 
-|RF-002| Emitir um relatório de tarefas no mês   | MÉDIA |
+|RF-01| O usuário deve ser capaz de adicionar novas tarefas com um título e uma descrição opcional | ALTA | 
+|RF-02| O usuário deve ser capaz de editar as informações de uma tarefa existente, incluindo o título e a descrição. | ALTA |
+|RF-03| O usuário deve ser capaz de marcar uma tarefa como concluída e mudar seu status para "concluído". | MÉDIA |
+|RF-04| O usuário deve ser capaz de excluir as tarefas que foram criadas anteriormente. | ALTA |
+|RF-05| O sistema deve, na hora de criação da tarefa, deixar disponível (opcional ou obrigatório) a classificação do nível de prioridade daquela tarefa. | ALTA |
+|RF-06|  Deverá exibir na board de tarefas dos usuários, as tarefas de acordo com os níveis de sua prioridade, como também poderá ordenar as tarefas de acordo com seu nível de prioridade.  | MÉDIA |
+|RF-07| O usuário poderá escolher dentre alguns filtros como: tarefas concluídas, não concluídas, ordenação por data, crescente, decrescente.  | BAIXA |
+|RF-08| O usuário deve ser capaz de adicionar uma data de vencimento opcional para cada tarefa para ajudá-lo a manter o controle do prazo.  | MÉDIA |
+|RF-09| O sistema deve enviar notificações para o usuário quando uma tarefa se aproxima da data de vencimento. | BAIXA |
+
 
 ### Requisitos não Funcionais
 
-|ID     | Descrição do Requisito  |Prioridade |
+|:ID:     | :Descrição do Requisito:  |:Prioridade: |
 |-------|-------------------------|----|
-|RNF-001| O sistema deve ser responsivo para rodar em um dispositivos móvel | MÉDIA | 
-|RNF-002| Deve processar requisições do usuário em no máximo 3s |  BAIXA | 
-
-Com base nas Histórias de Usuário, enumere os requisitos da sua solução. Classifique esses requisitos em dois grupos:
-
-- [Requisitos Funcionais
- (RF)](https://pt.wikipedia.org/wiki/Requisito_funcional):
- correspondem a uma funcionalidade que deve estar presente na
-  plataforma (ex: cadastro de usuário).
-- [Requisitos Não Funcionais
-  (RNF)](https://pt.wikipedia.org/wiki/Requisito_n%C3%A3o_funcional):
-  correspondem a uma característica técnica, seja de usabilidade,
-  desempenho, confiabilidade, segurança ou outro (ex: suporte a
-  dispositivos iOS e Android).
-Lembre-se que cada requisito deve corresponder à uma e somente uma
-característica alvo da sua solução. Além disso, certifique-se de que
-todos os aspectos capturados nas Histórias de Usuário foram cobertos.
+|RNF-01| As informações sensíveis do usuário como senha, devem ser criptografadas  | ALTA | 
+|RNF-02| O aplicativo deve estar disponível 24 horas 7 dias da semana | MÉDIA | 
+|RNF-03| O aplicativo deve ter funcionalidades de fácil domínio  | ALTA |
+|RNF-04| O sistema deve ter uma interface intuitiva e fácil de usar para que o usuário possa adicionar, editar e marcar tarefas concluídas com facilidade.  | ALTA |
+|RNF-05| O sistema deve persistir dados, de forma que em situações de falha no app ou perda de conexão, informações importantes do usuário não se percam  | BAIXA |
 
 ## Restrições
 
-O projeto está restrito pelos itens apresentados na tabela a seguir.
-
-|ID| Restrição                                             |
-|--|-------------------------------------------------------|
-|01| O projeto deverá ser entregue até o final do semestre |
-|02| Não pode ser desenvolvido um módulo de backend        |
-
-Enumere as restrições à sua solução. Lembre-se de que as restrições geralmente limitam a solução candidata.
-
-> **Links Úteis**:
-> - [O que são Requisitos Funcionais e Requisitos Não Funcionais?](https://codificar.com.br/requisitos-funcionais-nao-funcionais/)
-> - [O que são requisitos funcionais e requisitos não funcionais?](https://analisederequisitos.com.br/requisitos-funcionais-e-requisitos-nao-funcionais-o-que-sao/)
+|:ID:|:Descrição do Requisito:|
+|-------|-------------------------|
+|R-01| O Projeto deverá ser entregue em 26/06/2023  |
+|R-02| Deverá ser utilizada Arquitetura Distribuída  |
+|R-03| O solução do projeto deverá atender web e mobile|
 
 ## Documentação da Arquitetura
 A Arquitetura Geral do CheckIt abranje  os seguintes padrões arquiteturais: Cliente-servidor e microsserviços.  
