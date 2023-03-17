@@ -8,37 +8,27 @@ Apresente uma visão geral do que será abordado nesta parte do documento, enume
 
 ## Personas
 
-Pedro Paulo tem 26 anos, é arquiteto recém-formado e autônomo. Pensa em se desenvolver profissionalmente através de um mestrado fora do país, pois adora viajar, é solteiro e sempre quis fazer um intercâmbio. Está buscando uma agência que o ajude a encontrar universidades na Europa que aceitem alunos estrangeiros.
 
-Enumere e detalhe as personas da sua solução. Para tanto, baseie-se tanto nos documentos disponibilizados na disciplina e/ou nos seguintes links:
+|:--:|:--:|:--:|
+| foto | foto  | foto |
+| **Maria, 32 anos, mãe e dona de casa** | João, 28 anos, empresário |  Luíza, 24 anos, estudante  |
+| Maria é uma mãe ocupada que gerencia várias tarefas domésticas e familiares. |  João é um empresário ocupado que administra vários projetos ao mesmo tempo. | Luíza é uma estudante universitária que precisa gerenciar vários trabalhos e projetos ao mesmo tempo.  |
 
-> **Links Úteis**:
-> - [Rock Content](https://rockcontent.com/blog/personas/)
-> - [Hotmart](https://blog.hotmart.com/pt-br/como-criar-persona-negocio/)
-> - [O que é persona?](https://resultadosdigitais.com.br/blog/persona-o-que-e/)
-> - [Persona x Público-alvo](https://flammo.com.br/blog/persona-e-publico-alvo-qual-a-diferenca/)
-> - [Mapa de Empatia](https://resultadosdigitais.com.br/blog/mapa-da-empatia/)
-> - [Mapa de Stalkeholders](https://www.racecomunicacao.com.br/blog/como-fazer-o-mapeamento-de-stakeholders/)
->
-Lembre-se que você deve ser enumerar e descrever precisamente e personalizada todos os clientes ideais que sua solução almeja.
+
 
 ## Histórias de Usuários
 
 Com base na análise das personas forma identificadas as seguintes histórias de usuários:
 
 |EU COMO... `PERSONA`| QUERO/PRECISO ... `FUNCIONALIDADE` |PARA ... `MOTIVO/VALOR`                 |
-|--------------------|------------------------------------|----------------------------------------|
-|Usuário do sistema  | Registrar minhas tarefas           | Não esquecer de fazê-las               |
-|Administrador       | Alterar permissões                 | Permitir que possam administrar contas |
+|:--------------------:|:------------------------------------:|:----------------------------------------:|
+| Maria | procuro por uma solução   | para me ajudar a manter o controle das tarefas diárias e garantir que nada importante seja esquecido.  |
+| Maria | facilidade de uso e flexibilidade  | para acessar listas de tarefas a partir de qualquer dispositivo |
+| João | procuro por uma solução  | para manter o controle das tarefas relacionadas ao trabalho e garantir que nenhuma tarefa importante seja esquecida. |
+| João | aplicação que priorize funcionalidades avançadas, como recursos de colaboração e notificações  |  para a gerenciar minhas tarefas de maneira eficiente.  |
+| Luíza | procuro por uma solução   | para ajudar a manter o controle das minhas tarefas acadêmicas e garantir que nada fique seja esquecido.  |
+| Luíza | aplicação que prioriza a facilidade de uso e a integração com outros aplicativos, como calendários  | para ajudar a equilibrar minha carga de trabalho.  |
 
-Apresente aqui as histórias de usuário que são relevantes para o projeto de sua solução. As Histórias de Usuário consistem em uma ferramenta poderosa para a compreensão e elicitação dos requisitos funcionais e não funcionais da sua aplicação. Se possível, agrupe as histórias de usuário por contexto, para facilitar consultas recorrentes à essa parte do documento.
-
-> **Links Úteis**:
-> - [Histórias de usuários com exemplos e template](https://www.atlassian.com/br/agile/project-management/user-stories)
-> - [Como escrever boas histórias de usuário (User Stories)](https://medium.com/vertice/como-escrever-boas-users-stories-hist%C3%B3rias-de-usu%C3%A1rios-b29c75043fac)
-> - [User Stories: requisitos que humanos entendem](https://www.luiztools.com.br/post/user-stories-descricao-de-requisitos-que-humanos-entendem/)
-> - [Histórias de Usuários: mais exemplos](https://www.reqview.com/doc/user-stories-example.html)
-> - [9 Common User Story Mistakes](https://airfocus.com/blog/user-story-mistakes/)
 
 ## Modelagem do Processo de Negócio 
 
@@ -78,7 +68,7 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 ### Requisitos Funcionais
 
 |ID| Descrição do Requisito  | Prioridade |
-|------|-----------------------------------------|----|
+|:------:|-----------------------------------------:|:----:|
 |RF-01| O usuário deve ser capaz de adicionar novas tarefas com um título e uma descrição opcional | ALTA | 
 |RF-02| O usuário deve ser capaz de editar as informações de uma tarefa existente, incluindo o título e a descrição. | ALTA |
 |RF-03| O usuário deve ser capaz de marcar uma tarefa como concluída e mudar seu status para "concluído". | MÉDIA |
@@ -93,7 +83,7 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 ### Requisitos não Funcionais
 
 |ID    | Descrição do Requisito  |Prioridade |
-|-------|-------------------------|----|
+|:-------:|:-------------------------:|:----:|
 |RNF-01| As informações sensíveis do usuário como senha, devem ser criptografadas  | ALTA | 
 |RNF-02| O aplicativo deve estar disponível 24 horas 7 dias da semana | MÉDIA | 
 |RNF-03| O aplicativo deve ter funcionalidades de fácil domínio  | ALTA |
@@ -103,7 +93,7 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 ## Restrições
 
 |ID|Descrição do Requisito|
-|-------|-------------------------|
+|:-------:|:-------------------------:|
 |R-01| O Projeto deverá ser entregue em 26/06/2023  |
 |R-02| Deverá ser utilizada Arquitetura Distribuída  |
 |R-03| O solução do projeto deverá atender web e mobile|
