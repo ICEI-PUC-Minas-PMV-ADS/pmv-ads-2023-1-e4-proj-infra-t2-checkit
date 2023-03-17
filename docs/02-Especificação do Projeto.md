@@ -8,7 +8,7 @@ Apresente uma visão geral do que será abordado nesta parte do documento, enume
 
 ## Personas
 
-
+||||
 |:--:|:--:|:--:|
 | foto | foto  | foto |
 | **Maria, 32 anos, mãe e dona de casa** | João, 28 anos, empresário |  Luíza, 24 anos, estudante  |
