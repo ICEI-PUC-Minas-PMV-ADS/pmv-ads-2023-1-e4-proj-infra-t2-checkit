@@ -105,7 +105,9 @@ A aplicação fará o uso de uma API gateway, aonde será responsável por geren
 
 A API tem o propósito de realizar autenticação e validação dos usuários do APP, sendo um componente desacoplado da aplicação, como também algo seguro, flexível e prático. Para cumprir com tais características será utilizado a API OAuth do Google. 
 
-IMAGEM AQUI
+<a href="https://ibb.co/C9K9fwd"><img src="https://i.ibb.co/T0M0swX/Green-Simple-UI-Design-Flowchart-Infographic-Graph.png" alt="Green-Simple-UI-Design-Flowchart-Infographic-Graph" border="0"></a>
+
+
 
 ### Descrição dos Microsserviços
 
@@ -156,6 +158,8 @@ A matriz de rastreabilidade é uma ferramenta usada para facilitar a visualizaç
 A matriz deve contemplar todos os elementos relevantes que fazem parte do sistema, conforme a figura meramente ilustrativa apresentada a seguir.
 
 ![Exemplo de matriz de rastreabilidade](img/02-matriz-rastreabilidade.png)
+
+![Matriz de Rastreabilidade do CheckIt](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-infra-t2-checkit/blob/190878f2e685bf1c5b02aa231f037aea48423b84/img/MatrizDeRastreabilidade.png)
 
 > **Links Úteis**:
 > - [Artigo Engenharia de Software 13 - Rastreabilidade](https://www.devmedia.com.br/artigo-engenharia-de-software-13-rastreabilidade/12822/)
