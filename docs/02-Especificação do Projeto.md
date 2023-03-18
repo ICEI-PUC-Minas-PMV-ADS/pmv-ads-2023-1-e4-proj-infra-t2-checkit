@@ -10,8 +10,8 @@ Apresente uma visão geral do que será abordado nesta parte do documento, enume
 
 ||||
 |:--:|:--:|:--:|
-| foto | foto  | foto |
-| **Maria, 32 anos, mãe e dona de casa** | João, 28 anos, empresário |  Luíza, 24 anos, estudante  |
+| ![Maria](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-infra-t2-checkit/blob/main/img/maria.png)) | ![Joao](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-infra-t2-checkit/blob/main/img/joao.png)  | ![Luiza](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-infra-t2-checkit/blob/main/img/maria.png) |
+| **Maria, 32 anos, mãe e dona de casa** | **João, 28 anos, empresário** |  **Luíza, 24 anos, estudante**  |
 | Maria é uma mãe ocupada que gerencia várias tarefas domésticas e familiares. |  João é um empresário ocupado que administra vários projetos ao mesmo tempo. | Luíza é uma estudante universitária que precisa gerenciar vários trabalhos e projetos ao mesmo tempo.  |
 
 
@@ -68,7 +68,7 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 ### Requisitos Funcionais
 
 |ID| Descrição do Requisito  | Prioridade |
-|:------:|-----------------------------------------:|:----:|
+|:------:|:-----------------------------------------:|:----:|
 |RF-01| O usuário deve ser capaz de adicionar novas tarefas com um título e uma descrição opcional | ALTA | 
 |RF-02| O usuário deve ser capaz de editar as informações de uma tarefa existente, incluindo o título e a descrição. | ALTA |
 |RF-03| O usuário deve ser capaz de marcar uma tarefa como concluída e mudar seu status para "concluído". | MÉDIA |
