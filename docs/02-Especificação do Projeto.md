@@ -136,7 +136,7 @@ A API tem o propósito de realizar autenticação e validação dos usuários do
 
 ## Diagrama de Casos de Uso
 
-![DiagramaCU](img/diagrama_casos_uso.png)
+![DiagramaCU](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-infra-t2-checkit/blob/main/img/diagrama_casos_uso.png)
 
 # Matriz de Rastreabilidade
 
