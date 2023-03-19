@@ -136,7 +136,7 @@ A API tem o propósito de realizar autenticação e validação dos usuários do
 
 ## Diagrama de Casos de Uso
 
-![Diagrama de casos de uso](img/diagrama_casos_uso.png)
+![DiagramaCU](img/diagrama_casos_uso.png)
 
 # Matriz de Rastreabilidade
 
