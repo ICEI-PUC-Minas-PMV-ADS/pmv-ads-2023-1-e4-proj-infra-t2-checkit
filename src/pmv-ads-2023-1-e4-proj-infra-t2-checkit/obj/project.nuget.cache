@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "VQ5bkXqn23004W1iDjf2FO7hdXuuTQX8Esk+dQt2c5n8dRGL8RqBzSrbKhRmoKnv4/Zs7uVx2ocpr0Pg176O+g==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\AnaPaula\\OneDrive\\Área de Trabalho\\pmv-ads-2023-1-e4-proj-infra-t2-checkit\\src\\pmv-ads-2023-1-e4-proj-infra-t2-checkit\\pmv-ads-2023-1-e4-proj-infra-t2-checkit.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\AnaPaula\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\AnaPaula\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\AnaPaula\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "C:\\Users\\AnaPaula\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "C:\\Users\\AnaPaula\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "C:\\Users\\AnaPaula\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.2.3\\swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+  ],
+  "logs": []
+}
