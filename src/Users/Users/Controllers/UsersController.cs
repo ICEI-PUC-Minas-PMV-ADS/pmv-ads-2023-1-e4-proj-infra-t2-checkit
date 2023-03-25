@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Users.Models;
 
 namespace Users.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -24,6 +26,7 @@ namespace Users.Controllers
             return Ok(model);
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<ActionResult> Create(UserDto model)
         {
@@ -83,6 +86,23 @@ namespace Users.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        [AllowAnonymous]
+        [HttpPost("authenticate")]
+        public async Task<ActionResult> Authenticate(AuthenticateDto model)
+        {
+            var modelDb = await _context.Users.FindAsync(model.Id);
+
+            if (modelDb == null || !BCrypt.Net.BCrypt.Verify(model.Password, modelDb.Password))
+            {
+                return Unauthorized();
+            }
+
+            var tokenService = new TokenService();
+            var jwt = tokenService.GenerateJwtToken(modelDb);
+
+            return Ok(new { jwtToken = jwt });
         }
     }
 }

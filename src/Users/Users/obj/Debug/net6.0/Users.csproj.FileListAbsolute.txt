@@ -81,3 +81,4 @@ C:\Users\carlo\Documents\PUC\EIXO 4\projeto-eixo\src\Users\Users\obj\Debug\net6.
 C:\Users\carlo\Documents\PUC\EIXO 4\projeto-eixo\src\Users\Users\obj\Debug\net6.0\Users.pdb
 C:\Users\carlo\Documents\PUC\EIXO 4\projeto-eixo\src\Users\Users\obj\Debug\net6.0\Users.genruntimeconfig.cache
 C:\Users\carlo\Documents\PUC\EIXO 4\projeto-eixo\src\Users\Users\obj\Debug\net6.0\ref\Users.dll
+C:\Users\carlo\Documents\PUC\EIXO 4\projeto-eixo\src\Users\Users\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

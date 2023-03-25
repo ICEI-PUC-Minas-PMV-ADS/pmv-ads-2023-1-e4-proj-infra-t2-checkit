@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "9Qx1PDpgvECHahk/KR95p9LXIbQPDegQAQnbOQc8aNdYxJrqYs+sXQ20jflTIcGa+YhkUWP8ACLqsDAvcR4esQ==",
+  "dgSpecHash": "IVdUuU+BVPrV71iO+JWDh34ENVOhJ7PqxevBnttKv8iu9H1cL00URXB1EuhperFJENUUtyOLHbTZKz4gN5UcRQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\carlo\\Documents\\PUC\\EIXO 4\\projeto-eixo\\src\\Users\\Users\\Users.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\carlo\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
     "C:\\Users\\carlo\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\carlo\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\carlo\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.15\\microsoft.aspnetcore.authentication.jwtbearer.6.0.15.nupkg.sha512",
     "C:\\Users\\carlo\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\carlo\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\carlo\\.nuget\\packages\\microsoft.data.sqlclient\\5.0.1\\microsoft.data.sqlclient.5.0.1.nupkg.sha512",
