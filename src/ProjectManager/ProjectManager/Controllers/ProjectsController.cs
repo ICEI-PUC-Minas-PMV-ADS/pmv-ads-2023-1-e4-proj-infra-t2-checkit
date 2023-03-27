@@ -8,5 +8,11 @@ namespace ProjectManager.Controllers
     [ApiController]
     public class ProjectsController : ControllerBase
     {
+
+        [HttpPost]
+        public async Task<IActionResult> Register()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
