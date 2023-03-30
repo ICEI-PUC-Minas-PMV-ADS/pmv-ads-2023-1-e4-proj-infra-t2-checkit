@@ -5,7 +5,7 @@ namespace ProjectManager.Models
 {
     public class Project
     {
-        public Project(RegisterProjectRequest request)
+        public Project(RegisterOrUpdateProjectRequest request)
         {
             Id = Guid.NewGuid();
             Title = request.Title!;

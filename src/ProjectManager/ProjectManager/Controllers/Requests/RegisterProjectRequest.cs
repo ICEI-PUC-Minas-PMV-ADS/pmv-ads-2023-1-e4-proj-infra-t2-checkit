@@ -2,7 +2,7 @@
 
 namespace ProjectManager.Controllers.Requests
 {
-    public class RegisterProjectRequest
+    public class RegisterOrUpdateProjectRequest
     {
         public string? Title { get; set; }
         public string? CreatedBy { get; set; }
