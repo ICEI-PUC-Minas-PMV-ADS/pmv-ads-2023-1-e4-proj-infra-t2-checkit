@@ -13,7 +13,7 @@ public class Tarefa
 
     public string Descricao { get; set; }
 
-    public string DataInicio { get; set; }
+    public DateTime DataInicio { get; set; }
 
     public DateTime DataVencimento { get; set; }
     //Define um nível quantitativo de Prioridade para posteriro comparação,inicialmente será de 1 a 3
