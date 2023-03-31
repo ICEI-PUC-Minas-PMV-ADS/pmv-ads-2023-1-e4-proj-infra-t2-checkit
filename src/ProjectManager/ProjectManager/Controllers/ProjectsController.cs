@@ -23,11 +23,11 @@ namespace ProjectManager.Controllers
         [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType((int)HttpStatusCode.Forbidden)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> Get([FromRoute] Guid id)
+        public async Task<IActionResult> Get([FromRoute] string id)
         {
-            await _projectService.Get(id);
+            var project = await _projectService.Get(id);
 
-            return Ok();
+            return Ok(project);
         }
 
         [HttpPost()]
@@ -51,7 +51,7 @@ namespace ProjectManager.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] RegisterOrUpdateProjectRequest request)
+        public async Task<IActionResult> Update([FromRoute] string id, [FromBody] RegisterOrUpdateProjectRequest request)
         {
             var input = new Project(request);
 
@@ -65,7 +65,7 @@ namespace ProjectManager.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> Delete([FromRoute] Guid id)
+        public async Task<IActionResult> Delete([FromRoute] string id)
         {
             await _projectService.Delete(id);
 

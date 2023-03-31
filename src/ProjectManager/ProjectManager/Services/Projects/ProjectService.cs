@@ -25,17 +25,17 @@ namespace ProjectManager.Services.Projects
             await _projectsCollection.InsertOneAsync(project);
         }
 
-        public async Task<Project> Get(Guid id)
+        public async Task<Project> Get(string id)
         {
             return await _projectsCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
         }
 
-        public async Task Update(Guid id, Project project)
+        public async Task Update(string id, Project project)
         {
             await _projectsCollection.ReplaceOneAsync(x => x.Id == id, project);
         }
 
-        public async Task Delete(Guid id)
+        public async Task Delete(string id)
         {
             await _projectsCollection.DeleteOneAsync(x => x.Id == id);
         }

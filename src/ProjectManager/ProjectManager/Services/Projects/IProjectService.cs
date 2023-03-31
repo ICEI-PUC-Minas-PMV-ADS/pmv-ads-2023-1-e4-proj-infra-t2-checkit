@@ -5,8 +5,8 @@ namespace ProjectManager.Services.Projects
     public interface IProjectService
     {
         Task Register(Project project);
-        Task<Project> Get(Guid id);
-        Task Update(Guid id, Project project);
-        Task Delete(Guid id);
+        Task<Project> Get(string id);
+        Task Update(string id, Project project);
+        Task Delete(string id);
     }
 }
