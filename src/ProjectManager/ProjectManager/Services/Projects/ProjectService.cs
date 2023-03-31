@@ -1,28 +1,43 @@
-﻿using ProjectManager.Models;
+﻿using Microsoft.Extensions.Options;
+using MongoDB.Driver;
+using ProjectManager.Models;
 
 namespace ProjectManager.Services.Projects
 {
     public class ProjectService : IProjectService
     {
+        private readonly IMongoCollection<Project> _projectsCollection;
 
-        public Task Register(Project project)
+        public ProjectService(IOptions<ProjectManagementDatabaseSettings> projectManagementDatabaseSettings)
         {
-            throw new NotImplementedException();
+            var mongoClient = new MongoClient(
+                projectManagementDatabaseSettings.Value.ConnectionString);
+
+            var mongoDatabase = mongoClient.GetDatabase(
+                projectManagementDatabaseSettings.Value.DatabaseName);
+
+            _projectsCollection = mongoDatabase.GetCollection<Project>(
+                projectManagementDatabaseSettings.Value.ProjectManagementName);
         }
 
-        public Task<Project> Get(Guid id)
+        public async Task Register(Project project)
         {
-            throw new NotImplementedException();
+            await _projectsCollection.InsertOneAsync(project);
         }
 
-        public Task Update(Guid id, Project project)
+        public async Task<Project> Get(Guid id)
         {
-            throw new NotImplementedException();
+            return await _projectsCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
         }
 
-        public Task Delete(Guid id)
+        public async Task Update(Guid id, Project project)
         {
-            throw new NotImplementedException();
+            await _projectsCollection.ReplaceOneAsync(x => x.Id == id, project);
+        }
+
+        public async Task Delete(Guid id)
+        {
+            await _projectsCollection.DeleteOneAsync(x => x.Id == id);
         }
     }
 }

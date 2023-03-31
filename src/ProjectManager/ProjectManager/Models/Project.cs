@@ -1,3 +1,5 @@
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using ProjectManager.Controllers.Requests;
 using System.ComponentModel.DataAnnotations;
 
@@ -29,6 +31,8 @@ namespace ProjectManager.Models
             Members = members;
         }
 
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
         [Key]
         public Guid Id { get; set; }
         [Required]

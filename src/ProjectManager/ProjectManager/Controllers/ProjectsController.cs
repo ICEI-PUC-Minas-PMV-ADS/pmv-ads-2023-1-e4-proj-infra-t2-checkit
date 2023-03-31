@@ -7,7 +7,6 @@ using System.Net;
 
 namespace ProjectManager.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProjectsController : ControllerBase
