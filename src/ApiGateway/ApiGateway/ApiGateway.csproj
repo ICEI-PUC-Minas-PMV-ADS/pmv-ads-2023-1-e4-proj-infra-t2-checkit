@@ -10,4 +10,6 @@
     <PackageReference Include="Ocelot" Version="18.0.0" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
+
 </Project>

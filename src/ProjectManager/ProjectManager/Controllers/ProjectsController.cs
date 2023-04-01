@@ -7,6 +7,7 @@ using System.Net;
 
 namespace ProjectManager.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProjectsController : ControllerBase
@@ -42,7 +43,7 @@ namespace ProjectManager.Controllers
 
             await _projectService.Register(input);
 
-            return Ok();
+            return CreatedAtAction("Get", new {id = input.Id}, input);
         }
 
 

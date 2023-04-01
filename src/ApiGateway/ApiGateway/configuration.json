@@ -16,13 +16,13 @@
       "DownstreamPathTemplate": "/api/users/{id}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
-        { 
+        {
           "Host": "localhost",
           "Port": 7295
         }
       ],
       "UpstreamPathTemplate": "/api/users/{id}",
-      "UpstreamHttpMethod": [ "Put", "Delete" ]
+      "UpstreamHttpMethod": [ "Put", "Delete", "Get" ]
     },
     {
       "DownstreamPathTemplate": "/api/users/authenticate",
@@ -35,8 +35,33 @@
       ],
       "UpstreamPathTemplate": "/api/users/authenticate",
       "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/projects/",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7152
+        }
+      ],
+      "UpstreamPathTemplate": "/api/projects/",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/projects/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7152
+        }
+      ],
+      "UpstreamPathTemplate": "/api/projects/{id}",
+      "UpstreamHttpMethod": [ "Put", "Delete", "Get" ]
     }
   ],
   "GlobalConfiguration": {
   }
 }
+
