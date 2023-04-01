@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Users.Models;
+using Users.Services;
 
 namespace Users.Controllers
 {
@@ -11,26 +12,33 @@ namespace Users.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly UserService _userCollection;
 
-        public UsersController(AppDbContext context)
-        {
-            _context = context;
-        }
+        public UsersController(UserService userCollection) =>
+             _userCollection = userCollection;
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
-        public async Task<ActionResult> GetAll()
+        public async Task<List<User>> GetAll()
         {
-            var model = await _context.Users.ToListAsync();
+            return await _userCollection.GetAllAsync();
+        }
+        
+        [HttpGet("{id:length(24)}")]
+        public async Task<ActionResult<User>> GetById(string id)
+        {
+            var userDb = await _userCollection.GetByIdAsync(id);
 
-            return Ok(model);
+            if (userDb is null) return NotFound();
+
+            return Ok(userDb);
         }
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<ActionResult> Create(UserDto model)
+        public async Task<IActionResult> Create(UserDto model)
         {
-            User newUser = new User()
+            User newUser = new()
             {
                 Name = model.Name,
                 Email = model.Email,
@@ -38,69 +46,55 @@ namespace Users.Controllers
                 Role = model.Role
             };
 
-            _context.Add(newUser);
-            await _context.SaveChangesAsync();
+            await _userCollection.CreateAsync(newUser);
 
-            return CreatedAtAction("GetById", new { id = newUser.Id }, newUser );
+            // Esse retorno dando notfound
+            return CreatedAtAction("GetById", new { id = newUser.Id }, newUser);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult> GetById(int id)
+        [HttpPut("{id:length(24)}")]
+        public async Task<IActionResult> Update(UserDto model, string id)
         {
-            var model = await _context.Users.FindAsync(id);
+            if (model.Id != id) return BadRequest();
 
-            if (model == null) return NotFound();
+            var updatedUserDb = await _userCollection.GetByIdAsync(id);
 
-            return Ok(model);
-        }
+            if (updatedUserDb is null) return NotFound();
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult> Update(UserDto model, int id)
-        {
-            if (id != model.Id) return BadRequest();
+            updatedUserDb.Name = model.Name;
+            updatedUserDb.Email = model.Email;
+            updatedUserDb.Password = BCrypt.Net.BCrypt.HashPassword(model.Password);
+            updatedUserDb.Role = model.Role;
 
-            var modelDb = await _context.Users
-                .FirstOrDefaultAsync(u => u.Id == id);
-
-            if (modelDb == null) return NotFound();
-
-            modelDb.Name = model.Name;
-            modelDb.Email = model.Email;
-            modelDb.Password = BCrypt.Net.BCrypt.HashPassword(model.Password); 
-            modelDb.Role = model.Role; 
-
-            _context.Update(modelDb);
-            await _context.SaveChangesAsync();
+            await _userCollection.UpdateAsync(id, updatedUserDb);
 
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
+        [HttpDelete("{id:length(24)}")]
+        public async Task<IActionResult> Delete(string id)
         {
-            var model = await _context.Users.FindAsync(id);
-                
-            if (model == null) return NotFound();
+            var userDb = await _userCollection.GetByIdAsync(id);
 
-            _context.Users.Remove(model);
-            await _context.SaveChangesAsync();
+            if (userDb is null) return NotFound();
+
+            await _userCollection.RemoveAsync(id);
 
             return NoContent();
         }
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
-        public async Task<ActionResult> Authenticate(AuthenticateDto model)
+        public async Task<IActionResult> Authenticate(AuthenticateDto model)
         {
-            var modelDb = await _context.Users.FindAsync(model.Id);
+            var userDb = await _userCollection.GetByEmailAsync(model.Email);
 
-            if (modelDb == null || !BCrypt.Net.BCrypt.Verify(model.Password, modelDb.Password))
-            {
+            if (userDb is null ||
+                !BCrypt.Net.BCrypt.Verify(model.Password, userDb.Password))
                 return Unauthorized();
-            }
 
             var tokenService = new TokenService();
-            var jwt = tokenService.GenerateJwtToken(modelDb);
+            var jwt = tokenService.GenerateJwtToken(userDb);
 
             return Ok(new { jwtToken = jwt });
         }

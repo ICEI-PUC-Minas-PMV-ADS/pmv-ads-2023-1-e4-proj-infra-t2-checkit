@@ -5,9 +5,11 @@ namespace Users.Models
 {
     [NotMapped]
     public class AuthenticateDto
-    {
+    {       
+        public string Id { get; set; }
+
         [Required]
-        public int Id { get; set; }
+        public string Email { get; set; }
         [Required]
         public string Password { get; set; }
     }

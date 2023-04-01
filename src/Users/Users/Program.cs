@@ -1,21 +1,22 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Text.Json.Serialization;
 using Users.Models;
+using Users.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllers()
-     // Nao retorna password na response
+// No returned password in response
+builder.Services.AddControllers()     
      .AddJsonOptions(j => j.JsonSerializerOptions.ReferenceHandler =
      ReferenceHandler.IgnoreCycles);
 
-// Swager
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+// Database Configuration
+builder.Services.Configure<UserDatabaseSettings>(
+    builder.Configuration.GetSection("UsersCheckitDatabase"));
+
+builder.Services.AddSingleton<UserService>();
 
 // Authentication 
 builder.Services.AddAuthentication(options =>
@@ -37,9 +38,9 @@ builder.Services.AddAuthentication(options =>
        };
    });
 
-
-// Database Configuration
-builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+// Swager
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
