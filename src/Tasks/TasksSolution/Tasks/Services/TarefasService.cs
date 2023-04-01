@@ -15,10 +15,7 @@ namespace Tasks.Services
             var mongoDatabase = mongoClient.GetDatabase(tarefaStoreDatabaseSettings.Value.DatabaseName);
 
             _tarefasCollection = mongoDatabase.GetCollection<Tarefa>(tarefaStoreDatabaseSettings.Value.DatabaseName);
-
-
-
-                }
+        }
 
         public async Task<List<Tarefa>> GetAllAsync() =>
             await _tarefasCollection.Find(_ => true).ToListAsync();
@@ -32,12 +29,12 @@ namespace Tasks.Services
 
 
         public async Task UpdateAsync(string id, Tarefa updateTarefa) =>
-            await _tarefasCollection.ReplaceOneAsync(x => x.Id == id,updateTarefa);
+            await _tarefasCollection.ReplaceOneAsync(x => x.Id == id, updateTarefa);
 
 
         public async Task RemoveAsync(string id) =>
             await _tarefasCollection.DeleteOneAsync(x => x.Id == id);
-            
+
 
 
 
