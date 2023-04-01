@@ -1,6 +1,6 @@
 ﻿namespace Tasks.Models
 {
-    public class TarefasStoreDatabaseSettings
+    public class TarefasDatabaseSettings
     {
         public string ConnectionString { get; set; } = null!;
         public string DatabaseName { get; set; } = null!;

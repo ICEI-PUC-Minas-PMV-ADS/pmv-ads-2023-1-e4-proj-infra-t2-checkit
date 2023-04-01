@@ -8,18 +8,15 @@ namespace Tasks.Services
     {
         private readonly IMongoCollection<Tarefa> _tarefasCollection;
 
-        public TarefasService(IOptions<TarefasStoreDatabaseSettings> tarefaStoreDatabaseSettings)
+        public TarefasService(IOptions<TarefasDatabaseSettings> tarefaDatabaseSettings)
         {
-            var mongoClient = new MongoClient(tarefaStoreDatabaseSettings.Value.ConnectionString);
-
-            var mongoDatabase = mongoClient.GetDatabase(tarefaStoreDatabaseSettings.Value.DatabaseName);
-
-            _tarefasCollection = mongoDatabase.GetCollection<Tarefa>(tarefaStoreDatabaseSettings.Value.DatabaseName);
+            var mongoClient = new MongoClient(tarefaDatabaseSettings.Value.ConnectionString);
+            var mongoDatabase = mongoClient.GetDatabase(tarefaDatabaseSettings.Value.DatabaseName);
+            _tarefasCollection = mongoDatabase.GetCollection<Tarefa>(tarefaDatabaseSettings.Value.TarefasCollectionName);
         }
 
         public async Task<List<Tarefa>> GetAllAsync() =>
             await _tarefasCollection.Find(_ => true).ToListAsync();
-
 
         public async Task<Tarefa> GetByIdAsync(string id) =>
              await _tarefasCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
@@ -27,19 +24,11 @@ namespace Tasks.Services
         public async Task CreateAsync(Tarefa newTarefa) =>
             await _tarefasCollection.InsertOneAsync(newTarefa);
 
-
         public async Task UpdateAsync(string id, Tarefa updateTarefa) =>
             await _tarefasCollection.ReplaceOneAsync(x => x.Id == id, updateTarefa);
 
-
         public async Task RemoveAsync(string id) =>
             await _tarefasCollection.DeleteOneAsync(x => x.Id == id);
-
-
-
-
-
-
 
     }
 }

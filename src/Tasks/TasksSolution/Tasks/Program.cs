@@ -1,19 +1,16 @@
-
 using Tasks.Models;
 using Tasks.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.Configure<TarefasStoreDatabaseSettings>(
-    builder.Configuration.GetSection("TarefaStoreDatabase"));
-
+builder.Services.Configure<TarefasDatabaseSettings>(
+    builder.Configuration.GetSection("TarefasCheckitDatabase"));
 
 builder.Services.AddSingleton<TarefasService>();
-// Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

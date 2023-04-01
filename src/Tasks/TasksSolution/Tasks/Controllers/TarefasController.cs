@@ -8,63 +8,52 @@ namespace Tasks.Controllers;
 [Route("api/[controller]")]
 public class TarefasController : ControllerBase
 {
-    private readonly TarefasService _tarefasService;
+    private readonly TarefasService _tarefasCollection;
 
-    public TarefasController(TarefasService tarefasService)=>
-        _tarefasService = tarefasService;
+    public TarefasController(TarefasService tarefasCollection) =>
+        _tarefasCollection = tarefasCollection;
 
     [HttpGet("{id:length(24)}")]
     public async Task<ActionResult<Tarefa>> Get(string id)
     {
-        var tarefa = await _tarefasService.GetByIdAsync(id);
+        var tarefa = await _tarefasCollection.GetByIdAsync(id);
 
-        if(tarefa is null)
-        {
+        if (tarefa is null) return NotFound();
 
-            return NotFound();
-        }
         return tarefa;
-
     }
 
     [HttpPost]
-    public async Task<IActionResult>Post(Tarefa newTarefa)
+    public async Task<IActionResult> Post(Tarefa newTarefa)
     {
-        await _tarefasService.CreateAsync(newTarefa);
+        await _tarefasCollection.CreateAsync(newTarefa);
 
-
-
-       return CreatedAtAction(nameof(Get), new { id = newTarefa.Id }, newTarefa);
-
+        return CreatedAtAction(nameof(Get), new { id = newTarefa.Id }, newTarefa);
     }
 
     [HttpPut("{id:length(24)}")]
-    public async Task<IActionResult>Update(string id,Tarefa updateTarefa)
+    public async Task<IActionResult> Update(string id, Tarefa updateTarefa)
     {
-        var tarefa = await _tarefasService.GetByIdAsync(id);
+        var tarefa = await _tarefasCollection.GetByIdAsync(id);
 
-        if(tarefa is null)
-        {
-            return NotFound();
-        }
+        if (tarefa is null) return NotFound();
+
         updateTarefa.Id = tarefa.Id;
 
-        await _tarefasService.UpdateAsync(id, updateTarefa);
+        await _tarefasCollection.UpdateAsync(id, updateTarefa);
 
         return NoContent();
     }
 
-    [HttpDelete("id:length(24)")]
-    public async Task<IActionResult>Delete(string id)
+    [HttpDelete("{id:length(24)}")]
+    public async Task<IActionResult> Delete(string id)
     {
+        var tarefaDB = await _tarefasCollection.GetByIdAsync(id);
 
-        var tarefa = await _tarefasService.GetByIdAsync(id);
-        if(tarefa is null)return NotFound();
-        await _tarefasService.RemoveAsync(id);
+        if (tarefaDB is null) return NotFound();
+
+        await _tarefasCollection.RemoveAsync(id);
 
         return NoContent();
-
     }
-
-
 }
