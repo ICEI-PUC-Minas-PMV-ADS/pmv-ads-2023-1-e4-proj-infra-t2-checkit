@@ -1,0 +1,42 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/users",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7295
+        }
+      ],
+      "UpstreamPathTemplate": "/api/users",
+      "UpstreamHttpMethod": [ "Post", "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/users/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        { 
+          "Host": "localhost",
+          "Port": 7295
+        }
+      ],
+      "UpstreamPathTemplate": "/api/users/{id}",
+      "UpstreamHttpMethod": [ "Put", "Delete" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/users/authenticate",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7295
+        }
+      ],
+      "UpstreamPathTemplate": "/api/users/authenticate",
+      "UpstreamHttpMethod": [ "Post" ]
+    }
+  ],
+  "GlobalConfiguration": {
+  }
+}
