@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson.IO;
 using Tasks.Models;
 using Tasks.Services;
 namespace Tasks.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class TarefasController : ControllerBase
