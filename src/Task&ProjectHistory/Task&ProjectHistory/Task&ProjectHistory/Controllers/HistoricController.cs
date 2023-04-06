@@ -44,15 +44,16 @@ namespace Task_ProjectHistory.Controllers
         }
 
         [HttpPut("{id:length(24)}")]
-        public async Task<IActionResult> Update(string id, Historic updateTarefa)
+        public async Task<IActionResult> Update(string id, Historic updateHistoric)
         {
-            var tarefa = await _historicCollection.GetByIdAsync(id);
+            if (id != updateHistoric.Id) return BadRequest();
+            var historic = await _historicCollection.GetByIdAsync(id);
 
-            if (tarefa is null) return NotFound();
+            if (historic is null) return NotFound();
 
-            updateTarefa.Id = tarefa.Id;
+            updateHistoric.Id = historic.Id;
 
-            await _historicCollection.UpdateAsync(id, updateTarefa);
+            await _historicCollection.UpdateAsync(id, updateHistoric);
 
             return NoContent();
         }
