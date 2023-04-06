@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson.IO;
+using MongoDB.Driver;
 using Tasks.Models;
 using Tasks.Services;
 namespace Tasks.Controllers;
@@ -11,7 +12,12 @@ namespace Tasks.Controllers;
 public class TarefasController : ControllerBase
 {
     private readonly TarefasService _tarefasCollection;
-
+    [Authorize(Roles ="Admin")]
+    [HttpGet]
+    public async Task<List<Tarefa>> GetAll()
+    {
+        return await _tarefasCollection.GetAllAsync();
+    }
     public TarefasController(TarefasService tarefasCollection) =>
         _tarefasCollection = tarefasCollection;
 
