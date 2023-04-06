@@ -12,7 +12,7 @@ namespace Tasks.Controllers;
 public class TarefasController : ControllerBase
 {
     private readonly TarefasService _tarefasCollection;
-    [Authorize(Roles ="Admin")]
+  /*  [Authorize(Roles ="Admin")]*/
     [HttpGet]
     public async Task<List<Tarefa>> GetAll()
     {
@@ -42,7 +42,11 @@ public class TarefasController : ControllerBase
     [HttpPut("{id:length(24)}")]
     public async Task<IActionResult> Update(string id, Tarefa updateTarefa)
     {
-        var tarefa = await _tarefasCollection.GetByIdAsync(id);
+
+        if(id != updateTarefa.Id)return BadRequest();
+
+        var tarefa = await _tarefasCollection
+            .GetByIdAsync(id);
 
         if (tarefa is null) return NotFound();
 
