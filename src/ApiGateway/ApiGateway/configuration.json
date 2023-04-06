@@ -83,6 +83,30 @@
       ],
       "UpstreamPathTemplate": "/api/tarefas/{id}",
       "UpstreamHttpMethod": [ "Put", "Delete", "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/historic",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7252
+        }
+      ],
+      "UpstreamPathTemplate": "/api/historic",
+      "UpstreamHttpMethod": [ "Post", "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/historic/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7252
+        }
+      ],
+      "UpstreamPathTemplate": "/api/historic/{id}",
+      "UpstreamHttpMethod": [ "Put", "Delete", "Get" ]
     }
   ],
   "GlobalConfiguration": {
