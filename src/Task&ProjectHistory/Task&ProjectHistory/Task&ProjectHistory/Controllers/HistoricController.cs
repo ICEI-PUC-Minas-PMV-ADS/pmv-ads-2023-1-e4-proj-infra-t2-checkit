@@ -13,18 +13,17 @@ namespace Task_ProjectHistory.Controllers
     {
         private readonly HistoricServices _historicCollection;
 
-        public HistoricController(HistoricServices tarefasCollection) =>
-            _historicCollection = tarefasCollection;
+        public HistoricController(HistoricServices historicCollection) =>
+            _historicCollection = historicCollection;
 
-
-        [Authorize(Roles ="Admin")]
+  
         [HttpGet]
-
         public async Task<List<Historic>> GetAll()
         {
             return await _historicCollection.GetAllAsync();
         }
 
+        
         [HttpGet("{id:length(24)}")]
         public async Task<ActionResult<Historic>> Get(string id)
         {

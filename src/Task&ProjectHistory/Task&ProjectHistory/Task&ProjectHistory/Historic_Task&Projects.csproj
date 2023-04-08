@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>Task_ProjectHistory</RootNamespace>
     <UserSecretsId>b46715fd-2203-45ab-8322-5d5f2a62f513</UserSecretsId>

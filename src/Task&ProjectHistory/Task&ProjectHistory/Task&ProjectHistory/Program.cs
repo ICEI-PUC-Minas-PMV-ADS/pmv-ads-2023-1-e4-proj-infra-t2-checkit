@@ -13,7 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.Configure<HistoricDatabaseSettings>(
-    builder.Configuration.GetSection("Task&ProjectHistoryCheckitDatabase"));
+    builder.Configuration.GetSection("HistoricCheckitDatabase"));
 
 builder.Services.AddSingleton<HistoricServices>();
 
@@ -35,11 +35,6 @@ builder.Services.AddAuthentication(options =>
            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("F9KZHQ#Yav3DN430vA8m6^7G1Jn*f*M^"))
        };
    });
-
-
-
-
-
 
 var app = builder.Build();
 
