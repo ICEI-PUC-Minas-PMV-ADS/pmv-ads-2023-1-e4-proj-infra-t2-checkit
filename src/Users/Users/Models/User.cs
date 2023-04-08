@@ -8,9 +8,9 @@ using Tasks.Models;
 
 namespace Users.Models
 {    
-    public class User
+    public class User:LinksHATEOS
     {
-        Tarefa T1 = new Tarefa();
+       
        
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
