@@ -27,8 +27,8 @@ public class TarefasController : ControllerBase
         var tarefa = await _tarefasCollection.GetByIdAsync(id);
 
         if (tarefa is null) return NotFound();
-
-        return tarefa;
+        GerarLinks(tarefa);
+        return Ok (tarefa);
     }
 
     [HttpPost]
@@ -67,5 +67,14 @@ public class TarefasController : ControllerBase
         await _tarefasCollection.RemoveAsync(id);
 
         return NoContent();
+    }
+
+    private void GerarLinks(Tarefa model)
+    {
+        model.Links.Add(new LinkDto(model.Id,Url.ActionLink(), rel: "self", metodo: "GET"));
+        model.Links.Add(new LinkDto(model.Id,Url.ActionLink(), rel: "update", metodo: "PUT"));
+        model.Links.Add(new LinkDto(model.Id,Url.ActionLink(), rel: "delete", metodo: "Delete"));
+      
+
     }
 }

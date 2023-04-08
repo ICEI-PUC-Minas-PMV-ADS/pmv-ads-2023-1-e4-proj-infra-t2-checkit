@@ -4,6 +4,8 @@ using ProjectManager.Controllers.Requests;
 using ProjectManager.Models;
 using ProjectManager.Services.Projects;
 using System.Net;
+using Tasks.Models;
+   using Tasks.Services;
 
 namespace ProjectManager.Controllers
 {
@@ -13,12 +15,13 @@ namespace ProjectManager.Controllers
     public class ProjectsController : ControllerBase
     {
         private readonly IProjectService _projectService;
+        private readonly TarefasService _tarefasServices;
 
         public ProjectsController(IProjectService projectService)
         {
             _projectService = projectService;
         }
-
+        
         [HttpGet("{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
@@ -27,7 +30,7 @@ namespace ProjectManager.Controllers
         public async Task<IActionResult> Get([FromRoute] string id)
         {
             var project = await _projectService.Get(id);
-
+            
             return Ok(project);
         }
 
@@ -71,6 +74,14 @@ namespace ProjectManager.Controllers
             await _projectService.Delete(id);
 
             return Ok();
+        }
+     
+      private void GerarLinks(Project model) {
+            model.Links.Add(new LinkDto(model.Id, Url.ActionLink(), rel:"self", metodo: "GET"));
+            model.Links.Add(new LinkDto(model.Id, Url.ActionLink(), rel:"self", metodo: "PUT"));
+            model.Links.Add(new LinkDto(model.Id, Url.ActionLink(), rel:"self", metodo: "DELETE"));
+
+
         }
     }
 }
