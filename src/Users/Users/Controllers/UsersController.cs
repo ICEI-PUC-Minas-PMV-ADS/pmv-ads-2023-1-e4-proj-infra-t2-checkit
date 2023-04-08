@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -96,7 +97,28 @@ namespace Users.Controllers
             var tokenService = new TokenService();
             var jwt = tokenService.GenerateJwtToken(userDb);
 
+            //Response.Cookies.Append("jwt", jwt, new CookieOptions //Save the JWT in the browser cookies, Key is "jwt"
+            //{
+            //    HttpOnly = true,
+            //    SameSite = SameSiteMode.None,
+            //    Secure = true
+            //});
+
             return Ok(new { jwtToken = jwt });
-        }
+        }       
+             
+        //[HttpGet("logout")]
+        //public async Task<IActionResult> Logout()
+        //{
+        //    Response.Cookies.Delete("jwt", new CookieOptions
+        //    {
+        //        HttpOnly = true,
+        //        SameSite = SameSiteMode.None,
+        //        Secure = true
+        //    });
+
+        //    return Ok(new { message = "Success" });
+
+        //}
     }
 }
