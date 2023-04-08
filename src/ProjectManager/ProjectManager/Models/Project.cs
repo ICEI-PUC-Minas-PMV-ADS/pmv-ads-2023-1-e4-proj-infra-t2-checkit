@@ -2,10 +2,12 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using ProjectManager.Controllers.Requests;
 using System.ComponentModel.DataAnnotations;
+using Tasks.Models;
+
 
 namespace ProjectManager.Models
 {
-    public class Project
+    public class Project:LinksHATEOS
     {
         public Project(RegisterOrUpdateProjectRequest request)
         {
@@ -46,6 +48,11 @@ namespace ProjectManager.Models
         public string Status { get; set; }
         public DateTime DueDate { get; set; }
         public List<Member> Members { get; set; }
+        [BsonRepresentation(BsonType.ObjectId)]
+        public List<string> Tarefas { get; set; }
+
+
+        public List<Tarefa>ListaTarefa { get; set; }
     }
 
     public enum StatusProject

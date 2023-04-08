@@ -2,7 +2,7 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-public class Tarefa
+public class Tarefa:LinksHATEOS
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]

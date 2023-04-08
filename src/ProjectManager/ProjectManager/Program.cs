@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using ProjectManager.Models;
 using ProjectManager.Services.Projects;
 using System.Text;
+using Tasks.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 

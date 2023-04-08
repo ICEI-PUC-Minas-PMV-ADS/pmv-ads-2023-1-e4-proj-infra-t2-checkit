@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Users.Models;
 using Users.Services;
+using System;
 
 namespace Users.Controllers
 {
@@ -13,7 +14,7 @@ namespace Users.Controllers
     public class UsersController : ControllerBase
     {
         private readonly UserService _userCollection;
-
+    
         public UsersController(UserService userCollection) =>
              _userCollection = userCollection;
 
