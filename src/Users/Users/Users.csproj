@@ -15,9 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Tasks">
+    <!--<Reference Include="Tasks">
       <HintPath>..\..\Tasks\TasksSolution\Tasks\obj\Debug\net6.0\ref\Tasks.dll</HintPath>
-    </Reference>
+    </Reference>-->
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

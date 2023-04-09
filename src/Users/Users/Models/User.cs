@@ -3,14 +3,14 @@ using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver.Core.WireProtocol.Messages;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using Tasks;
-using Tasks.Models;
+//using Tasks;
+//using Tasks.Models;
 
 namespace Users.Models
 {    
     public class User
     {
-        Tarefa T1 = new Tarefa();
+        //Tarefa T1 = new Tarefa();
        
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
