@@ -61,7 +61,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-<<<<<<< HEAD
-//Tarefa tarefa = new Tarefa();
-=======
->>>>>>> 54b72b71106408dd8446c06b1a9b9f3fbb3953af

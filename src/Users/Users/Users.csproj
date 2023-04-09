@@ -14,15 +14,6 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
-<<<<<<< HEAD
-  <ItemGroup>
-    <!--<Reference Include="Tasks">
-      <HintPath>..\..\Tasks\TasksSolution\Tasks\obj\Debug\net6.0\ref\Tasks.dll</HintPath>
-    </Reference>-->
-  </ItemGroup>
-
-=======
->>>>>>> 54b72b71106408dd8446c06b1a9b9f3fbb3953af
   <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>
