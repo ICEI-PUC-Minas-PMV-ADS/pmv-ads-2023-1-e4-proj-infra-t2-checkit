@@ -29,7 +29,8 @@ namespace ProjectManager.Services.Projects
         {
             return await _projectsCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
         }
-
+       /* public async Task<Project> GetAllAsync() =>
+          await _projectsCollection.Find(_ => true).ToListAsync();*/
         public async Task Update(string id, Project project)
         {
             await _projectsCollection.ReplaceOneAsync(x => x.Id == id, project);

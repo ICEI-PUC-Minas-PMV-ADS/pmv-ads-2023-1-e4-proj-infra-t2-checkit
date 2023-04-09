@@ -52,7 +52,7 @@ namespace ProjectManager.Models
         public List<string> Tarefas { get; set; }
 
 
-        public List<Tarefa>ListaTarefa { get; set; }
+  
     }
 
     public enum StatusProject

@@ -5,17 +5,17 @@ using ProjectManager.Models;
 using ProjectManager.Services.Projects;
 using System.Net;
 using Tasks.Models;
-   using Tasks.Services;
+
 
 namespace ProjectManager.Controllers
 {
-    [Authorize]
+   /* [Authorize]*/
     [Route("api/[controller]")]
     [ApiController]
     public class ProjectsController : ControllerBase
     {
         private readonly IProjectService _projectService;
-        private readonly TarefasService _tarefasServices;
+        /*private readonly TarefasService _tarefasServices;*/
 
         public ProjectsController(IProjectService projectService)
         {
@@ -30,6 +30,7 @@ namespace ProjectManager.Controllers
         public async Task<IActionResult> Get([FromRoute] string id)
         {
             var project = await _projectService.Get(id);
+            GerarLinks(project);
             
             return Ok(project);
         }
@@ -58,6 +59,8 @@ namespace ProjectManager.Controllers
         public async Task<IActionResult> Update([FromRoute] string id, [FromBody] RegisterOrUpdateProjectRequest request)
         {
             var input = new Project(request);
+            var project = await _projectService.Get(id);
+            GerarLinks(project);
 
             await _projectService.Update(id, input);
 
@@ -71,6 +74,8 @@ namespace ProjectManager.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> Delete([FromRoute] string id)
         {
+            var project = await _projectService.Get(id);
+            GerarLinks(project);
             await _projectService.Delete(id);
 
             return Ok();

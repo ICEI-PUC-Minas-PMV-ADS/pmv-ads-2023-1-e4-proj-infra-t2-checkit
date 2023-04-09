@@ -8,9 +8,13 @@ using System.Text.Json.Serialization;
 
 namespace Users.Models
 {    
-    public class User
+    public class User:LinksHATEOS
     {
+<<<<<<< HEAD
         //Tarefa T1 = new Tarefa();
+=======
+       
+>>>>>>> 54b72b71106408dd8446c06b1a9b9f3fbb3953af
        
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
