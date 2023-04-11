@@ -16,6 +16,8 @@ public class Tarefa:LinksHATEOS
     public DateTime DataInicio { get; set; }
 
     public DateTime DataVencimento { get; set; }
+
+    public string IdProjeto { get; set; }
     //Define um nível quantitativo de Prioridade para posteriro comparação,inicialmente será de 1 a 3
     public int Prioridade { get; set; }
     public enum StatusTarefa

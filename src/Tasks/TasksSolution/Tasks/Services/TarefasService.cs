@@ -6,11 +6,6 @@ namespace Tasks.Services
 {
     public class TarefasService
     {
-
-       
-
-
-        
         private readonly IMongoCollection<Tarefa> _tarefasCollection;
 
         public TarefasService(IOptions<TarefasDatabaseSettings> tarefaDatabaseSettings)
@@ -20,8 +15,13 @@ namespace Tasks.Services
             _tarefasCollection = mongoDatabase.GetCollection<Tarefa>(tarefaDatabaseSettings.Value.TarefasCollectionName);
         }
 
-        public async Task<List<Tarefa>> GetAllAsync() =>
-            await _tarefasCollection.Find(_ => true).ToListAsync();
+        public async Task<List<Tarefa>> GetAllAsync(string? idProjeto)
+        {
+            if (idProjeto == null)
+                return await _tarefasCollection.Find(_ => true).ToListAsync();
+
+            return await _tarefasCollection.Find(t => t.IdProjeto == idProjeto).ToListAsync();
+        }
 
         public async Task<Tarefa> GetByIdAsync(string id) =>
              await _tarefasCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
