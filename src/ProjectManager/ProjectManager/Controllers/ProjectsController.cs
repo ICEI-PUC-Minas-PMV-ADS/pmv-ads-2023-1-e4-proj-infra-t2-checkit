@@ -60,11 +60,13 @@ namespace ProjectManager.Controllers
         {
             var input = new Project(request);
             var project = await _projectService.Get(id);
+
             GerarLinks(project);
-
             await _projectService.Update(id, input);
-
             return Ok();
+
+            
+           
         }
 
         [HttpDelete("{id}")]
@@ -82,10 +84,13 @@ namespace ProjectManager.Controllers
         }
      
       private void GerarLinks(Project model) {
-            model.Links.Add(new LinkDto(model.Id, Url.ActionLink(), rel:"self", metodo: "GET"));
-            model.Links.Add(new LinkDto(model.Id, Url.ActionLink(), rel:"self", metodo: "PUT"));
-            model.Links.Add(new LinkDto(model.Id, Url.ActionLink(), rel:"self", metodo: "DELETE"));
 
+            if (model != null) {
+                model.Links.Add(new LinkDto(model.Id, Url.ActionLink(), rel: "self", metodo: "GET"));
+                model.Links.Add(new LinkDto(model.Id, Url.ActionLink(), rel: "self", metodo: "PUT"));
+                model.Links.Add(new LinkDto(model.Id, Url.ActionLink(), rel: "self", metodo: "DELETE"));
+
+            }
 
         }
     }

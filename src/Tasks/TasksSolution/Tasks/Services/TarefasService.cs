@@ -6,6 +6,11 @@ namespace Tasks.Services
 {
     public class TarefasService
     {
+
+       
+
+
+        
         private readonly IMongoCollection<Tarefa> _tarefasCollection;
 
         public TarefasService(IOptions<TarefasDatabaseSettings> tarefaDatabaseSettings)
