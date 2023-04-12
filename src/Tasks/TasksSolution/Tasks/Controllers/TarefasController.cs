@@ -25,7 +25,7 @@ public class TarefasController : ControllerBase
     public async Task<ActionResult<Tarefa>> Get(string id)
     {
         var tarefa = await _tarefasCollection.GetByIdAsync(id);
-
+      
         if (tarefa is null) return NotFound();
         GerarLinks(tarefa);
         return Ok (tarefa);
@@ -71,9 +71,13 @@ public class TarefasController : ControllerBase
 
     private void GerarLinks(Tarefa model)
     {
+        if(model!=null)
+        {
+
         model.Links.Add(new LinkDto(model.Id,Url.ActionLink(), rel: "self", metodo: "GET"));
         model.Links.Add(new LinkDto(model.Id,Url.ActionLink(), rel: "update", metodo: "PUT"));
         model.Links.Add(new LinkDto(model.Id,Url.ActionLink(), rel: "delete", metodo: "Delete"));
+        }
       
 
     }

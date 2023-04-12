@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Users.Models;
 using Users.Services;
+using System;
+using Tasks.Models;
 
 namespace Users.Controllers
 {
@@ -14,7 +15,7 @@ namespace Users.Controllers
     public class UsersController : ControllerBase
     {
         private readonly UserService _userCollection;
-
+    
         public UsersController(UserService userCollection) =>
              _userCollection = userCollection;
 
@@ -22,6 +23,7 @@ namespace Users.Controllers
         [HttpGet]
         public async Task<List<User>> GetAll()
         {
+
             return await _userCollection.GetAllAsync();
         }
         
@@ -29,6 +31,7 @@ namespace Users.Controllers
         public async Task<ActionResult<User>> GetById(string id)
         {
             var userDb = await _userCollection.GetByIdAsync(id);
+            GerarLinks(userDb);
 
             if (userDb is null) return NotFound();
 
@@ -49,8 +52,9 @@ namespace Users.Controllers
 
             await _userCollection.CreateAsync(newUser);
 
-            // Esse retorno dando notfound            
-            return CreatedAtAction(nameof(GetById), new { id = newUser.Id }, newUser);
+            
+                   return CreatedAtAction(nameof(GetById), new { id = newUser.Id }, newUser);
+
         }
 
         [HttpPut("{id:length(24)}")]
@@ -66,6 +70,7 @@ namespace Users.Controllers
             updatedUserDb.Email = model.Email;
             updatedUserDb.Password = BCrypt.Net.BCrypt.HashPassword(model.Password);
             updatedUserDb.Role = model.Role;
+            GerarLinks(updatedUserDb);
 
             await _userCollection.UpdateAsync(id, updatedUserDb);
 
@@ -78,10 +83,24 @@ namespace Users.Controllers
             var userDb = await _userCollection.GetByIdAsync(id);
 
             if (userDb is null) return NotFound();
-
+            GerarLinks(userDb);
             await _userCollection.RemoveAsync(id);
 
             return NoContent();
+        }
+        private void GerarLinks(User model)
+        {
+            if (model != null)
+            {
+                model.Links.Add(new LinkDto(model.Id, Url.ActionLink(), rel: "self", metodo: "GET"));
+                model.Links.Add(new LinkDto(model.Id, Url.ActionLink(), rel: "update", metodo: "PUT"));
+                model.Links.Add(new LinkDto(model.Id, Url.ActionLink(), rel: "delete", metodo: "Delete"));
+
+
+            }
+            
+
+
         }
 
         [AllowAnonymous]
@@ -97,28 +116,7 @@ namespace Users.Controllers
             var tokenService = new TokenService();
             var jwt = tokenService.GenerateJwtToken(userDb);
 
-            //Response.Cookies.Append("jwt", jwt, new CookieOptions //Save the JWT in the browser cookies, Key is "jwt"
-            //{
-            //    HttpOnly = true,
-            //    SameSite = SameSiteMode.None,
-            //    Secure = true
-            //});
-
             return Ok(new { jwtToken = jwt });
-        }       
-             
-        //[HttpGet("logout")]
-        //public async Task<IActionResult> Logout()
-        //{
-        //    Response.Cookies.Delete("jwt", new CookieOptions
-        //    {
-        //        HttpOnly = true,
-        //        SameSite = SameSiteMode.None,
-        //        Secure = true
-        //    });
-
-        //    return Ok(new { message = "Success" });
-
-        //}
+        }
     }
 }
