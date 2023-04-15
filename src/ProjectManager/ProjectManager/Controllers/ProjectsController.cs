@@ -15,8 +15,7 @@ namespace ProjectManager.Controllers
     [ApiController]
     public class ProjectsController : ControllerBase
     {
-        private readonly IProjectService _projectService;
-        /*private readonly TarefasService _tarefasServices;*/
+        private readonly IProjectService _projectService;       
 
         public ProjectsController(IProjectService projectService)
         {
@@ -62,11 +61,9 @@ namespace ProjectManager.Controllers
             var input = new Project(request);
             var project = await _projectService.Get(id);
 
-            GerarLinks(project);
+          //  GerarLinks(project);
             await _projectService.Update(id, input);
-            return Ok();
-
-            
+            return Ok();                
            
         }
 
@@ -79,6 +76,7 @@ namespace ProjectManager.Controllers
         {
             var project = await _projectService.Get(id);
             GerarLinks(project);
+
             await _projectService.Delete(id);
 
             return Ok();
