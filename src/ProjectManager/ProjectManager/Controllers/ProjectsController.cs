@@ -30,7 +30,7 @@ namespace ProjectManager.Controllers
         public async Task<IActionResult> Get([FromRoute] string id)
         {
             var project = await _projectService.Get(id);
-            GerarLinks(project);
+        //    GerarLinks(project);
             
             return Ok(project);
         }
@@ -75,22 +75,22 @@ namespace ProjectManager.Controllers
         public async Task<IActionResult> Delete([FromRoute] string id)
         {
             var project = await _projectService.Get(id);
-            GerarLinks(project);
+          //  GerarLinks(project);
 
             await _projectService.Delete(id);
 
             return Ok();
         }
      
-      private void GerarLinks(Project model) {
+      //private void GerarLinks(Project model) {
 
-            if (model != null) {
-                model.Links.Add(new LinkDto(model.Id, Url.ActionLink(), rel: "self", metodo: "GET"));
-                model.Links.Add(new LinkDto(model.Id, Url.ActionLink(), rel: "self", metodo: "PUT"));
-                model.Links.Add(new LinkDto(model.Id, Url.ActionLink(), rel: "self", metodo: "DELETE"));
+      //      if (model != null) {
+      //          model.Links.Add(new LinkDto(model.Id, Url.ActionLink(), rel: "self", metodo: "GET"));
+      //          model.Links.Add(new LinkDto(model.Id, Url.ActionLink(), rel: "self", metodo: "PUT"));
+      //          model.Links.Add(new LinkDto(model.Id, Url.ActionLink(), rel: "self", metodo: "DELETE"));
 
-            }
+      //      }
 
-        }
+      //  }
     }
 }
