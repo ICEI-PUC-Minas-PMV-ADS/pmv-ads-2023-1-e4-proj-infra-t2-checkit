@@ -1,6 +1,5 @@
 ﻿using ApiGateway.Models;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using System.Text;
 
 namespace ApiGateway.Controllers.Projects
@@ -27,12 +26,34 @@ namespace ApiGateway.Controllers.Projects
 
         public async Task<IActionResult> PostProject([FromBody] Project project)
         {
-            string json = JsonConvert.SerializeObject(project);
-            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+            if(project == null)
+            {
+                return BadRequest();
+            }
         
-            var p1 = await _httpClient.PostAsync($"https://localhost:7152/api/Projects", content);
+            var projeto = await _httpClient.PostAsJsonAsync($"https://localhost:7152/api/Projects", project);
 
-            return Ok(p1);
+            return Ok(projeto);
+        }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateProject([FromRoute] Project project)
+        {
+            if (project == null) return BadRequest();
+
+            var projeto = await _httpClient.PutAsJsonAsync($"https://localhost:7152/api/Projects", project);
+
+
+            return Ok(projeto);
+
+        } 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteProject([FromRoute] string id)
+        {
+            
+            await _httpClient.DeleteAsync($"https://localhost:7152/api/Projects/{id}");
+
+            return Ok();
+
         }
     }
 }
