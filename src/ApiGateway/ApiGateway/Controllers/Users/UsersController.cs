@@ -1,9 +1,10 @@
 ﻿using ApiGateway.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiGateway.Controllers.Users
 {
-    // Terminar: autenticação/autorização
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -23,6 +24,7 @@ namespace ApiGateway.Controllers.Users
             return Ok(result);
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> PostUser([FromBody] User user)
         {      
@@ -40,6 +42,7 @@ namespace ApiGateway.Controllers.Users
             return Ok(result);
 
         }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser([FromRoute] string id)
         {
@@ -47,5 +50,16 @@ namespace ApiGateway.Controllers.Users
 
             return Ok();
         }
+
+        // Precisa de Retornar TOKEN
+        [AllowAnonymous]
+        [HttpPost("authenticate")]
+        public async Task<IActionResult> Authenticate([FromBody] Authenticate login)
+        {
+            var result = await _httpClient.PostAsJsonAsync($"https://localhost:7295/api/users/authenticate", login);
+
+            return Ok(result);
+        }
     }
 }
+

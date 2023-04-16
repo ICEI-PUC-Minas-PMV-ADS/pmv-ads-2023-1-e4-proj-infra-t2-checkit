@@ -31,10 +31,11 @@ namespace ApiGateway.Controllers.Projects
             return Ok(result);
         }
 
+        // Com problema
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProject([FromRoute] Project project)
+        public async Task<IActionResult> UpdateProject([FromRoute] string id, [FromBody] Project project)
         {           
-            var result = await _httpClient.PutAsJsonAsync($"https://localhost:7152/api/Projects", project);
+            var result = await _httpClient.PutAsJsonAsync($"https://localhost:7152/api/Projects/{id}", project);
 
             return Ok(result);
         }
