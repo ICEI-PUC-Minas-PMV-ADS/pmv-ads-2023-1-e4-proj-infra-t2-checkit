@@ -16,15 +16,15 @@ namespace ApiGateway.Controllers.Users
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetProject([FromRoute] string id)
+        public async Task<IActionResult> GetUser([FromRoute] string id)
         {
             var result = await _httpClient.GetAsync($"https://localhost:7295/api/Users/{id}");
 
             return Ok(result);
         }
 
-        [HttpPost()]
-        public async Task<IActionResult> PostProject([FromBody] User user)
+        [HttpPost]
+        public async Task<IActionResult> PostUser([FromBody] User user)
         {      
             var result = await _httpClient.PostAsJsonAsync($"https://localhost:7295/api/Users", user);
 
@@ -32,7 +32,7 @@ namespace ApiGateway.Controllers.Users
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProject([FromBody] User user, [FromRoute] string id)
+        public async Task<IActionResult> UpdateUser([FromBody] User user, [FromRoute] string id)
         {            
             // Password vindo na request, acertar
             var result = await _httpClient.PutAsJsonAsync($"https://localhost:7295/api/Users/{id}", user);
@@ -41,7 +41,7 @@ namespace ApiGateway.Controllers.Users
 
         }
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProject([FromRoute] string id)
+        public async Task<IActionResult> DeleteUser([FromRoute] string id)
         {
             await _httpClient.DeleteAsync($"https://localhost:7295/api/Users/{id}");
 
