@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers()     
      .AddJsonOptions(j => j.JsonSerializerOptions.ReferenceHandler =
      ReferenceHandler.IgnoreCycles);
-
+    
 // Database Configuration
 builder.Services.Configure<UserDatabaseSettings>(
     builder.Configuration.GetSection("UsersCheckitDatabase"));

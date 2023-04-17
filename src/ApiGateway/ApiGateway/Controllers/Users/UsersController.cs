@@ -29,6 +29,7 @@ namespace ApiGateway.Controllers.Users
         public async Task<IActionResult> PostUser([FromBody] User user)
         {      
             var result = await _httpClient.PostAsJsonAsync($"https://localhost:7295/api/Users", user);
+           // Console.WriteLine($"{result.Headers.Location}");
 
             return Ok(result);
         }
@@ -57,7 +58,7 @@ namespace ApiGateway.Controllers.Users
         public async Task<IActionResult> Authenticate([FromBody] Authenticate login)
         {
             var result = await _httpClient.PostAsJsonAsync($"https://localhost:7295/api/users/authenticate", login);
-
+            Console.WriteLine($"{result.RequestMessage.RequestUri}\n");    
             return Ok(result);
         }
     }

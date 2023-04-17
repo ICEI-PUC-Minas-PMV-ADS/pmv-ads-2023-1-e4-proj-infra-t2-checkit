@@ -9,13 +9,12 @@
 
         public string Metodo { get; set; }
 
-        public LinkDto(string id,string href,string rel,string metodo) { 
-        
+        public LinkDto(string id, string href, string rel, string metodo)
+        {
             Id = id;
             Href = href;
             Rel = rel;
             Metodo = metodo;
-        
         }
 
     }

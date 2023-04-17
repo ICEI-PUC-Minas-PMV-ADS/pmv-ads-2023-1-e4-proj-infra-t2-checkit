@@ -12,6 +12,8 @@ builder.Services.Configure<TarefasDatabaseSettings>(
 
 builder.Services.AddSingleton<TarefasService>();
 
+builder.Services.AddControllers();
+
 // Authentication 
 builder.Services.AddAuthentication(options =>
 {
@@ -31,9 +33,6 @@ builder.Services.AddAuthentication(options =>
        };
    });
 
-
-builder.Services.AddControllers().AddJsonOptions(x=>x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -48,9 +47,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.MapControllers();
+
 app.UseAuthentication();
 app.UseAuthorization();
-
-app.MapControllers();
 
 app.Run();

@@ -6,8 +6,6 @@ using ProjectManager.Services.Projects;
 using System.Net;
 using Tasks.Models;
 
-
-
 namespace ProjectManager.Controllers
 {
    /* [Authorize]*/

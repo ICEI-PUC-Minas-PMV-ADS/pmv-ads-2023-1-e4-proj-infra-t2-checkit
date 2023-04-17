@@ -9,6 +9,8 @@ namespace ProjectManager.Controllers.Requests
         public string? UpdatedBy { get; set; }
         public DateTime? DueDate { get; set; }
         public List<Member>? Member { get; set; }
-        public string Status { get; set; }
+        public string? Status { get; set; }
+
+        public List<string?> TarefaId { get; set; } // Add teste
     }
 }

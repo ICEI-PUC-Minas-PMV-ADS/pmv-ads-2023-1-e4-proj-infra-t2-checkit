@@ -7,7 +7,7 @@ using Tasks.Models;
 
 namespace ProjectManager.Models
 {
-    public class Project:LinksHATEOS
+    public class Project
     {
         public Project(RegisterOrUpdateProjectRequest request)
         {
@@ -19,9 +19,10 @@ namespace ProjectManager.Models
             DueDate = request.DueDate!.Value;
             Members = request.Member!;
             Status = request.Status!;
+            TarefaId = request.TarefaId; // Add teste
         }
 
-        public Project(string id, string title, DateTime createdAt, string createdBy, DateTime updatedAt, string updatedBy, DateTime dueDate, List<Member> members, string status)
+        public Project(string id, string title, DateTime createdAt, string createdBy, DateTime updatedAt, string updatedBy, DateTime dueDate, List<Member> members, string status, List<string?> tarefaId)
         {
             Id = id;
             Title = title;
@@ -32,6 +33,7 @@ namespace ProjectManager.Models
             DueDate = dueDate;
             Members = members;
             Status = status;
+            TarefaId = tarefaId;    // Add teste
         }
 
         [BsonId]
@@ -45,14 +47,12 @@ namespace ProjectManager.Models
         public string CreatedBy { get; set; }
         public DateTime UpdatedAt { get; set; }
         public string UpdatedBy { get; set; }
-        public string Status { get; set; }
+        public string? Status { get; set; }
         public DateTime DueDate { get; set; }
         public List<Member> Members { get; set; }
-        [BsonRepresentation(BsonType.ObjectId)]
-        public List<string> Tarefas { get; set; }
 
+        public List<string?> TarefaId { get; set; } // Add teste
 
-  
     }
 
     public enum StatusProject
