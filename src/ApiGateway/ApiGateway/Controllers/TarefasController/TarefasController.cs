@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Tasks.Models;
 
-namespace ApiGateway.Controllers.TarefasController
+namespace ApiGateway.Controllers.TarefasCosntroller
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class TarefasController : ControllerBase
@@ -23,7 +25,6 @@ namespace ApiGateway.Controllers.TarefasController
 
             return Ok(result);
         }
-
 
         [HttpPost()]
         public async Task<IActionResult> PostTarefa([FromBody] Tarefa tarefa)

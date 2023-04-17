@@ -1,9 +1,11 @@
 ﻿using ApiGateway.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
 
 namespace ApiGateway.Controllers.Projects
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProjectsController : ControllerBase
