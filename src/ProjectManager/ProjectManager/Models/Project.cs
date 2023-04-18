@@ -2,15 +2,15 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using ProjectManager.Controllers.Requests;
 using System.ComponentModel.DataAnnotations;
-using Tasks.Models;
 
 
 namespace ProjectManager.Models
 {
     public class Project
     {
-        public Project(RegisterOrUpdateProjectRequest request)
+        public Project(RegisterOrUpdateProjectRequest request, in string id = null)
         {
+            Id = id;
             Title = request.Title!;
             CreatedAt = DateTime.Now;
             CreatedBy = request.CreatedBy!;

@@ -36,7 +36,6 @@ namespace ProjectManager.Services.Projects
         public async Task Update(string id, Project project)
         {
             await _projectsCollection.ReplaceOneAsync(x => x.Id == id, project);
-
         }
 
         public async Task Delete(string id)
