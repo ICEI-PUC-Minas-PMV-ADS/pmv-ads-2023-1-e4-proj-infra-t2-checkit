@@ -56,7 +56,7 @@ namespace ProjectManager.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> Update([FromRoute] string id, [FromBody] RegisterOrUpdateProjectRequest request)
         {
-            var input = new Project(request);
+            var input = new Project(request, id);
            // var project = await _projectService.Get(id);
 
           //  GerarLinks(project);
