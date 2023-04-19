@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ApiGateway.Controllers.Projects
 {
-    [Authorize]
+    /*[Authorize]*/
     [Route("api/[controller]")]
     [ApiController]
     public class ProjectsController : ControllerBase
