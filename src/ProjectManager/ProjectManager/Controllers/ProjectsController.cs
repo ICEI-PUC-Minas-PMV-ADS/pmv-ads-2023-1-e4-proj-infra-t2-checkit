@@ -13,11 +13,17 @@ namespace ProjectManager.Controllers
     [ApiController]
     public class ProjectsController : ControllerBase
     {
-        private readonly IProjectService _projectService;       
+        private readonly IProjectService _projectService;
+
+
+        private readonly HttpClient _httpClient;
+
+  
 
         public ProjectsController(IProjectService projectService)
         {
             _projectService = projectService;
+            _httpClient = new HttpClient();
         }
        
         [HttpGet("{id}")]
@@ -79,16 +85,17 @@ namespace ProjectManager.Controllers
 
             return Ok();
         }
-        [HttpPut(template: "Projects/AddTask/{id}")]
-        [HttpPatch]
+        [HttpPut(template: "Projects/AddTask/{id}")] 
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> Att([FromRoute] string id)
         {
-            //  var project = await _projectService.Get(id);
-            //  GerarLinks(project);
+            
+            var tarefa = _httpClient.GetAsync($"https://localhost:5278/api/Tarefas/{id}");
+
+           
 
             await _projectService.Delete(id);
 

@@ -5,7 +5,7 @@ using Tasks.Models;
 
 namespace ApiGateway.Controllers.TarefasCosntroller
 {
-    [Authorize]
+  /*  [Authorize]*/
     [Route("api/[controller]")]
     [ApiController]
     public class TarefasController : ControllerBase
