@@ -4,6 +4,8 @@ using ProjectManager.Controllers.Requests;
 using ProjectManager.Models;
 using ProjectManager.Services.Projects;
 using System.Net;
+using Newtonsoft.Json;
+
 using Tasks.Models;
 
 namespace ProjectManager.Controllers
@@ -92,12 +94,13 @@ namespace ProjectManager.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> Att([FromRoute] string id)
         {
-            
-            var tarefa = _httpClient.GetAsync($"https://localhost:5278/api/Tarefas/{id}");
+      
+            var tarefa =  await _httpClient.GetAsync($"https://localhost:5278/api/Tarefas/{id}");
+            var a = await tarefa.Content.ReadAsStringAsync();
 
-           
 
-            await _projectService.Delete(id);
+            //Testando o retorno da Api gateway depois de do retorno do serviço de tarefas
+           /* await _projectService.Update();*/
 
             return Ok();
         }
