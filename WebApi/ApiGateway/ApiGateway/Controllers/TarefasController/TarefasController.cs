@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Tasks.Models;
 
 namespace ApiGateway.Controllers.TarefasCosntroller
@@ -25,9 +26,7 @@ namespace ApiGateway.Controllers.TarefasCosntroller
 
             var convertion = await result.Content.ReadAsStringAsync();
             //Teste de conversão da string para JSON ser enviado na resposta
-            var JSON = JsonConvert.DeserializeObject(convertion);
-
-            return Ok(JSON);
+            return Ok(convertion);
         }
 
         [HttpPost()]

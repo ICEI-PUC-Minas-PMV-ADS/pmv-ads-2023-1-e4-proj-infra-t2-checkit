@@ -21,7 +21,7 @@ namespace ApiGateway.Controllers.Projects
         public async Task<IActionResult> GetProject([FromRoute] string id)
         {
             var result = await _httpClient.GetAsync($"https://localhost:7152/api/Projects/{id}");
-            //Console.WriteLine($"{result.RequestMessage.RequestUri}\n");            
+            Console.WriteLine($"{result.RequestMessage.RequestUri}\n");            
 
             return Ok(result);
         }                      
