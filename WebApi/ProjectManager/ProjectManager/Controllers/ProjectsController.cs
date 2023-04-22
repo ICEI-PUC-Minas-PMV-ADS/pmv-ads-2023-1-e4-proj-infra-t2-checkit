@@ -8,7 +8,7 @@ using Tasks.Models;
 
 namespace ProjectManager.Controllers
 {
-   /* [Authorize]*/
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProjectsController : ControllerBase
