@@ -22,7 +22,7 @@ public class TarefasController : ControllerBase
         _tarefasCollection = tarefasCollection;
 
     [HttpGet("{id:length(24)}")]
-    public async Task<ActionResult<Tarefa>> Get(string id)
+    public async Task<IActionResult> Get(string id)
     {
         var tarefa = await _tarefasCollection.GetByIdAsync(id);
       

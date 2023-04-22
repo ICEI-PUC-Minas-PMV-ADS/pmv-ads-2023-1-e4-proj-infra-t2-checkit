@@ -4,7 +4,10 @@ using ProjectManager.Controllers.Requests;
 using ProjectManager.Models;
 using ProjectManager.Services.Projects;
 using System.Net;
+using Newtonsoft.Json;
+
 using Tasks.Models;
+using Newtonsoft.Json.Linq;
 
 namespace ProjectManager.Controllers
 {
@@ -90,16 +93,17 @@ namespace ProjectManager.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> Att([FromRoute] string id)
+        public async Task<IActionResult> AddIdTarefa([FromRoute] string id)
         {
+      
+            var tarefa =  await _httpClient.GetAsync($"https://localhost:5278/api/Tarefas/{id}");
+            var a =  await tarefa.Content.ReadAsStringAsync();
+            JObject JSON = JObject.Parse(a);
             
-            var tarefa = _httpClient.GetAsync($"https://localhost:5278/api/Tarefas/{id}");
+            //Testando o retorno da Api gateway depois de do retorno do serviço de tarefas
+            /* await _projectService.Update();*/
 
-           
-
-            await _projectService.Delete(id);
-
-            return Ok();
+            return Ok(a);
         }
 
         //private void GerarLinks(Project model) {

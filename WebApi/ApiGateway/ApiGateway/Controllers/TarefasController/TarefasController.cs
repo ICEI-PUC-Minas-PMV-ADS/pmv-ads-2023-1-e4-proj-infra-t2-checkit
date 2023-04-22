@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Tasks.Models;
 
 namespace ApiGateway.Controllers.TarefasCosntroller
@@ -21,9 +23,10 @@ namespace ApiGateway.Controllers.TarefasCosntroller
         public async Task<IActionResult> GetTarefaById([FromRoute] string id)
         {
             var result = await _httpClient.GetAsync($"https://localhost:7246/api/Tarefas/{id}");
-            //Console.WriteLine($"{result.RequestMessage.RequestUri}\n");            
 
-            return Ok(result);
+            var convertion = await result.Content.ReadAsStringAsync();
+            //Teste de conversão da string para JSON ser enviado na resposta
+            return Ok(convertion);
         }
 
         [HttpPost()]
