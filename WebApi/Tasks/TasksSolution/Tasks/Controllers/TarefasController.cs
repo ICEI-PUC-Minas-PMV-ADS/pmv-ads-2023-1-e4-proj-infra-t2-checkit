@@ -74,13 +74,10 @@ public class TarefasController : ControllerBase
     [HttpGet("getTaskProject/{id}")]
     public async Task<List<Tarefa>> GetTaskFromProject(string id)
     {
-        var tarefaList = await _tarefasCollection.GetAllAsync();
+        var tarefaList = await _tarefasCollection.GetAllIdProjectInTasks(id);
 
-        var query = from e in tarefaList
-                    where e.ProjectId == id
-                    select e;
-
-         return query.ToList();
+      
+         return tarefaList;
     }
 
 

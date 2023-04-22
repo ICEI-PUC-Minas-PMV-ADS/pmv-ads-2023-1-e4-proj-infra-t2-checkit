@@ -18,6 +18,10 @@ namespace Tasks.Services
         public async Task<List<Tarefa>> GetAllAsync() =>
             await _tarefasCollection.Find(_ => true).ToListAsync();
 
+        //Método para pegar todas as tarefas com a Id de projeto passadas
+        public async Task<List<Tarefa>> GetAllIdProjectInTasks(string id) =>
+            await _tarefasCollection.Find(x => x.ProjectId == id).ToListAsync();
+
         public async Task<Tarefa> GetByIdAsync(string id) =>
              await _tarefasCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
 
