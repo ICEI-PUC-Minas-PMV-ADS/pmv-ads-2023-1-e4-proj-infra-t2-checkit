@@ -88,7 +88,7 @@ namespace ProjectManager.Controllers
                 
             return Ok();
         }
-        [HttpPut(template: "Projects/AddTask/{id}")]
+      /*  [HttpPut(template: "Projects/AddTask/{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
@@ -101,10 +101,10 @@ namespace ProjectManager.Controllers
             JObject JSON = JObject.Parse(a);
 
             //Testando o retorno da Api gateway depois de do retorno do serviço de tarefas
-            /* await _projectService.Update();*/
+            *//* await _projectService.Update();*//*
 
             return Ok(a);
-        }       
+        }  */     
 
 
         //private void GerarLinks(Project model) {

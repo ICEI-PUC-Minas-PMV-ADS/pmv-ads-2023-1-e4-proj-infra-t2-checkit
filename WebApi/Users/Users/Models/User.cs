@@ -20,6 +20,8 @@ namespace Users.Models
         public string Password { get; set; }
         [Required]
         public Role Role { get; set; }
+
+        public List<string> IdProjetos { get; set; }
     }
 
     public enum Role
