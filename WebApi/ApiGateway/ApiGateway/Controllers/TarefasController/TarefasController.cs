@@ -33,7 +33,7 @@ namespace ApiGateway.Controllers.TarefasCosntroller
         public async Task<IActionResult> PostTarefa([FromBody] Tarefa tarefa)
         {
             var result = await _httpClient.PostAsJsonAsync($"https://localhost:7246/api/Tarefas", tarefa);
-
+ 
             return Ok(result);
         }
         
@@ -51,6 +51,19 @@ namespace ApiGateway.Controllers.TarefasCosntroller
             await _httpClient.DeleteAsync($"https://localhost:7246/api/Tarefas/{id}");
 
             return Ok();
+        }
+
+
+        [HttpGet("getTaskProject/{id}")]
+        public async Task<IActionResult> GetTaskFromProject([FromRoute] string id)
+        {
+            var result = await _httpClient.GetAsync($"https://localhost:7246/api/tarefas/getTaskProject/{id}");
+            //var a = await result.Content.ReadAsStringAsync();
+
+            // Console.WriteLine(a);
+
+
+            return Ok(result);
         }
     }
 }

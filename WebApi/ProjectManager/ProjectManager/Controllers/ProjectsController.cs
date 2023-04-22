@@ -21,14 +21,14 @@ namespace ProjectManager.Controllers
 
         private readonly HttpClient _httpClient;
 
-  
+
 
         public ProjectsController(IProjectService projectService)
         {
             _projectService = projectService;
             _httpClient = new HttpClient();
         }
-       
+
         [HttpGet("{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
@@ -37,8 +37,8 @@ namespace ProjectManager.Controllers
         public async Task<IActionResult> Get([FromRoute] string id)
         {
             var project = await _projectService.Get(id);
-        //    GerarLinks(project);
-            
+            //    GerarLinks(project);
+
             return Ok(project);
         }
 
@@ -54,7 +54,7 @@ namespace ProjectManager.Controllers
 
             await _projectService.Register(input);
 
-            return CreatedAtAction("Get", new {id = input.Id}, input);
+            return CreatedAtAction("Get", new { id = input.Id }, input);
         }
 
 
@@ -66,12 +66,12 @@ namespace ProjectManager.Controllers
         public async Task<IActionResult> Update([FromRoute] string id, [FromBody] RegisterOrUpdateProjectRequest request)
         {
             var input = new Project(request, id);
-           // var project = await _projectService.Get(id);
+            // var project = await _projectService.Get(id);
 
-          //  GerarLinks(project);
+            //  GerarLinks(project);
             await _projectService.Update(id, input);
-            return Ok();                
-           
+            return Ok();
+
         }
 
         [HttpDelete("{id}")]
@@ -81,30 +81,31 @@ namespace ProjectManager.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> Delete([FromRoute] string id)
         {
-          //  var project = await _projectService.Get(id);
-          //  GerarLinks(project);
+            //  var project = await _projectService.Get(id);
+            //  GerarLinks(project);
 
             await _projectService.Delete(id);
-
+                
             return Ok();
         }
-        [HttpPut(template: "Projects/AddTask/{id}")] 
+        [HttpPut(template: "Projects/AddTask/{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> AddIdTarefa([FromRoute] string id)
         {
-      
-            var tarefa =  await _httpClient.GetAsync($"https://localhost:5278/api/Tarefas/{id}");
-            var a =  await tarefa.Content.ReadAsStringAsync();
+
+            var tarefa = await _httpClient.GetAsync($"https://localhost:5278/api/Tarefas/{id}");
+            var a = await tarefa.Content.ReadAsStringAsync();
             JObject JSON = JObject.Parse(a);
-            
+
             //Testando o retorno da Api gateway depois de do retorno do serviço de tarefas
             /* await _projectService.Update();*/
 
             return Ok(a);
-        }
+        }       
+
 
         //private void GerarLinks(Project model) {
 

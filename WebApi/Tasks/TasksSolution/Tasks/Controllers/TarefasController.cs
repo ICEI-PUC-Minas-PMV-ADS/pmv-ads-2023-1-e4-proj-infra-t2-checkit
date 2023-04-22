@@ -18,6 +18,7 @@ public class TarefasController : ControllerBase
     {
         return await _tarefasCollection.GetAllAsync();
     }
+
     public TarefasController(TarefasService tarefasCollection) =>
         _tarefasCollection = tarefasCollection;
 
@@ -68,6 +69,20 @@ public class TarefasController : ControllerBase
 
         return NoContent();
     }
+
+
+    [HttpGet("getTaskProject/{id}")]
+    public async Task<List<Tarefa>> GetTaskFromProject(string id)
+    {
+        var tarefaList = await _tarefasCollection.GetAllAsync();
+
+        var query = from e in tarefaList
+                    where e.ProjectId == id
+                    select e;
+
+         return query.ToList();
+    }
+
 
     private void GerarLinks(Tarefa model)
     {

@@ -11,6 +11,6 @@ namespace ProjectManager.Controllers.Requests
         public List<Member>? Member { get; set; }
         public string? Status { get; set; }
 
-        public List<string?> TarefaId { get; set; } // Add teste
+        
     }
 }
