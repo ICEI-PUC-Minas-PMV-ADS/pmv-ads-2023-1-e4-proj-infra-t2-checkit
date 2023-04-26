@@ -55,6 +55,8 @@ app.MapControllers(); // Add
 
 //app.MapGet("/", () => "");
 
+app.UseCors(option => option.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
 app.UseAuthentication();
 app.UseAuthorization();
 

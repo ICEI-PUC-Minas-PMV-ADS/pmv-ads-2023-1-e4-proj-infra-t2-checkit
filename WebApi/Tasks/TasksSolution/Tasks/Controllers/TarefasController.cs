@@ -34,12 +34,8 @@ public class TarefasController : ControllerBase
 
     [HttpPost]
     public async Task<IActionResult> Post(Tarefa newTarefa)
-    {
-        //Pegar depois o Id do Projeto
-
-
-        string idProjeto = "643748056f2d9872a022121f";
-        newTarefa.ProjectId = idProjeto;
+    {   
+        // Falta pegar o ID do Projeto aqui
 
         await _tarefasCollection.CreateAsync(newTarefa);
 

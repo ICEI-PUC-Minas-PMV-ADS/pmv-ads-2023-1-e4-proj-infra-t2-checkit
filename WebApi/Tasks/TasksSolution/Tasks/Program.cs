@@ -5,7 +5,9 @@ using System.Text.Json.Serialization;
 using Tasks.Models;
 using Tasks.Services;
 
+
 var builder = WebApplication.CreateBuilder(args);
+
 
 builder.Services.Configure<TarefasDatabaseSettings>(
     builder.Configuration.GetSection("TarefasCheckitDatabase"));
@@ -48,6 +50,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapControllers();
+
+//app.UseCors(option => option.AllowAnyOrigin().AllowAnyMethod());
 
 app.UseAuthentication();
 app.UseAuthorization();
