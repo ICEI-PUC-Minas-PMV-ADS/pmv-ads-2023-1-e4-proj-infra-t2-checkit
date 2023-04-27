@@ -2,11 +2,10 @@ import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
-import Main from './src/Componentes/Navegações/Main';
+import Main from './src/Navegacoes/Main';
 
 export default function App() {
-  const [numero,setNumero] = useState(0)
-  
+  const [numero,setNumero] = useState(0) 
  
   return (
     <NavigationContainer>

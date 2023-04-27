@@ -3,10 +3,10 @@ import { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function CadastroUsuario() {
-  const [numero,setNumero] = useState(0)
-  
-  const add = ()=>{
-    setNumero(numero+1)
+  const [numero, setNumero] = useState(0)
+
+  const add = () => {
+    setNumero(numero + 1)
 
 
   }
@@ -15,7 +15,7 @@ export default function CadastroUsuario() {
       <Text>Open up App.js to start working on your app!</Text>
       <TouchableOpacity onPressOut={add}><Text>{numero
       } asdasd </Text></TouchableOpacity>
-    
+
     </View>
   );
 }
