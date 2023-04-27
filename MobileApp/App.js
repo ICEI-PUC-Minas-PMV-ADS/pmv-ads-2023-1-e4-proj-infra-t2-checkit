@@ -1,17 +1,35 @@
+import axios, { Axios } from 'axios';
 import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { NavigationContainer } from "@react-navigation/native";
-import Main from './src/Componentes/Navegações/Main';
 
 export default function App() {
-  const [numero,setNumero] = useState(0)
+
+
+
+
+
   
- 
+  const chamar = async()=>{
+    await fetch(`http://10.0.0.2:7246/api/tarefas/64444b41c8149f83725d2441`,
+    {
+      method: 'GET',      
+    }
+  )
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error(error))
+  }
+  
   return (
-    <NavigationContainer>
-      <Main/>
-    </NavigationContainer>
+    <View style={styles.container}>
+      <TouchableOpacity onPress={chamar}>
+      <Text>Open up App.js to start working on your app!</Text>
+  
+      </TouchableOpacity>
+
+  
+      <StatusBar style="auto" />
+    </View>
   );
 }
 

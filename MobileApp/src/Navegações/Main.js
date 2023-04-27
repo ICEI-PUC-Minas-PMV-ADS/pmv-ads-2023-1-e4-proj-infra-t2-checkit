@@ -1,7 +1,6 @@
 import React from "react";
 
 import { createStackNavigator } from '@react-navigation/stack';
-import Login from "src\Telas\Login.js"
 import CadastroUsuario from "../Telas/CadastroUsuario";
 // import { AuthProvider } from "../contexts/AuthProvider";
 
