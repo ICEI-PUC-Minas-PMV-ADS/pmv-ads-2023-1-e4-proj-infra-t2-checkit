@@ -18,7 +18,7 @@ namespace Users.Controllers
         public UsersController(UserService userCollection) =>
              _userCollection = userCollection;
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<List<User>> GetAll()
         {
