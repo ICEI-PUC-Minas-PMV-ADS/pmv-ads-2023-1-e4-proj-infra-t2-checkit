@@ -17,11 +17,7 @@ namespace ProjectManager.Controllers
     public class ProjectsController : ControllerBase
     {
         private readonly IProjectService _projectService;
-
-
         private readonly HttpClient _httpClient;
-
-
 
         public ProjectsController(IProjectService projectService)
         {

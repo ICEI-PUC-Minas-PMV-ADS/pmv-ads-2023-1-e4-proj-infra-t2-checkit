@@ -20,10 +20,12 @@ namespace ApiGateway.Controllers.Projects
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProject([FromRoute] string id)
         {
-            var result = await _httpClient.GetAsync($"https://localhost:7152/api/Projects/{id}");
-           // Console.WriteLine($"{result.RequestMessage.RequestUri}\n");            
+            var result = await _httpClient.GetAsync($"https://localhost:7152/api/Projects/{id}");           
+            var convertion = await result.Content.ReadAsStringAsync();
 
-            return Ok(result);
+            // Retornando dados
+            return Ok(convertion);            
+           // return Ok(result);
         }                      
 
         [HttpPost()]
@@ -33,8 +35,7 @@ namespace ApiGateway.Controllers.Projects
 
             return Ok(result);
         }
-
-        // Com problema
+      
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProject([FromRoute] string id, [FromBody] Project project)
         {           
