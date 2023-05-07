@@ -10,7 +10,7 @@ Dentre as preocupações para a montagem da interface do sistema, estamos estabe
 O diagrama que define o fluxo do sistema é representado a seguir:
 
 **Cadastro de Usuário e Login**
-![login-cadastro](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-infra-t2-checkit/commit/e6e45aa8dd55cb0f647240251a2e2b3888db7c51)
+![login-cadastro](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e4-proj-infra-t2-checkit/blob/main/img/diagrama%20de%20fluxo.drawio.png)
 
 ## Wireframes
 
