@@ -26,8 +26,9 @@ Com base na análise das personas foram identificadas as seguintes histórias de
 | Luíza | aplicação que prioriza a facilidade de uso e a integração com outros aplicativos, como calendários  | para ajudar a equilibrar minha carga de trabalho.  |
 
 
-## Modelagem do Processo de Negócio 
-
+## Modelagem do Processo de Negócio
+Apresentamos nesta etapa a modelagem de processo no padrão BPMN com detalhes. Acesse o link: https://drive.google.com/file/d/1aIRG5La5lpWMNTS1IXgwjQrFwrzIF3i7/view?usp=sharing 
+Caso queira, pode baixar também o arquivo no formato .bpmn: https://drive.google.com/file/d/1oORWitAnE-sgqi5Usf5WDWCmZ72xpwGL/view?usp=sharing
 ### Análise da Situação Atual
 
 Apresente aqui os problemas existentes que viabilizam sua proposta. Apresente o modelo do sistema como ele funciona hoje. Caso sua proposta seja inovadora e não existam processos claramente definidos, apresente como as tarefas que o seu sistema pretende implementar são executadas atualmente, mesmo que não se utilize tecnologia computacional. 
