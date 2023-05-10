@@ -1,0 +1,121 @@
+import React, { useState } from 'react';
+import {
+SafeAreaView,
+ScrollView,
+StatusBar,
+StyleSheet,
+Text,
+useColorScheme,
+View,
+TextInput,
+TouchableOpacity,
+} from 'react-native';
+import {
+Colors,
+DebugInstructions,
+Header,
+LearnMoreLinks,
+ReloadInstructions,
+} from 'react-native/Libraries/NewAppScreen';
+const App =  () => {
+const onPressLogin = async () => {
+// Do something about login operation
+console.log('funciona')
+
+fetch('https://api.nasa.gov/planetary/apod?api_key=gkimsne4yrAAj6jBFaTrAIUn9DxWkRlq4ZGDWqen')
+  .then(response => response.json())
+  .then(data => {
+      console.log(data);
+    // Do something with the data
+  })
+  .catch(error => {
+    console.log(error)
+    // Handle any errors
+  });
+};
+const onPressForgotPassword = () => {
+// Do something about forgot password operation
+};
+const onPressSignUp = () => {
+// Do something about signup operation
+};
+const [state,setState] = useState({
+email: '',
+password: '',
+})
+return (
+<View style={styles.container}>
+<Text style={styles.title}>Bem vindo!</Text>
+<View style={styles.inputView}>
+<TextInput
+style={styles.inputText}
+placeholder="Email"
+placeholderTextColor="#003f5c"
+onChangeText={text => setState({email:text})}/>
+</View>
+<View style={styles.inputView}>
+<TextInput
+style={styles.inputText}
+secureTextEntry
+placeholder="Senha"
+placeholderTextColor="#003f5c"
+onChangeText={text => setState({password:text})}/>
+</View>
+<TouchableOpacity
+onPress = {onPressForgotPassword}>
+<Text style={styles.forgotAndSignUpText}>Esqueceu a senha?</Text>
+</TouchableOpacity>
+<TouchableOpacity
+onPress = {onPressLogin}
+style={styles.loginBtn}>
+<Text style={styles.loginText}>LOGIN </Text>
+</TouchableOpacity>
+<TouchableOpacity
+onPress = {onPressSignUp}>
+<Text style={styles.forgotAndSignUpText}>Cadastrar</Text>
+</TouchableOpacity>
+</View>
+);
+}
+const styles = StyleSheet.create({
+container: {
+flex: 1,
+backgroundColor: '#89cff5',
+alignItems: 'center',
+justifyContent: 'center',
+},
+title:{
+fontWeight: "bold",
+fontSize:50,
+color:"#fb5b5a",
+marginBottom: 40,
+},
+inputView:{
+width:"80%",
+backgroundColor:"#3AB4BA",
+borderRadius:25,
+height:50,
+marginBottom:20,
+justifyContent:"center",
+padding:20
+},
+inputText:{
+height:50,
+color:"white"
+},
+forgotAndSignUpText:{
+color:"white",
+fontSize:11
+},
+loginBtn:{
+width:"80%",
+backgroundColor:"#fb5b5a",
+borderRadius:25,
+height:50,
+alignItems:"center",
+justifyContent:"center",
+marginTop:40,
+marginBottom:10
+},
+});
+export default App;
