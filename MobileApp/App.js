@@ -18,8 +18,20 @@ LearnMoreLinks,
 ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 const App =  () => {
-const onPressLogin = () => {
+const onPressLogin = async () => {
 // Do something about login operation
+console.log('funciona')
+
+fetch('https://api.nasa.gov/planetary/apod?api_key=gkimsne4yrAAj6jBFaTrAIUn9DxWkRlq4ZGDWqen')
+  .then(response => response.json())
+  .then(data => {
+      console.log(data);
+    // Do something with the data
+  })
+  .catch(error => {
+    console.log(error)
+    // Handle any errors
+  });
 };
 const onPressForgotPassword = () => {
 // Do something about forgot password operation
@@ -33,7 +45,7 @@ password: '',
 })
 return (
 <View style={styles.container}>
-<Text style={styles.title}> Login Screen</Text>
+<Text style={styles.title}>Bem vindo!</Text>
 <View style={styles.inputView}>
 <TextInput
 style={styles.inputText}
@@ -60,7 +72,7 @@ style={styles.loginBtn}>
 </TouchableOpacity>
 <TouchableOpacity
 onPress = {onPressSignUp}>
-<Text style={styles.forgotAndSignUpText}>Signup</Text>
+<Text style={styles.forgotAndSignUpText}>SignUp</Text>
 </TouchableOpacity>
 </View>
 );
@@ -68,7 +80,7 @@ onPress = {onPressSignUp}>
 const styles = StyleSheet.create({
 container: {
 flex: 1,
-backgroundColor: '#4FD3DA',
+backgroundColor: '#89cff5',
 alignItems: 'center',
 justifyContent: 'center',
 },
