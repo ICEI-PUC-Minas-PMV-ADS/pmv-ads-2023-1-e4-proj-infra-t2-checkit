@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ApiGateway.Controllers.Projects
 {
-    /*[Authorize]*/
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProjectsController : ControllerBase
@@ -20,12 +20,10 @@ namespace ApiGateway.Controllers.Projects
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProject([FromRoute] string id)
         {
-            var result = await _httpClient.GetAsync($"https://localhost:7152/api/Projects/{id}");           
-            var convertion = await result.Content.ReadAsStringAsync();
+            var result = await _httpClient.GetAsync($"https://localhost:7152/api/Projects/{id}");
+            var projectResult = await result.Content.ReadAsStringAsync();
 
-            // Retornando dados
-            return Ok(convertion);            
-           // return Ok(result);
+            return projectResult is null ? NotFound() : Ok(projectResult);
         }                      
 
         [HttpPost()]

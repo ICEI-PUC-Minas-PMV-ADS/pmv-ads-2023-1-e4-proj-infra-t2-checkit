@@ -18,11 +18,10 @@ namespace ProjectManager.Models
             UpdatedBy = request.UpdatedBy!;
             DueDate = request.DueDate!.Value;
             Members = request.Member!;
-            Status = request.Status!;
-            TarefaId = request.TarefaId;
+            Status = request.Status!;   
         }
 
-        public Project(string id, string title, DateTime createdAt, string createdBy, DateTime updatedAt, string updatedBy, DateTime dueDate, List<Member> members, string status, List<string> tarefaId)
+        public Project(string id, string title, DateTime createdAt, string createdBy, DateTime updatedAt, string updatedBy, DateTime dueDate, List<Member> members, string status)
         {
             Id = id;
             Title = title;
@@ -32,8 +31,7 @@ namespace ProjectManager.Models
             UpdatedBy = updatedBy;
             DueDate = dueDate;
             Members = members;
-            Status = status;
-            TarefaId = tarefaId;
+            Status = status;         
         }
            
 
@@ -51,7 +49,6 @@ namespace ProjectManager.Models
         public string? Status { get; set; }
         public DateTime DueDate { get; set; }
         public List<Member> Members { get; set; }
-        public List<string> TarefaId { get; set; }
     }
 
     public enum StatusProject

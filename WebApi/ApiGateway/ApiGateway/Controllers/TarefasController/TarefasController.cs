@@ -7,7 +7,7 @@ using Tasks.Models;
 
 namespace ApiGateway.Controllers.TarefasCosntroller
 {
-    /*  [Authorize]*/
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class TarefasController : ControllerBase
@@ -24,19 +24,19 @@ namespace ApiGateway.Controllers.TarefasCosntroller
         {
             var result = await _httpClient.GetAsync($"https://localhost:7246/api/Tarefas/{id}");
 
-            var convertion = await result.Content.ReadAsStringAsync();
-            //Teste de conversão da string para JSON ser enviado na resposta
-            return Ok(convertion);
+            var taskResult = await result.Content.ReadAsStringAsync();
+
+            return taskResult is null ? NotFound() : Ok(taskResult);
         }
 
         [HttpPost()]
         public async Task<IActionResult> PostTarefa([FromBody] Tarefa tarefa)
         {
             var result = await _httpClient.PostAsJsonAsync($"https://localhost:7246/api/Tarefas", tarefa);
- 
+
             return Ok(result);
         }
-        
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateTarefa([FromRoute] string id, [FromBody] Tarefa tarefa)
         {

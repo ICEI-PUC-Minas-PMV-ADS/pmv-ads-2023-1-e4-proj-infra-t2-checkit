@@ -20,8 +20,10 @@ namespace ApiGateway.Controllers.Users
         public async Task<IActionResult> GetUser([FromRoute] string id)
         {
             var result = await _httpClient.GetAsync($"https://localhost:7295/api/Users/{id}");
+            var userResult = await result.Content.ReadAsStringAsync();
 
-            return Ok(result);
+            return userResult is null ? NotFound() : Ok(userResult);
+       
         }
 
         [AllowAnonymous]
