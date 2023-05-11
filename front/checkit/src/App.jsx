@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react"
-import { NewTodoForm } from "./NewTodoForm"
-import "./styles.css"
-import { TodoList } from "./TodoList"
+import { NewTodoForm } from "./components/NewTodoForm"
+import { TodoList } from "./components/TodoList"
+import "./style/styles.css"
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Index from './pages/index.jsx';
+import Teste from './pages/teste.jsx';
+
+
+
 
 export default function App() {
   const [todos, setTodos] = useState(() => {
@@ -44,6 +50,12 @@ export default function App() {
 
   return (
     <>
+     <Router>
+      <Routes>
+        <Route path="/index" element={<Index />} />
+        <Route path="/teste" element={<Teste />} />
+      </Routes>
+    </Router>
       <NewTodoForm onSubmit={addTodo} />
       <h1 className="header">Todo List</h1>
       <TodoList todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} />
