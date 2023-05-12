@@ -5,11 +5,14 @@ import "./style/styles.css"
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Index from './pages/index.jsx';
 import Teste from './pages/teste.jsx';
+import Login from "./Pages/Login";
+import Register from "./Pages/Register";
 
 
 
 
 export default function App() {
+
   const [todos, setTodos] = useState(() => {
     const localValue = localStorage.getItem("ITEMS")
     if (localValue == null) return []
@@ -48,17 +51,24 @@ export default function App() {
     })
   }
 
+
   return (
     <>
-     <Router>
-      <Routes>
-        <Route path="/index" element={<Index />} />
-        <Route path="/teste" element={<Teste />} />
-      </Routes>
-    </Router>
-      <NewTodoForm onSubmit={addTodo} />
-      <h1 className="header">Todo List</h1>
-      <TodoList todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} />
+      <Router>
+        <Routes>
+          <Route path="/" element={< Login />} />
+          <Route path="/register" element={< Register />} />
+          <Route path="/index"
+            element={
+              <>
+                <NewTodoForm onSubmit={addTodo} />
+                <h1 className="header">Todo List</h1>
+                <TodoList todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} />
+              </>
+            } />
+          <Route path="/teste" element={<Teste />} />
+        </Routes>
+      </Router>
     </>
   )
 }
