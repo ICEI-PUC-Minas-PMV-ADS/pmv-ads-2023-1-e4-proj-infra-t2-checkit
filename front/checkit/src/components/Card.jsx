@@ -1,28 +1,19 @@
-import { Box, ThemeProvider } from '@mui/system';
+import { Box } from '@mui/system';
+import TaskItem from './TaskItem'
+import '../style/index.css'
 
 export default function Card() {
   return (
-    <ThemeProvider
-      theme={{
-        palette: {
-          primary: {
-            main: '#007FFF',
-            dark: '#0059B2',
-          },
-        },
-      }}
-    >
       <Box
         sx={{
-          width: 300,
-          height: 600,
-          bgcolor: 'primary.main',
-          '&:hover': {
-            backgroundColor: 'primary.dark',
-            opacity: [0.9, 0.8, 0.7],
-          },
-        }}
-      />
-    </ThemeProvider>
+          width: 400,
+          background: 'linear-gradient(to right bottom, #430089, #82ffa1)',
+          }}
+          padding={5}
+      >
+        <h1 className='titulo'>titulo </h1>
+        <p className='descricao'>descrição descrição descrição descrição descrição descrição</p>
+        < TaskItem />
+      </Box>
   );
 }
