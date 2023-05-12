@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react"
-import { NewTodoForm } from "./components/NewTodoForm"
-import { TodoList } from "./components/TodoList"
 import "./style/styles.css"
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Index from './pages/index.jsx';
+import CSSGrid from './pages/index.jsx';
 import Teste from './pages/teste.jsx';
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
@@ -59,13 +57,7 @@ export default function App() {
           <Route path="/" element={< Login />} />
           <Route path="/register" element={< Register />} />
           <Route path="/index"
-            element={
-              <>
-                <NewTodoForm onSubmit={addTodo} />
-                <h1 className="header">Todo List</h1>
-                <TodoList todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} />
-              </>
-            } />
+            element={< CSSGrid />} />
           <Route path="/teste" element={<Teste />} />
         </Routes>
       </Router>
