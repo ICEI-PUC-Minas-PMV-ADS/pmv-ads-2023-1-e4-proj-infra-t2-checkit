@@ -1,12 +1,12 @@
 import React from "react";
 
-// import { createStackNavigator } from '@react-navigation/stack'; 
+// import { createStackNavigator } from '@react-navigation/stack';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Login from "../Telas/Usuario/Login"
+import Login from "../Telas/Usuario/Login";
 import CadastroUsuario from "../Telas/Usuario/CadastroUsuario";
 // import { AuthProvider } from "../contexts/AuthProvider";
 import NovoProjeto from "../Telas/Projeto/NovoProjeto";
-import Home from "../Telas/Usuario/Home";
+import Home from "../Telas/Home";
 import MainHome from "../Telas/Usuario/MainHome";
 
 // const Stack = createStackNavigator();
@@ -31,21 +31,21 @@ const Main = () => {
         }}
       />
 
-        <Stack.Screen
+      <Stack.Screen
         name="NovoProjeto"
         component={NovoProjeto}
         options={{
           header: () => null,
         }}
       />
-        <Stack.Screen
+      <Stack.Screen
         name="Home"
         component={Home}
         options={{
           header: () => null,
         }}
       />
-         <Stack.Screen
+      <Stack.Screen
         name="MainHome"
         component={MainHome}
         options={{
