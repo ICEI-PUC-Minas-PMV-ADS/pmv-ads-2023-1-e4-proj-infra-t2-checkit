@@ -7,9 +7,10 @@ export function RegisterForm() {
     const [pass, setPass] = useState('');
     const [name, setName] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(email);
+        const data = await register(name, email, password);
+        console.log(data);
     }
 
     return (
@@ -19,11 +20,11 @@ export function RegisterForm() {
                     <h2>Register</h2>
                     <label htmlFor="name">Full name</label>
                     <input
-                    value={name}
-                    name="name"
-                    onChange={(e) => setName(e.target.value)}
-                    id="item"
-                    placeholder="full Name" />
+                        value={name}
+                        name="name"
+                        onChange={(e) => setName(e.target.value)}
+                        id="item"
+                        placeholder="full Name" />
                     <label htmlFor="item">Email</label>
                     <input
                         value={email}
