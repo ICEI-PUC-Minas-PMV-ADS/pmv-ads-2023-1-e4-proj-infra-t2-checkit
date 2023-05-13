@@ -12,6 +12,7 @@ import {
 import Container from "../../Componentes/Container";
 import Input from "../../Componentes/Input";
 import Body from "../../Componentes/Body";
+import TextOverInput from "../../Componentes/TextOverInput";
 // import { useIsFocused } from '@react-navigation/native-stack';
 
 export default function NovoProjeto() {
@@ -44,25 +45,25 @@ export default function NovoProjeto() {
  
       <Text style={styles.Titulo}>Novo Projeto</Text>
 
-    <Text style={styles.textTitulos}>Nome do Projeto</Text>
+    <TextOverInput >Nome do Projeto</TextOverInput>
     <Input
       mode="outlined"
-      activeOutlineColor={"#3d9d74"}
+      activeOutlineColor={"#184C78"}
       left={<TextInput.Icon icon='book-edit-outline'/>}
     />
-    <Text style={styles.textTitulos}>Descrição</Text>
+    <TextOverInput >Descrição</TextOverInput>
     <TextInput
       mode="outlined"
-      activeOutlineColor={"#3d9d74"}
+      activeOutlineColor={"#184C78"}
       multiline={true}
       numberOfLines={5}
       left={<TextInput.Icon icon='checkbook'/>}
     />
-    <Text style={styles.textTitulos}>Prazo de Validade</Text>
+    <TextOverInput>Prazo de Validade</TextOverInput>
 
     <TextInput
       mode="outlined"
-      activeOutlineColor={"#3d9d74"}
+      activeOutlineColor={"#184C78"}
    
       left={<TextInput.Icon icon='calendar-month'/>}
     />
@@ -92,11 +93,5 @@ const styles = StyleSheet.create({
 
 
 
-  textTitulos: {
-    marginTop: 14,
-    textAlignVertical: 'center',
-    marginLeft: 14,
-    fontSize: 16,
-    fontWeight: 'bold'
-  }
+  
 });
