@@ -43,7 +43,7 @@ export default function DynamicDemo() {
             <div>
                 {categories.map((category) => {
                     return (
-                        <div key={category.key} className="d-flex justify-content-between border border-light my-2 p-2">
+                        <div key={category.key} className="d-flex justify-content-between border border-light rounded my-2 p-2">
                             <label htmlFor={category.key} className="ml-2">
                                 {category.name}
                             </label>
