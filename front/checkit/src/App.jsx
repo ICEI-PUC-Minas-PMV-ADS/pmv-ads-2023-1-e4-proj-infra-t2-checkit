@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react"
-import "./style/styles.css"
+import { useEffect, useState } from "react";
+import 'bootstrap/dist/css/bootstrap.css'
+import "./style/styles.css";
 import '@fontsource/roboto/300.css';
 import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.css';
-import 'primeflex/primeflex.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CSSGrid from './pages/index.jsx';
 import Teste from './pages/teste.jsx';
