@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Link } from "react-router-dom";
+// import { register } from "../services/Api";
 
 export function RegisterForm() {
     const [email, setEmail] = useState('');
