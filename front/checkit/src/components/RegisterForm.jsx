@@ -8,8 +8,8 @@ export function RegisterForm() {
   const [name, setName] = useState("");
 
   const handleSubmit = async (e) => {
-      e.preventDefault();
-      console.log(pass)
+    e.preventDefault();
+    console.log(pass);
     const data = await register(name, email, pass);
     console.log(data);
   };
