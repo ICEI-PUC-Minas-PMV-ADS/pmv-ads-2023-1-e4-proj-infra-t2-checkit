@@ -15,24 +15,43 @@
 //       </li>
 //     )
 //   }
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import '../style/index.css'
+import { useState } from "react";
+import { Checkbox } from "primereact/checkbox";
 
+export default function DynamicDemo() {
+    const categories = [
+        { name: 'Accounting', key: 'A' },
+        { name: 'Marketing', key: 'M' },
+        { name: 'Production', key: 'P' },
+        { name: 'Research', key: 'R' }
+    ];
+    const [selectedCategories, setSelectedCategories] = useState([categories[1]]);
 
-export default function TaskItem() {
-  return (
-    <FormControl>
-        <FormControlLabel
-          className='checkbox-item'
-          value="start"
-          control={<Checkbox sx={{
-            color: 'white',
-          }}/>}
-          label="Start"
-          labelPlacement="start"
-          />
-    </FormControl>
-  );
+    const onCategoryChange = (e) => {
+        let _selectedCategories = [...selectedCategories];
+
+        if (e.checked)
+            _selectedCategories.push(e.value);
+        else
+            _selectedCategories = _selectedCategories.filter(category => category.key !== e.value.key);
+
+        setSelectedCategories(_selectedCategories);
+    };
+
+    return (
+        <div className="p-3">
+            <div>
+                {categories.map((category) => {
+                    return (
+                        <div key={category.key} className="flex align-items-center">
+                            <Checkbox inputId={category.key} name="category" value={category} onChange={onCategoryChange} checked={selectedCategories.some((item) => item.key === category.key)} />
+                            <label htmlFor={category.key} className="ml-2">
+                                {category.name}
+                            </label>
+                        </div>
+                    );
+                })}
+            </div>
+        </div>
+    )
 }

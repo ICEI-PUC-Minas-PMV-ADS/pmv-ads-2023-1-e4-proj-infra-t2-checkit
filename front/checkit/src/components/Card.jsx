@@ -1,19 +1,16 @@
-import { Box } from '@mui/system';
+import { Card } from 'primereact/card';
 import TaskItem from './TaskItem'
-import '../style/index.css'
 
-export default function Card() {
+export default function ProjectCard() {
   return (
-      <Box
-        sx={{
-          width: 330,
-          background: 'linear-gradient(to right bottom, #430089, #82ffa1)',
-          }}
-          padding={5}
-      >
-        <h1 className='titulo'>titulo </h1>
-        <p className='descricao'>descrição descrição descrição descrição descrição descrição</p>
+    <div>
+        <Card className="border border-primary-subtle">
+         <p >
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae
+        numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
+         </p>
         < TaskItem />
-      </Box>
+      </Card>
+    </div>
   );
 }
