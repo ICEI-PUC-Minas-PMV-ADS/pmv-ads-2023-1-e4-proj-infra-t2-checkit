@@ -1,22 +1,6 @@
-// export function TodoItem({ completed, id, title, toggleTodo, deleteTodo }) {
-//     return (
-//       <li>
-//         <label>
-//           <input
-//             type="checkbox"
-//             checked={completed}
-//             onChange={e => toggleTodo(id, e.target.checked)}
-//           />
-//           {title}
-//         </label>
-//         <button onClick={() => deleteTodo(id)} className="btn btn-danger">
-//           Delete
-//         </button>
-//       </li>
-//     )
-//   }
 import { useState } from "react";
 import { Checkbox } from "primereact/checkbox";
+
 
 export default function DynamicDemo() {
     const categories = [
@@ -44,7 +28,7 @@ export default function DynamicDemo() {
                 {categories.map((category) => {
                     return (
                         <div key={category.key} className="d-flex justify-content-between border border-light rounded my-2 p-2">
-                            <label htmlFor={category.key} className="ml-2">
+                            <label htmlFor={category.key} className="ml-2 text-light">
                                 {category.name}
                             </label>
                             <Checkbox inputId={category.key} name="category" value={category} onChange={onCategoryChange} checked={selectedCategories.some((item) => item.key === category.key)} />
