@@ -43,11 +43,11 @@ export default function DynamicDemo() {
             <div>
                 {categories.map((category) => {
                     return (
-                        <div key={category.key} className="flex align-items-center">
-                            <Checkbox inputId={category.key} name="category" value={category} onChange={onCategoryChange} checked={selectedCategories.some((item) => item.key === category.key)} />
+                        <div key={category.key} className="d-flex justify-content-between border border-light my-2 p-2">
                             <label htmlFor={category.key} className="ml-2">
                                 {category.name}
                             </label>
+                            <Checkbox inputId={category.key} name="category" value={category} onChange={onCategoryChange} checked={selectedCategories.some((item) => item.key === category.key)} />
                         </div>
                     );
                 })}
