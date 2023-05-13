@@ -1,0 +1,83 @@
+{
+  "hash": "0d6fb021",
+  "browserHash": "2baec5fb",
+  "optimized": {
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "2acace42",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "628d13b9",
+      "needsInterop": true
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.js",
+      "file": "react-router-dom.js",
+      "fileHash": "6734b8c4",
+      "needsInterop": false
+    },
+    "primereact/menubar": {
+      "src": "../../node_modules/primereact/menubar/menubar.esm.js",
+      "file": "primereact_menubar.js",
+      "fileHash": "96148ec6",
+      "needsInterop": false
+    },
+    "react-icons/bs": {
+      "src": "../../node_modules/react-icons/bs/index.esm.js",
+      "file": "react-icons_bs.js",
+      "fileHash": "a59b53c2",
+      "needsInterop": false
+    },
+    "primereact/card": {
+      "src": "../../node_modules/primereact/card/card.esm.js",
+      "file": "primereact_card.js",
+      "fileHash": "9624b4a8",
+      "needsInterop": false
+    },
+    "primereact/progressbar": {
+      "src": "../../node_modules/primereact/progressbar/progressbar.esm.js",
+      "file": "primereact_progressbar.js",
+      "fileHash": "5eb2c035",
+      "needsInterop": false
+    },
+    "primereact/colorpicker": {
+      "src": "../../node_modules/primereact/colorpicker/colorpicker.esm.js",
+      "file": "primereact_colorpicker.js",
+      "fileHash": "95685ba7",
+      "needsInterop": false
+    },
+    "primereact/checkbox": {
+      "src": "../../node_modules/primereact/checkbox/checkbox.esm.js",
+      "file": "primereact_checkbox.js",
+      "fileHash": "74b45fe2",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-OYDETGFK": {
+      "file": "chunk-OYDETGFK.js"
+    },
+    "chunk-QH6FZKZP": {
+      "file": "chunk-QH6FZKZP.js"
+    },
+    "chunk-SRAQOA3L": {
+      "file": "chunk-SRAQOA3L.js"
+    },
+    "chunk-ZFVKBAG3": {
+      "file": "chunk-ZFVKBAG3.js"
+    },
+    "chunk-RCDTQEAW": {
+      "file": "chunk-RCDTQEAW.js"
+    },
+    "chunk-X5JUNQCX": {
+      "file": "chunk-X5JUNQCX.js"
+    },
+    "chunk-QSQYAWSL": {
+      "file": "chunk-QSQYAWSL.js"
+    }
+  }
+}
