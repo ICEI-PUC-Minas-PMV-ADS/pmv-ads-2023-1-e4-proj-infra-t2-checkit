@@ -13,6 +13,7 @@ import Container from "../../Componentes/Container";
 import Input from "../../Componentes/Input";
 import Body from "../../Componentes/Body";
 import TextOverInput from "../../Componentes/TextOverInput";
+import { BASEPROJECTSURL } from "../../Services/URL";
 // import { useIsFocused } from '@react-navigation/native-stack';
 
 export default function NovoProjeto() {
