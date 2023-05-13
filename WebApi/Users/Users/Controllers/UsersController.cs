@@ -87,7 +87,7 @@ namespace Users.Controllers
         [HttpPost("authenticate")]
         public async Task<IActionResult> Authenticate(AuthenticateDto model)
         {
-            var userDb = await _userCollection.GetByEmailAsync(model.Email);
+            var userDb = await _userCollection.GetByEmailAsync(model.Email);          
 
             if (userDb is null ||
                 !BCrypt.Net.BCrypt.Verify(model.Password, userDb.Password))

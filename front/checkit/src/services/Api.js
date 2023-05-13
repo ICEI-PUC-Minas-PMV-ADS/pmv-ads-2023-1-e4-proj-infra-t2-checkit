@@ -15,6 +15,7 @@ return response.data
 export const login = async (email, password) => {
   console.log(email, password);
   const response = await api.post("/users/authenticate", { email, password });
+  //console.log(response.data);
   return response.data;
 };
 
