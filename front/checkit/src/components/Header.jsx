@@ -16,7 +16,7 @@ export default function MenuBar() {
             icon: <BsGearFill />,
         }
     ]
-    const end = < BsDoorClosedFill />
+    const end = < BsDoorClosedFill className="mx-3" />
 
     return (
         <div className="card">
