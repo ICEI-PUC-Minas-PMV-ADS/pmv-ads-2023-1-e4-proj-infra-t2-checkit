@@ -2,10 +2,9 @@ import React, { useEffect } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 // import { useIsFocused } from '@react-navigation/native-stack';
 
-export default function NovaTarefa() {
+export default function NovoProjeto() {
 
-  // const isFocused = useIsFocused();
-
+  // const isFocused = useIsFocused();    
   // TESTES
   //'https://10.0.2.2:5278/
   const getTarefa = async (id) => {
@@ -28,8 +27,15 @@ export default function NovaTarefa() {
 
   return (
     <View style={styles.container}> 
-      <Text>Meu Texto</Text>
+      <Text>Novo Projeto</Text>
+
+
+
+
       <Button onPress={() => getTarefa('64443d0709601a8510eb6f5b')} title="Get!" />
+
+
+
     </View>
   );
 }
