@@ -1,17 +1,18 @@
-import { useState } from "react"
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { register } from "../services/Api";
 
 export function RegisterForm() {
-    const [email, setEmail] = useState('');
-    const [pass, setPass] = useState('');
-    const [name, setName] = useState('');
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
+  const [name, setName] = useState("");
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const data = await register(name, email, pass);
-        console.log(data);
-    }
+  const handleSubmit = async (e) => {
+      e.preventDefault();
+      console.log(pass)
+    const data = await register(name, email, pass);
+    console.log(data);
+  };
 
     return (
         <>
