@@ -6,7 +6,7 @@ export default function Card() {
   return (
       <Box
         sx={{
-          width: 400,
+          width: 330,
           background: 'linear-gradient(to right bottom, #430089, #82ffa1)',
           }}
           padding={5}
