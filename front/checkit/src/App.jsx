@@ -10,6 +10,7 @@ import CSSGrid from './pages/index.jsx';
 import Teste from './pages/teste.jsx';
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
+import MenuBar from "./components/Header";
 
 
 
@@ -57,6 +58,7 @@ export default function App() {
 
   return (
     <>
+      <MenuBar />
       <Router>
         <Routes>
           <Route path="/" element={< Login />} />
