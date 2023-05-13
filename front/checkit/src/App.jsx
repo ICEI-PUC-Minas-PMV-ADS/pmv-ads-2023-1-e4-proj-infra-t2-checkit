@@ -7,7 +7,6 @@ import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CSSGrid from './pages/index.jsx';
-import Teste from './pages/teste.jsx';
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import MenuBar from "./components/Header";
@@ -65,7 +64,6 @@ export default function App() {
           <Route path="/register" element={< Register />} />
           <Route path="/index"
             element={< CSSGrid />} />
-          <Route path="/teste" element={<Teste />} />
         </Routes>
       </Router>
     </>
