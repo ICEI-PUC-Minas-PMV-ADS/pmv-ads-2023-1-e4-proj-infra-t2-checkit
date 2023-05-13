@@ -1,6 +1,17 @@
 import React, { useEffect } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
+import {
+  TextInput,
+  Portal,
+  Dialog,
+  Provider,
+  RadioButton,
+  
+} from "react-native-paper";
+
 import Container from "../../Componentes/Container";
+import Input from "../../Componentes/Input";
+import Body from "../../Componentes/Body";
 // import { useIsFocused } from '@react-navigation/native-stack';
 
 export default function NovoProjeto() {
@@ -28,12 +39,35 @@ export default function NovoProjeto() {
 
   return (
     <Container>
+      <Body>
 
-      <Text>Novo Projeto</Text>
+ 
+      <Text style={styles.Titulo}>Novo Projeto</Text>
 
+    <Text style={styles.textTitulos}>Nome do Projeto</Text>
+    <Input
+      mode="outlined"
+      activeOutlineColor={"#3d9d74"}
+      left={<TextInput.Icon icon='book-edit-outline'/>}
+    />
+    <Text style={styles.textTitulos}>Descrição</Text>
+    <TextInput
+      mode="outlined"
+      activeOutlineColor={"#3d9d74"}
+      multiline={true}
+      numberOfLines={5}
+      left={<TextInput.Icon icon='checkbook'/>}
+    />
+    <Text style={styles.textTitulos}>Prazo de Validade</Text>
 
-
+    <TextInput
+      mode="outlined"
+      activeOutlineColor={"#3d9d74"}
+   
+      left={<TextInput.Icon icon='calendar-month'/>}
+    />
       <Button onPress={() => getTarefa('64443d0709601a8510eb6f5b')} title="Get!" />
+      </Body>
     </Container>
 
 
@@ -48,4 +82,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 20,
   },
+  Titulo:{
+    fontSize:20
+
+
+
+
+  },
+
+
+
+  textTitulos: {
+    marginTop: 14,
+    textAlignVertical: 'center',
+    marginLeft: 14,
+    fontSize: 16,
+    fontWeight: 'bold'
+  }
 });
