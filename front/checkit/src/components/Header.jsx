@@ -1,5 +1,5 @@
 import { Menubar } from 'primereact/menubar';
-import { BsGrid1X2Fill, BsPlusSquareFill, BsGearFill } from "react-icons/bs"
+import { BsGrid1X2Fill, BsPlusSquareFill, BsGearFill, BsDoorClosedFill } from "react-icons/bs"
 
 
 export default function MenuBar() {
@@ -14,15 +14,13 @@ export default function MenuBar() {
         },
         {
             icon: <BsGearFill />,
-        },
-        {
-            icon: 'pi pi-fw pi-power-off'
         }
-    ];
+    ]
+    const end = < BsDoorClosedFill />
 
     return (
         <div className="card">
-            <Menubar model={items} />
+          <Menubar model={items} end={end} />
         </div>
     )
 }
