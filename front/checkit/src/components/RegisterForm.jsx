@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Link } from "react-router-dom";
-// import { register } from "../services/Api";
+import { register } from "../services/Api";
 
 export function RegisterForm() {
     const [email, setEmail] = useState('');
@@ -9,7 +9,7 @@ export function RegisterForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const data = await register(name, email, password);
+        const data = await register(name, email, pass);
         console.log(data);
     }
 
