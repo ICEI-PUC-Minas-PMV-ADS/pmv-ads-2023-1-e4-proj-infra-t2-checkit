@@ -23,6 +23,7 @@ const Main = () => {
           header: () => null,
         }}
       />
+      
       <Stack.Screen
         name="CadastroUsuario"
         component={CadastroUsuario}

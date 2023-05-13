@@ -4,7 +4,7 @@ import { BottomNavigation } from "react-native-paper";
 import MeuPerfil from "./Usuario/MeuPerfil";
 import MainHome from "./Usuario/MainHome";
 import CadastroUsuario from "./Usuario/CadastroUsuario";
-
+import NovoProjeto from "./Projeto/NovoProjeto";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 const Home = () => {
@@ -12,7 +12,9 @@ const Home = () => {
   const [index, setIndex] = useState(0);
 
   const [routes] = useState([
-    { key: "mainHome", title: "MainHome", focusedIcon: "book-edit-outline" },
+    { key: "novoProjeto", 
+    title: "Novo Projeto", 
+    focusedIcon: "book-edit-outline" },
     {
       key: "cadastroUsuario",
       title: "Cadastro Usuário",
@@ -29,6 +31,7 @@ const Home = () => {
     meuPerfil: MeuPerfil,
     mainHome: MainHome,
     cadastroUsuario: CadastroUsuario,
+    novoProjeto:NovoProjeto,
   });
 
   return (

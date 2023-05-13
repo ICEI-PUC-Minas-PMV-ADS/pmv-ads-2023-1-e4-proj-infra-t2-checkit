@@ -22,6 +22,10 @@ const App = () => {
     // Do something about login operation
     console.log("funciona");
 
+    
+
+
+    
     fetch(
       "https://api.nasa.gov/planetary/apod?api_key=gkimsne4yrAAj6jBFaTrAIUn9DxWkRlq4ZGDWqen"
     )
@@ -41,6 +45,8 @@ const App = () => {
   const onPressSignUp = () => {
     // Do something about signup operation
   };
+
+
   const [state, setState] = useState({
     email: "",
     password: "",

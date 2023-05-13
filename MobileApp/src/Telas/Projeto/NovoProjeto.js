@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
+import Container from "../../Componentes/Container";
 // import { useIsFocused } from '@react-navigation/native-stack';
 
 export default function NovoProjeto() {
@@ -26,17 +27,18 @@ export default function NovoProjeto() {
 
 
   return (
-    <View style={styles.container}> 
+    <Container>
+
       <Text>Novo Projeto</Text>
 
 
 
-
       <Button onPress={() => getTarefa('64443d0709601a8510eb6f5b')} title="Get!" />
+    </Container>
 
 
 
-    </View>
+    
   );
 }
 

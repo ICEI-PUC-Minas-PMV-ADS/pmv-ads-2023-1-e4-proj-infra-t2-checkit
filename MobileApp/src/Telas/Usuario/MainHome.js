@@ -19,6 +19,7 @@ export default function MainHome() {
   );
 }
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
