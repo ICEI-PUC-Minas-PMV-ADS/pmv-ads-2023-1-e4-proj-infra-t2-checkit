@@ -7,57 +7,55 @@ import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CSSGrid from './pages/index.jsx';
-import Login from "./Pages/Login";
+import Login from "./pages/login";
 import Register from "./Pages/Register";
-import MenuBar from "./components/Header";
 
 
 
 
 export default function App() {
 
-  const [todos, setTodos] = useState(() => {
-    const localValue = localStorage.getItem("ITEMS")
-    if (localValue == null) return []
+  // const [todos, setTodos] = useState(() => {
+  //   const localValue = localStorage.getItem("ITEMS")
+  //   if (localValue == null) return []
 
-    return JSON.parse(localValue)
-  })
+  //   return JSON.parse(localValue)
+  // })
 
-  useEffect(() => {
-    localStorage.setItem("ITEMS", JSON.stringify(todos))
-  }, [todos])
+  // useEffect(() => {
+  //   localStorage.setItem("ITEMS", JSON.stringify(todos))
+  // }, [todos])
 
-  function addTodo(title) {
-    setTodos(currentTodos => {
-      return [
-        ...currentTodos,
-        { id: crypto.randomUUID(), title, completed: false },
-      ]
-    })
-  }
+  // function addTodo(title) {
+  //   setTodos(currentTodos => {
+  //     return [
+  //       ...currentTodos,
+  //       { id: crypto.randomUUID(), title, completed: false },
+  //     ]
+  //   })
+  // }
 
-  function toggleTodo(id, completed) {
-    setTodos(currentTodos => {
-      return currentTodos.map(todo => {
-        if (todo.id === id) {
-          return { ...todo, completed }
-        }
+  // function toggleTodo(id, completed) {
+  //   setTodos(currentTodos => {
+  //     return currentTodos.map(todo => {
+  //       if (todo.id === id) {
+  //         return { ...todo, completed }
+  //       }
 
-        return todo
-      })
-    })
-  }
+  //       return todo
+  //     })
+  //   })
+  // }
 
-  function deleteTodo(id) {
-    setTodos(currentTodos => {
-      return currentTodos.filter(todo => todo.id !== id)
-    })
-  }
+  // function deleteTodo(id) {
+  //   setTodos(currentTodos => {
+  //     return currentTodos.filter(todo => todo.id !== id)
+  //   })
+  // }
 
 
   return (
     <>
-      <MenuBar />
       <Router>
         <Routes>
           <Route path="/" element={< Login />} />

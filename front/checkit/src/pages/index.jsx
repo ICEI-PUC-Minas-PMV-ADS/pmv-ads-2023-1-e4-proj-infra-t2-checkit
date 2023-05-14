@@ -1,9 +1,13 @@
 import ProjectCard from '../components/Card.jsx'
+import MenuBar from "../components/Header";
+
 
 export default function IndexGrid() {
   return (
-  <div className="container p-3">
-  <div className="d-flex flex-wrap text-center">
+    <>
+    <MenuBar />
+    <div className="container p-3">
+    <div className="d-flex flex-wrap text-center">
       <ProjectCard />
       <ProjectCard />
       <ProjectCard />
@@ -12,5 +16,6 @@ export default function IndexGrid() {
       <ProjectCard />
   </div>
   </div>
+    </>
   );
 }
