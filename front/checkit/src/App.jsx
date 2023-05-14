@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CSSGrid from './pages/index.jsx';
 import Login from "./pages/login";
 import Register from "./Pages/Register";
+import ProjectList from "./components/ProjectList";
 
 
 
@@ -62,6 +63,7 @@ export default function App() {
           <Route path="/register" element={< Register />} />
           <Route path="/index"
             element={< CSSGrid />} />
+          <Route path="/teste" element={< ProjectList />} />
         </Routes>
       </Router>
     </>
