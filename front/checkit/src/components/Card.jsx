@@ -8,8 +8,9 @@ import { BsPencil } from "react-icons/bs"
 
 
 
-export default function ProjectCard() {
+export default function ProjectCard(props) {
   const completedTasks = 40
+  const project = props
 
   const [color, setColor] = useState('e66465');
   const [color2, setColor2] = useState('9198e5');
@@ -27,11 +28,9 @@ export default function ProjectCard() {
             <BsPencil  />
           </div>
         </div>
-        <h6 className="h6 text-light mt-1 pt-3">prazo em 2 dias</h6>
-        <h3 className="p-3 text-light"> titulo aqui fia</h3>
-         <p className="px-3 text-justify text-light">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae
-         </p>
+        <h6 className="h6 text-light mt-1 pt-3">{project.dueDate}</h6>
+        <h3 className="p-3 text-light"> {project.name}</h3>
+         <p className="px-3 text-justify text-light">{project.status}</p>
          <ProgressBar className="mt-3 mx-3 progress-bar" style={{ height: '10px' }} value={completedTasks}></ProgressBar>
         < TaskItem className="text-light"/>
       </Card>
