@@ -1,0 +1,22 @@
+
+.wrapper {
+  width: 50%;
+  background-image: radial-gradient(#e66465, #9198e5);
+}
+
+.p-inputtext {
+  width: 100%;
+}
+
+h2 {
+  color: white;
+}
+
+body {
+  background: #FAF9F6
+}
+
+.p-button {
+  background: rgba(0, 0, 0, 0.2);
+  border: none;
+}

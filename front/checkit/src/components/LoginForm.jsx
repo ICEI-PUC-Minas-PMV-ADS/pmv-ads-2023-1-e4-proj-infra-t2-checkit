@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { login } from "../services/Api";
 import { InputText } from "primereact/inputtext";
 import { Button } from 'primereact/button';
+import '../style/login.css'
+
 
 
 
@@ -20,10 +22,14 @@ export function LoginForm() {
     navigate("/");
   };
 
+  const handleClick = () => {
+    navigate("/register");
+  }
+
   return (
-    <>
-      <form onSubmit={handleSubmit} className="new-item-form  text-center">
-        <div className="form-row">
+    <div className="form-container d-flex justify-content-center text-center">
+      <div className="wrapper rounded">
+      <form onSubmit={handleSubmit} className="p-5 mx-5 form-container">
           <h2>Login</h2>
           <div className="p-3">
             <span className="p-float-label">
@@ -42,15 +48,17 @@ export function LoginForm() {
               <label className="px-2" htmlFor="senha">Senha</label>
             </span>
           </div>
-        </div>
+          <div className="justify-content-around px-3">
+  `        <Button className="btn cyan-50" label="Login" type="submit"/>
+          </div>
+          <label htmlFor="register" className="justify-content-around p-3 mt-3 mb-0 text-muted">
+            Ainda não é cadastrado?
+          </label>
+          <div className="justify-content-around px-3">
+            <Button  className="btn" id="register" label="Criar conta" onClick={handleClick}/>
+          </div>
       </form>
-      <div className="p-3">
-        <Button className="btn" label="Login" type="submit"/>
-      <p className="small text-muted">Não tem uma conta?</p>
-      <Link to="/register">
-        <Button className="btn" id="register" label="Criar conta"/>
-      </Link>
-        </div>
-    </>
+      </div>
+    </div>
   );
 }
