@@ -10,7 +10,14 @@ import { BsPencil } from "react-icons/bs"
 
 export default function ProjectCard(props) {
   const completedTasks = 40
+
   const { project } = props
+
+  const startDate = new Date(project.dueDate);
+  const currentDate = new Date();
+
+  const timeDiff = Math.abs(startDate.getTime() - currentDate.getTime());
+  const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
   const [color, setColor] = useState('e66465');
   const [color2, setColor2] = useState('9198e5');
@@ -28,7 +35,7 @@ export default function ProjectCard(props) {
             <BsPencil  />
           </div>
         </div>
-        <h6 className="h6 text-light mt-1 pt-3">{project.dueDate}</h6>
+        <h6 className="h6 text-light mt-1 pt-3">Prazo final em {diffDays} dias</h6>
         <h3 className="p-3 text-light"> {project.name}</h3>
          {/* <p className="px-3 text-justify text-light">{project.status}</p> */}
          <ProgressBar className="mt-3 mx-3 progress-bar" style={{ height: '10px' }} value={completedTasks}></ProgressBar>
