@@ -7,8 +7,8 @@ using Tasks.Models;
 
 namespace ApiGateway.Controllers.TarefasCosntroller
 {
-    [Authorize]
-    [Route("api/[controller]")]
+/*    [Authorize]
+*/    [Route("api/[controller]")]
     [ApiController]
     public class TarefasController : ControllerBase
     {
@@ -58,12 +58,12 @@ namespace ApiGateway.Controllers.TarefasCosntroller
         public async Task<IActionResult> GetTaskFromProject([FromRoute] string id)
         {
             var result = await _httpClient.GetAsync($"https://localhost:7246/api/tarefas/getTaskProject/{id}");
-            //var a = await result.Content.ReadAsStringAsync();
+            var data = await result.Content.ReadAsStringAsync();
 
-            // Console.WriteLine(a);
+            
 
 
-            return Ok(result);
+            return Ok(data);
         }
     }
 }
