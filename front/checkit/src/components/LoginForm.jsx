@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../services/Api";
 import { InputText } from "primereact/inputtext";
 import { Button } from 'primereact/button';
+import '../style/login.css'
+
 
 
 
@@ -26,7 +28,8 @@ export function LoginForm() {
 
   return (
     <div className="form-container d-flex justify-content-center text-center">
-      <form onSubmit={handleSubmit} className="p-5 mx-5">
+      <div className="wrapper rounded">
+      <form onSubmit={handleSubmit} className="p-5 mx-5 form-container">
           <h2>Login</h2>
           <div className="p-3">
             <span className="p-float-label">
@@ -46,7 +49,7 @@ export function LoginForm() {
             </span>
           </div>
           <div className="justify-content-around px-3">
-  `        <Button className="btn" label="Login" type="submit"/>
+  `        <Button className="btn cyan-50" label="Login" type="submit"/>
           </div>
           <label htmlFor="register" className="justify-content-around p-3 mt-3 mb-0 text-muted">
             Ainda não é cadastrado?
@@ -55,6 +58,7 @@ export function LoginForm() {
             <Button  className="btn" id="register" label="Criar conta" onClick={handleClick}/>
           </div>
       </form>
+      </div>
     </div>
   );
 }

@@ -26,7 +26,8 @@ export function RegisterForm() {
 
     return (
       <div className="form-container d-flex justify-content-center text-center">
-            <form onSubmit={handleSubmit} className="p-5 mx-5">
+        <div className="wrapper rounded" >
+            <form onSubmit={handleSubmit} className="p-5 mx-5 form-container">
               <h2>Criar conta</h2>
               <div className="p-3">
                 <span className="p-float-label">
@@ -61,6 +62,7 @@ export function RegisterForm() {
   `        <Button className="btn" label="Login" onClick={handleClick}/>
           </div>
         </form>
+        </div>
     </div>
     )
 }
