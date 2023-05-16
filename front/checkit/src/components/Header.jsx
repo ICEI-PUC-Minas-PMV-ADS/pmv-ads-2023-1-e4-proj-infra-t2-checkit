@@ -32,7 +32,7 @@ export default function MenuBar() {
   return (
         <div className="card">
           <Menubar model={items} end={end} />
-          <Dialog visible={displayCreateForm} onHide={onHide}>
+          <Dialog visible={displayCreateForm} onHide={onHide} header="Novo projeto">
             <CreateProjectForm />
           </Dialog>
         </div>

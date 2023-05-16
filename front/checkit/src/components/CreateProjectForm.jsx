@@ -36,28 +36,38 @@ export default function CreateProjectForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-5">
-          <h2>Novo projeto</h2>
-          <div className="p-3">
+    <form onSubmit={handleSubmit} className="px-5 form-background">
+          <div className="p-inputgroup flex-1 py-2">
             <span className="p-float-label">
               <InputText id="titulo" value={titulo} onChange={(e) => setTitulo(e.value)} placeholder="Título do seu projeto"/>
               <label className="px-2" htmlFor="titulo">Título</label>
+               <span className="p-inputgroup-addon">
+                <i className="pi pi-list"></i>
+              </span>
             </span>
           </div>
-          <div className="p-3">
+          <div className="p-inputgroup flex-1 py-2">
             <span className="p-float-label">
               <Calendar value={prazo} onChange={(e) => setPrazo(e.value)} />
               <label className="px-2" htmlFor="Prazo">Prazo</label>
+              <span className="p-inputgroup-addon">
+                <i className="pi pi-calendar"></i>
+              </span>
             </span>
           </div>
           {tasks.map((task, index) => (
-          <div key={index} className="p-inputgroup flex-1">
-              <InputText placeholder="Tarefa" value={task} onChange={(e) => handleTaskChange(index, e.target.value)} />
-              <Button icon="pi pi-times" className="p-button-danger" onClick={() => handleRemoveTask(index)} />
+          <div key={index} className="p-inputgroup flex-1 py-2">
+              <span className="p-float-label">
+               <InputText placeholder="Tarefa" value={task} onChange={(e) => handleTaskChange(index, e.target.value)} />
+               <label className="px-2" htmlFor="tarefa">Tarefa</label>
+               <span className="p-inputgroup-addon">
+                 <i className="pi pi-times" onClick={() => handleRemoveTask(index)} ></i>
+                </span>
+              </span>
           </div>
           ))}
-       <Button type="button" label="Add Task" icon="pi pi-plus" onClick={handleAddTask} />
-          <div className="justify-content-around px-3">
+          <Button type="button" label="Add Task" icon="pi pi-plus" onClick={handleAddTask} />
+          <div className="justify-content-around py-2">
             <Button className="btn cyan-50" label="Criar novo projeto" type="submit"/>
           </div>
       </form>
