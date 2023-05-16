@@ -1,40 +1,44 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Checkbox } from "primereact/checkbox";
 
 
-export default function DynamicDemo() {
-    const categories = [
-        { name: 'Accounting', key: 'A' },
-        { name: 'Marketing', key: 'M' },
-        { name: 'Production', key: 'P' },
-        { name: 'Research', key: 'R' }
-    ];
-    const [selectedCategories, setSelectedCategories] = useState([categories[1]]);
 
-    const onCategoryChange = (e) => {
-        let _selectedCategories = [...selectedCategories];
+export default function TaskItem(props) {
+  const { tasks } = props
+  const [selectedTasks, setSelectedTasks] = useState([]);
 
-        if (e.checked)
-            _selectedCategories.push(e.value);
-        else
-            _selectedCategories = _selectedCategories.filter(category => category.key !== e.value.key);
+  const onTaskChange = (event) => {
+    const { checked, value } = event.target;
 
-        setSelectedCategories(_selectedCategories);
-    };
+    if (checked) {
+      setSelectedTasks([...selectedTasks, value]);
+    } else {
+      setSelectedTasks(selectedTasks.filter((task) => task.id !== value.id));
+    }
+  };
+
+  useEffect(() => {
+    const completedTasks = selectedTasks.length;
+    const totalTasks = tasks.length;
+    const progress = (completedTasks / totalTasks) * 100;
+  }, [selectedTasks, tasks]);
 
     return (
+
         <div className="p-3">
             <div>
-                {categories.map((category) => {
+            {tasks.map((task) => {
                     return (
-                        <div key={category.key} className="d-flex justify-content-between border border-light rounded my-2 p-2">
-                            <label htmlFor={category.key} className="ml-2 text-light">
-                                {category.name}
+                        <div key={task.id} className="d-flex justify-content-between border border-light rounded my-2 p-2">
+                            <label htmlFor={task.id} className="ml-2 text-light">
+                                {task.title}
                             </label>
-                            <Checkbox inputId={category.key} name="category" value={category} onChange={onCategoryChange} checked={selectedCategories.some((item) => item.key === category.key)} />
+                            <Checkbox inputId={task.id} name="task" value={task} onChange={onTaskChange}
+                              checked={selectedTasks.some((item) => item.id === task.id)}/>
                         </div>
                     );
-                })}
+                  })}
+
             </div>
         </div>
     )
