@@ -39,7 +39,7 @@ export default function ProjectCard(props) {
         <h3 className="p-3 text-light"> {project.title}</h3>
          {/* <p className="px-3 text-justify text-light">{project.descricao}</p> //adicionar "descricao" aqui*/}
          <ProgressBar className="mt-3 mx-3 progress-bar" style={{ height: '10px' }} value={completedTasks}></ProgressBar>
-        < TaskItem className="text-light"/>
+        < TaskItem tasks={project.tasks} className="text-light"/>
       </Card>
   );
 }

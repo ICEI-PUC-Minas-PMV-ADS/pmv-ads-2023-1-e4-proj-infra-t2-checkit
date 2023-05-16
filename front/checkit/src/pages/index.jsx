@@ -13,6 +13,7 @@ export default function IndexGrid() {
     <div className="container p-3">
       <div className="d-flex flex-wrap text-center">
       {projects.map(project => <ProjectCard project={project} key={project.id} />)}
+
       </div>
     </div>
     </>

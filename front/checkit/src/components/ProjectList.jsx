@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { getAllProjects } from "../services/Api.js";
 
 
-function ProjectList() {
+export default function ProjectList() {
   // const [projects, setProjects] = useState([]);
 
 
@@ -54,5 +54,3 @@ function ProjectList() {
 
   return updatedProjects;
 }
-
-export default ProjectList;
