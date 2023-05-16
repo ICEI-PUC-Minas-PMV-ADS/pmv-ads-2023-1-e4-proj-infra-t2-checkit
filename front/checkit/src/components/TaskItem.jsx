@@ -4,7 +4,7 @@ import { Checkbox } from "primereact/checkbox";
 
 
 export default function TaskItem(props) {
-  const { tasks } = props
+  const { tasks, onProgressChange } = props
   const [selectedTasks, setSelectedTasks] = useState([]);
 
   const onTaskChange = (event) => {
@@ -21,7 +21,8 @@ export default function TaskItem(props) {
     const completedTasks = selectedTasks.length;
     const totalTasks = tasks.length;
     const progress = (completedTasks / totalTasks) * 100;
-  }, [selectedTasks, tasks]);
+    onProgressChange(progress); // Invoke the callback function to update the progress value in the Card component
+  }, [selectedTasks, tasks, onProgressChange]);
 
     return (
 
