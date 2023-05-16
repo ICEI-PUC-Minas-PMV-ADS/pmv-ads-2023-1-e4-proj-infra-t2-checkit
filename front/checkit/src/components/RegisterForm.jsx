@@ -37,8 +37,8 @@ export function RegisterForm() {
               </div>
              <div className="p-3">
               <span className="p-float-label">
-                <InputText id="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="youremail@gmail.com"/>
-                <label className="px-2" htmlFor="email">Email</label>
+                <InputText id="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="youremail@mail.com"/>
+                <label className="px-2" htmlFor="email">E-mail</label>
               </span>
             </div>
             <div className="p-3">

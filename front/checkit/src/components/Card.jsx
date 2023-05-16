@@ -4,7 +4,6 @@ import { ProgressBar } from 'primereact/progressbar';
 import '../style/index.css';
 import { useState } from "react";
 import { ColorPicker } from 'primereact/colorpicker';
-import { BsPencil } from "react-icons/bs";
 import { Button } from 'primereact/button';
 import EditProject from './EditProject';
 import { Dialog } from 'primereact/dialog';
