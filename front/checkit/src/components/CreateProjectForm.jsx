@@ -4,11 +4,14 @@ import { InputText } from "primereact/inputtext";
 import { Button } from 'primereact/button';
 import { Calendar } from 'primereact/calendar';
 
-export function CreateProjectForm() {
+
+export default function CreateProjectForm() {
+
   const navigate = useNavigate();
 
   const [titulo, setTitulo] = useState(null);
   const [prazo, setPrazo] = useState(null);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,7 +37,6 @@ export function CreateProjectForm() {
           <div className="justify-content-around px-3">
           <Button className="btn cyan-50" label="Criar novo projeto" type="submit"/>
           </div>
-
       </form>
   )
 }
