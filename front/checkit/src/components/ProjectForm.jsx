@@ -65,36 +65,28 @@ export default function ProjectForm({ project, onSubmit }) {
 
   return (
     <form onSubmit={handleSubmit} className="px-5 form-background">
-          <div className="p-inputgroup flex-1 py-2">
+          <div className="p-inputgroup flex-1 py-4">
             <span className="p-float-label">
               <InputText id="title" value={title} onChange={(e) => setTitle(e.value)} placeholder="Título do seu projeto"/>
               <label className="px-2" htmlFor="title">Título</label>
-               <span className="p-inputgroup-addon">
-                <i className="pi pi-list"></i>
-              </span>
             </span>
           </div>
-          <div className="p-inputgroup flex-1 py-2">
+          <div className="p-inputgroup flex-1 py-3">
             <span className="p-float-label">
               <Calendar value={dueDate} onChange={(e) => setDueDate(e.value)} />
               <label className="px-2" htmlFor="duedate">Prazo</label>
-              <span className="p-inputgroup-addon">
-                <i className="pi pi-calendar"></i>
-              </span>
             </span>
           </div>
           {tasks.map((task, index) => (
-          <div key={index} className="p-inputgroup flex-1 py-2">
+          <div key={index} className="p-inputgroup flex-1 py-3">
               <span className="p-float-label">
                <InputText placeholder="Tarefa" value={task} onChange={(e) => handleTaskChange(index, e.target.value)} />
+               <Button icon="pi pi-times" className="btn" onClick={() => handleRemoveTask(index)}  />
                <label className="px-2" htmlFor="tarefa">Tarefa</label>
-               <span className="p-inputgroup-addon">
-                 <i className="pi pi-times" onClick={() => handleRemoveTask(index)} ></i>
-                </span>
               </span>
           </div>
           ))}
-          <Button type="button" className="btn-tarefa py-2" label="Add tarefa" icon="pi pi-plus" onClick={handleAddTask} />
+          <Button type="button" className="py-2" label="Add tarefa" icon="pi pi-plus" onClick={handleAddTask} />
           <div className="justify-content-around py-4">
             <Button className="btn cyan-50" label="Salvar" type="submit"/>
           </div>

@@ -1,17 +1,25 @@
-import { Card } from 'primereact/card'
-import TaskItem from './TaskItem'
+import { Card } from 'primereact/card';
+import TaskItem from './TaskItem';
 import { ProgressBar } from 'primereact/progressbar';
 import '../style/index.css';
 import { useState } from "react";
 import { ColorPicker } from 'primereact/colorpicker';
-import { BsPencil } from "react-icons/bs"
+import { BsPencil } from "react-icons/bs";
+import { Button } from 'primereact/button';
+import EditProject from './EditProject';
+import { Dialog } from 'primereact/dialog';
+
 
 
 
 export default function ProjectCard(props) {
   const [progress, setProgress] = useState(0);
+  const [displayEditForm, setDisplayEditForm] = useState(false);
 
-  const completedTasks = 40
+  const onHide = () => {
+    setDisplayEditForm(false);
+  };
+
 
   const { project } = props
 
@@ -33,9 +41,12 @@ export default function ProjectCard(props) {
               <ColorPicker className="colorpicker sticky-top px-3" value={color} onChange={(e) => setColor(e.value) } />
               <ColorPicker className="colorpicker" value={color2} onChange={(e) => setColor2(e.value) } />
           </div>
-          <div className="text-light px-3">
-            <BsPencil  />
-          </div>
+           <div className="text-light px-3">
+            <Button icon="pi pi-pencil" onClick={() => setDisplayEditForm(true)}/>
+            </div>
+          <Dialog visible={displayEditForm} onHide={onHide} header="Editar projeto">
+            <EditProject />
+          </Dialog>
         </div>
         <h6 className="h6 text-light mt-1 pt-3">Prazo final em {diffDays} dias</h6>
         <h3 className="p-3 text-light"> {project.title}</h3>
