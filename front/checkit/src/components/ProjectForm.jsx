@@ -16,15 +16,35 @@ export default function ProjectForm({ project, onSubmit }) {
     if (project) {
       setTitle(project.title || "");
       setDueDate(project.dueDate || null);
-      setTasks(project.tasks || []);
     }
   }, [project]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(e);
-    navigate("/");
-    onSubmit({ title, dueDate, tasks });
+    navigate("/index");
+
+  // // Save the project data
+  // const projectData = {
+  //   title: title,
+  //   dueDate: dueDate,
+  // };
+
+  // // Assuming you have a separate API endpoint to save projects
+  // const savedProject = await saveProject(projectData); // Save the project data
+
+  // // Save each task separately with the project ID
+  // const savedTasks = await Promise.all(
+  //   tasks.map((task) => saveTask({ projectId: savedProject.id, title: task.title }))
+  // );
+
+  // // Combine the saved project and tasks
+  // const updatedProject = {
+  //   ...savedProject,
+  //   tasks: savedTasks,
+  // };
+  // onSubmit(updatedProject);
+
   };
 
   const handleTaskChange = (index, value) => {
