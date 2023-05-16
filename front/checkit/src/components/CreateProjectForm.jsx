@@ -16,7 +16,8 @@ export function CreateProjectForm() {
     navigate("/");
   };
 
-<form onSubmit={handleSubmit} className="p-5 mx-5 form-container">
+  return (
+    <form onSubmit={handleSubmit} className="p-5 mx-5 form-container">
           <h2>Novo projeto</h2>
           <div className="p-3">
             <span className="p-float-label">
@@ -35,5 +36,5 @@ export function CreateProjectForm() {
           </div>
 
       </form>
-
+  )
 }
