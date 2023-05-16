@@ -1,22 +1,30 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { InputText } from "primereact/inputtext";
 import { Button } from 'primereact/button';
 import { Calendar } from 'primereact/calendar';
+import { useNavigate } from "react-router-dom";
 
 
-export default function CreateProjectForm() {
-
+export default function ProjectForm({ project, onSubmit }) {
   const navigate = useNavigate();
 
-  const [titulo, setTitulo] = useState(null);
-  const [prazo, setPrazo] = useState(null);
+  const [title, setTitle] = useState(null);
+  const [dueDate, setDueDate] = useState(null);
   const [tasks, setTasks] = useState(['']);
 
-  const handleSubmit = async (e) => {
+  useEffect(() => {
+    if (project) {
+      setTitle(project.title || "");
+      setDueDate(project.dueDate || null);
+      setTasks(project.tasks || []);
+    }
+  }, [project]);
+
+  const handleSubmit = (e) => {
     e.preventDefault();
     console.log(e);
     navigate("/");
+    onSubmit({ title, dueDate, tasks });
   };
 
   const handleTaskChange = (index, value) => {
@@ -39,8 +47,8 @@ export default function CreateProjectForm() {
     <form onSubmit={handleSubmit} className="px-5 form-background">
           <div className="p-inputgroup flex-1 py-2">
             <span className="p-float-label">
-              <InputText id="titulo" value={titulo} onChange={(e) => setTitulo(e.value)} placeholder="Título do seu projeto"/>
-              <label className="px-2" htmlFor="titulo">Título</label>
+              <InputText id="title" value={title} onChange={(e) => setTitle(e.value)} placeholder="Título do seu projeto"/>
+              <label className="px-2" htmlFor="title">Título</label>
                <span className="p-inputgroup-addon">
                 <i className="pi pi-list"></i>
               </span>
@@ -48,8 +56,8 @@ export default function CreateProjectForm() {
           </div>
           <div className="p-inputgroup flex-1 py-2">
             <span className="p-float-label">
-              <Calendar value={prazo} onChange={(e) => setPrazo(e.value)} />
-              <label className="px-2" htmlFor="Prazo">Prazo</label>
+              <Calendar value={dueDate} onChange={(e) => setDueDate(e.value)} />
+              <label className="px-2" htmlFor="duedate">Prazo</label>
               <span className="p-inputgroup-addon">
                 <i className="pi pi-calendar"></i>
               </span>
