@@ -6,10 +6,6 @@ import ProjectList from '../components/ProjectList';
 export default function IndexGrid() {
   const projects = ProjectList();
 
-  let date = new Date().toLocaleDateString();
-  console.log(date);
-
-
   return (
     <>
     <MenuBar />

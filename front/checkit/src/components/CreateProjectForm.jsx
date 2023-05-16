@@ -11,7 +11,7 @@ export default function CreateProjectForm() {
 
   const [titulo, setTitulo] = useState(null);
   const [prazo, setPrazo] = useState(null);
-
+  const [tasks, setTasks] = useState(['']);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,23 +19,46 @@ export default function CreateProjectForm() {
     navigate("/");
   };
 
+  const handleTaskChange = (index, value) => {
+    const updatedTasks = [...tasks];
+    updatedTasks[index] = value;
+    setTasks(updatedTasks);
+  };
+
+  const handleAddTask = () => {
+    setTasks([...tasks, '']);
+  };
+
+  const handleRemoveTask = (index) => {
+    const updatedTasks = [...tasks];
+    updatedTasks.splice(index, 1);
+    setTasks(updatedTasks);
+  };
+
   return (
-    <form onSubmit={handleSubmit} className="p-5 mx-5 form-container">
+    <form onSubmit={handleSubmit} className="p-5">
           <h2>Novo projeto</h2>
           <div className="p-3">
             <span className="p-float-label">
-              <InputText id="nome" value={titulo} placeholder="Título do seu projeto"/>
+              <InputText id="titulo" value={titulo} onChange={(e) => setTitulo(e.value)} placeholder="Título do seu projeto"/>
               <label className="px-2" htmlFor="titulo">Título</label>
             </span>
           </div>
           <div className="p-3">
             <span className="p-float-label">
-              <Calendar value={prazo} onChange={(e) => setDate(e.value)} />
+              <Calendar value={prazo} onChange={(e) => setPrazo(e.value)} />
               <label className="px-2" htmlFor="Prazo">Prazo</label>
             </span>
           </div>
+          {tasks.map((task, index) => (
+          <div key={index} className="p-inputgroup flex-1">
+              <InputText placeholder="Tarefa" value={task} onChange={(e) => handleTaskChange(index, e.target.value)} />
+              <Button icon="pi pi-times" className="p-button-danger" onClick={() => handleRemoveTask(index)} />
+          </div>
+          ))}
+       <Button type="button" label="Add Task" icon="pi pi-plus" onClick={handleAddTask} />
           <div className="justify-content-around px-3">
-          <Button className="btn cyan-50" label="Criar novo projeto" type="submit"/>
+            <Button className="btn cyan-50" label="Criar novo projeto" type="submit"/>
           </div>
       </form>
   )

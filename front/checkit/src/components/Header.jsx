@@ -13,11 +13,10 @@ export default function MenuBar() {
   const items = [
         {
             icon: <BsGrid1X2Fill />,
-            command: () => setDisplayCreateForm(true)
-
         },
         {
-            icon: <BsPlusSquareFill />
+            icon: <BsPlusSquareFill />,
+            command: () => setDisplayCreateForm(true)
 
         },
         {
