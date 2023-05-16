@@ -96,7 +96,7 @@ export default function ProjectForm({ project, onSubmit }) {
           ))}
           <Button type="button" className="btn-tarefa py-2" label="Add tarefa" icon="pi pi-plus" onClick={handleAddTask} />
           <div className="justify-content-around py-4">
-            <Button className="btn cyan-50" label="Criar novo projeto" type="submit"/>
+            <Button className="btn cyan-50" label="Salvar" type="submit"/>
           </div>
       </form>
   )
