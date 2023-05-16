@@ -1,7 +1,7 @@
 import { Menubar } from 'primereact/menubar';
 import { useState } from 'react';
 import { BsGrid1X2Fill, BsPlusSquareFill, BsGearFill, BsDoorClosedFill } from "react-icons/bs"
-import ProjectForm from './ProjectForm';
+import CreateProject from './CreateProject';
 import { Dialog } from 'primereact/dialog';
 
 
@@ -33,7 +33,7 @@ export default function MenuBar() {
         <div className="card">
           <Menubar model={items} end={end} />
           <Dialog visible={displayCreateForm} onHide={onHide} header="Novo projeto">
-            <ProjectForm />
+            <CreateProject />
           </Dialog>
         </div>
     )
