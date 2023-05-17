@@ -3,7 +3,7 @@
 public class Tarefa
 {
     public string Id { get; set; }
-    public string ProjectId { get; set; }
+    //public string ProjectId { get; set; }
 
     public string TituloTarefa { get; set; }
     public string Descricao { get; set; }

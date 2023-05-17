@@ -30,8 +30,7 @@ namespace ApiGateway.Controllers.Users
         [HttpPost]
         public async Task<IActionResult> PostUser([FromBody] User user)
         {      
-            var result = await _httpClient.PostAsJsonAsync($"https://localhost:7295/api/Users", user);
-           // Console.WriteLine($"{result.Headers.Location}");
+            var result = await _httpClient.PostAsJsonAsync($"https://localhost:7295/api/Users", user);           
 
             return Ok(result);
         }
@@ -53,17 +52,15 @@ namespace ApiGateway.Controllers.Users
 
             return Ok();
         }
-
-        // Precisa de Retornar TOKEN
+        
         [AllowAnonymous]
         [HttpPost("authenticate")]
         public async Task<IActionResult> Authenticate([FromBody] Authenticate login)
         {
             var result = await _httpClient.PostAsJsonAsync($"https://localhost:7295/api/users/authenticate", login);            
-            var resultJson = await result.Content.ReadAsStringAsync();
+            var resultJson = await result.Content.ReadAsStringAsync(); // Token
             
-            return Ok(resultJson);
-            //return Ok(result);
+            return Ok(resultJson);            
         }
     }
 }

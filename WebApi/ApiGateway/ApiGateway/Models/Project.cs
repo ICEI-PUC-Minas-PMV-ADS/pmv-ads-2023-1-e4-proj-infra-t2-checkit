@@ -10,6 +10,6 @@ namespace ApiGateway.Models
         public DateTime DueDate { get; set; }       
         public string Status { get; set; }
 
-      //  public List<string?> TarefaId { get; set; } // Add teste
+        public List<string?> TarefaId { get; set; } // Add teste
     }
 }

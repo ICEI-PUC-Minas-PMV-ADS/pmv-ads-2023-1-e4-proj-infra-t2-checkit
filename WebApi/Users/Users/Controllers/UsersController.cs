@@ -8,7 +8,7 @@ using System;
 
 namespace Users.Controllers
 {
-   // [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -18,20 +18,20 @@ namespace Users.Controllers
         public UsersController(UserService userCollection) =>
              _userCollection = userCollection;
 
-        //[Authorize(Roles = "Admin")]
-        [HttpGet]
-        public async Task<List<User>> GetAll()
-        {
-            return await _userCollection.GetAllAsync();
-        }
+        //  [Authorize(Roles = "Admin")]
+        //[HttpGet]
+        //public async Task<List<User>> GetAll()
+        //{
+        //    return await _userCollection.GetAllAsync();
+        //}
 
         [HttpGet("{id:length(24)}")]
         public async Task<ActionResult<User>> GetById(string id)
         {
             var userDb = await _userCollection.GetByIdAsync(id);
-
+            
             if (userDb is null) return NotFound();
-
+            
             return Ok(userDb);
         }
 

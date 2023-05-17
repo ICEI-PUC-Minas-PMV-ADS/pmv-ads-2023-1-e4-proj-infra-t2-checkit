@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ApiGateway.Controllers.Projects
 {
-    /*[Authorize]*/
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProjectsController : ControllerBase
@@ -22,6 +22,7 @@ namespace ApiGateway.Controllers.Projects
         {
             var result = await _httpClient.GetAsync("https://localhost:7152/api/Projects");
             var allProjects = await result.Content.ReadAsStringAsync();
+
             return allProjects is null? NotFound() : Ok(allProjects);
         }
 
