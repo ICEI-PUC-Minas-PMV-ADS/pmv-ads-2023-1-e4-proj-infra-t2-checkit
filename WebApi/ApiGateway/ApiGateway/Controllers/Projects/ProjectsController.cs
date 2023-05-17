@@ -23,9 +23,8 @@ namespace ApiGateway.Controllers.Projects
             var result = await _httpClient.GetAsync("https://localhost:7152/api/Projects");
             var allProjects = await result.Content.ReadAsStringAsync();
 
-            return allProjects is null? NotFound() : Ok(allProjects);
+            return allProjects is null ? NotFound() : Ok(allProjects);
         }
-
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProject([FromRoute] string id)
@@ -34,7 +33,7 @@ namespace ApiGateway.Controllers.Projects
             var projectResult = await result.Content.ReadAsStringAsync();
 
             return projectResult is null ? NotFound() : Ok(projectResult);
-        }                      
+        }
 
         [HttpPost()]
         public async Task<IActionResult> PostProject([FromBody] Project project)
@@ -43,10 +42,10 @@ namespace ApiGateway.Controllers.Projects
 
             return Ok(result);
         }
-      
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProject([FromRoute] string id, [FromBody] Project project)
-        {           
+        {
             var result = await _httpClient.PutAsJsonAsync($"https://localhost:7152/api/Projects/{id}", project);
 
             return Ok(result);
@@ -58,6 +57,16 @@ namespace ApiGateway.Controllers.Projects
             await _httpClient.DeleteAsync($"https://localhost:7152/api/Projects/{id}");
 
             return Ok();
+        }
+
+        // Retorna os Ids das Tarefas de um projeto
+        [HttpGet("GetTaskFromProject/{id}")]
+        public async Task<IActionResult> GetTaskFromProject([FromRoute] string id)
+        {
+            var result = await _httpClient.GetAsync($"https://localhost:7152/api/Projects/GetTaskFromProject/{id}");
+            var data = await result.Content.ReadAsStringAsync();            
+
+            return Ok(data);
         }
     }
 }

@@ -51,15 +51,5 @@ namespace ApiGateway.Controllers.TarefasCosntroller
 
             return Ok();
         }
-
-
-        [HttpGet("getTaskProject/{id}")]
-        public async Task<IActionResult> GetTaskFromProject([FromRoute] string id)
-        {
-            var result = await _httpClient.GetAsync($"https://localhost:7246/api/tarefas/getTaskProject/{id}");
-            var data = await result.Content.ReadAsStringAsync();
-
-            return Ok(data);
-        }
     }
 }

@@ -19,7 +19,7 @@ namespace ProjectManager.Models
             DueDate = request.DueDate!.Value;
             Members = request.Member!;
             Status = request.Status!;
-            TarefaId = request.TarefaId;
+            TarefaId = request.TarefaId!;
         }
 
         public Project(string id, string title, DateTime createdAt, string createdBy, DateTime updatedAt, string updatedBy, DateTime dueDate, List<Member> members, string status, List<string?> tarefaId)

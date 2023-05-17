@@ -4,14 +4,10 @@ using ProjectManager.Controllers.Requests;
 using ProjectManager.Models;
 using ProjectManager.Services.Projects;
 using System.Net;
-using Newtonsoft.Json;
-
-using Tasks.Models;
-using Newtonsoft.Json.Linq;
 
 namespace ProjectManager.Controllers
 {
-    //[Authorize]
+   //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProjectsController : ControllerBase
@@ -96,24 +92,19 @@ namespace ProjectManager.Controllers
                 
             return Ok();
         }
-      /*  [HttpPut(template: "Projects/AddTask/{id}")]
+
+
+        [HttpGet("GetTaskFromProject/{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> AddIdTarefa([FromRoute] string id)
+        public async Task<IActionResult> GetTaskFromProject(string id)
         {
-
-            var tarefa = await _httpClient.GetAsync($"https://localhost:5278/api/Tarefas/{id}");
-            var a = await tarefa.Content.ReadAsStringAsync();
-            JObject JSON = JObject.Parse(a);
-
-            //Testando o retorno da Api gateway depois de do retorno do serviço de tarefas
-            *//* await _projectService.Update();*//*
-
-            return Ok(a);
-        }  */     
-
+            var project = await _projectService.Get(id);          
+            
+            return Ok(project.TarefaId);
+        }
 
         //private void GerarLinks(Project model) {
 

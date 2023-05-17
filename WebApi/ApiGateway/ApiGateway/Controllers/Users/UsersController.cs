@@ -23,26 +23,23 @@ namespace ApiGateway.Controllers.Users
             var userResult = await result.Content.ReadAsStringAsync();
 
             return userResult is null ? NotFound() : Ok(userResult);
-       
         }
 
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> PostUser([FromBody] User user)
-        {      
-            var result = await _httpClient.PostAsJsonAsync($"https://localhost:7295/api/Users", user);           
+        {
+            var result = await _httpClient.PostAsJsonAsync($"https://localhost:7295/api/Users", user);
 
             return Ok(result);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser([FromBody] User user, [FromRoute] string id)
-        {            
-            // Password vindo na request, acertar
+        {
             var result = await _httpClient.PutAsJsonAsync($"https://localhost:7295/api/Users/{id}", user);
 
             return Ok(result);
-
         }
 
         [HttpDelete("{id}")]
@@ -52,15 +49,15 @@ namespace ApiGateway.Controllers.Users
 
             return Ok();
         }
-        
+
         [AllowAnonymous]
         [HttpPost("authenticate")]
         public async Task<IActionResult> Authenticate([FromBody] Authenticate login)
         {
-            var result = await _httpClient.PostAsJsonAsync($"https://localhost:7295/api/users/authenticate", login);            
+            var result = await _httpClient.PostAsJsonAsync($"https://localhost:7295/api/users/authenticate", login);
             var resultJson = await result.Content.ReadAsStringAsync(); // Token
-            
-            return Ok(resultJson);            
+
+            return Ok(resultJson);
         }
     }
 }
