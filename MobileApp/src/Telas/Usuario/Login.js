@@ -1,44 +1,41 @@
 import React, { useState } from "react";
 import API from "../../Services/webapiservices";
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
-  useColorScheme,
   View,
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from "react-native/Libraries/NewAppScreen";
 const App = () => {
+  const [state, setState] = useState({
+    email: "",
+    senha: "",
+  });
+
   const onPressLogin = async () => {
-    // Do something about login operation
     console.log("funciona");
 
-    
-
-
-    
-    fetch(
-      "https://api.nasa.gov/planetary/apod?api_key=gkimsne4yrAAj6jBFaTrAIUn9DxWkRlq4ZGDWqen"
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        // Do something with the data
+    if (!email || !senha) {
+      setMissInfo(true); // Ausência de email e/ou senha
+      onToggleSnackBar();
+      setAviso("Por favor, insira o email e a senha");
+    } else {
+      console.log("hadiosdvfdahspk")
+      postLogin({
+        email: email,
+        senha: senha,
+      
       })
-      .catch((error) => {
-        console.log(error);
-        // Handle any errors
-      });
+        .then((response) => {
+          if (response.message == "Usuário não cadastrado") {
+            setMissInfo(true); // Infica que o usuário não esta cadastrado
+            setAviso("Email ou senha incorretos");
+          }
+        })
+        .catch((e) => console.log(e));
+    } // Implementar quando o usuário não for cadastrado
+    // Do something about login operation
   };
   const onPressForgotPassword = () => {
     // Do something about forgot password operation
@@ -47,39 +44,36 @@ const App = () => {
     // Do something about signup operation
   };
 
-
-  const [state, setState] = useState({
-    email: "",
-    password: "",
-  });
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tire seus projetos do papel com CheckIt!</Text>
+      <Text style={styles.title}>Tire seus projetos do papel com CheckIt! </Text>
       <View style={styles.inputView}>
+
+        <Text style={styles.infoInputText}>E-mail</Text>
         <TextInput
           style={styles.inputText}
-          placeholder="E-mail"
           placeholderTextColor="#003f5c"
           onChangeText={(text) => setState({ email: text })}
         />
-      </View>
-      <View style={styles.inputView}>
+
+
+        <Text style={styles.infoInputText}>Senha</Text>
         <TextInput
           style={styles.inputText}
           secureTextEntry
-          placeholder="Senha"
           placeholderTextColor="#003f5c"
-          onChangeText={(text) => setState({ password: text })}
+          onChangeText={(text) => setState({ senha: text })}
         />
       </View>
-      <TouchableOpacity onPress={onPressForgotPassword}>
-        <Text style={styles.forgotText}>Esqueceu a senha?</Text>
-      </TouchableOpacity>
+
+
       <TouchableOpacity onPress={onPressLogin} style={styles.loginBtn}>
         <Text style={styles.loginText}>Entrar </Text>
       </TouchableOpacity>
+
+
       <TouchableOpacity onPress={onPressSignUp}>
-        <Text style={styles.signUpText}>Ainda não tem conta? Cadastre-se</Text>
+        <Text style={styles.signUpText}>Ainda não tem uma conta? Cadastre-se!</Text>
       </TouchableOpacity>
     </View>
   );
@@ -89,13 +83,16 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#ffffff",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-between",
   },
   title: {
+    height: 200,
     fontWeight: "bold",
-    fontSize: 30,
+    fontSize: 25,
     color: "#000000",
-    marginBottom: 40,
+    marginTop: 85,
+    top:30,
+    padding: 50
   },
   inputView: {
     width: "80%",
@@ -103,16 +100,21 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffff",
     borderRadius: 11,
     height: 50,
-    marginBottom: 20,
+    marginBottom: 2,
     justifyContent: "center",
-    padding: 20,
+    display: "flex"
   },
   inputText: {
     height: 50,
-    color: "white",
+    marginBottom: 20,
+    color: "black",
+    borderColor: '#000000',
+    borderWidth: 1,
+    borderRadius: 5,
+    display: "flex"
   },
   signUpText: {
-    padding: 45,
+    bottom: 70,
     color: "#505050",
     fontSize: 11,
   },
@@ -130,9 +132,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 40,
     marginBottom: 10,
+    display: "flex"
   },
   loginText: {
     color: "#ffffff",
   },
+  infoInputText: {
+    fontSize: 12
+  }
 });
 export default App;
