@@ -20,9 +20,10 @@ namespace ProjectManager.Models
             Members = request.Member!;
             Status = request.Status!;
             TarefaId = request.TarefaId!;
+            UserId = request.UserId!;
         }
 
-        public Project(string id, string title, DateTime createdAt, string createdBy, DateTime updatedAt, string updatedBy, DateTime dueDate, List<Member> members, string status, List<string?> tarefaId)
+        public Project(string id, string title, DateTime createdAt, string createdBy, DateTime updatedAt, string updatedBy, DateTime dueDate, List<Member> members, string status, List<string?> tarefaId, string userId)
         {
             Id = id;
             Title = title;
@@ -34,6 +35,7 @@ namespace ProjectManager.Models
             Members = members;
             Status = status;
             TarefaId = tarefaId;
+            UserId = userId;
         }
            
 
@@ -52,6 +54,7 @@ namespace ProjectManager.Models
         public DateTime DueDate { get; set; }
         public List<Member> Members { get; set; }
         public List<string?> TarefaId { get; set; }
+        public string UserId { get; set; }
     }
 
     public enum StatusProject
