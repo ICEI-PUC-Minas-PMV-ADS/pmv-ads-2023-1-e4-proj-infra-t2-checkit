@@ -13,12 +13,11 @@ namespace Users.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly UserService _userCollection;
+        private readonly UserService _userCollection;       
 
         public UsersController(UserService userCollection) =>
-             _userCollection = userCollection;
+             _userCollection = userCollection;      
 
-        //  [Authorize(Roles = "Admin")]
         //[HttpGet]
         //public async Task<List<User>> GetAll()
         //{
@@ -29,6 +28,8 @@ namespace Users.Controllers
         public async Task<ActionResult<User>> GetById(string id)
         {
             var userDb = await _userCollection.GetByIdAsync(id);
+
+
             
             if (userDb is null) return NotFound();
             
@@ -44,7 +45,7 @@ namespace Users.Controllers
                 Name = model.Name,
                 Email = model.Email,
                 Password = BCrypt.Net.BCrypt.HashPassword(model.Password),
-                Role = model.Role
+                //Role = model.Role
             };
 
             await _userCollection.CreateAsync(newUser);
@@ -64,7 +65,7 @@ namespace Users.Controllers
             updatedUserDb.Name = model.Name;
             updatedUserDb.Email = model.Email;
             updatedUserDb.Password = BCrypt.Net.BCrypt.HashPassword(model.Password);
-            updatedUserDb.Role = model.Role;
+           // updatedUserDb.Role = model.Role;
 
             await _userCollection.UpdateAsync(id, updatedUserDb);
 
