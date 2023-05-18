@@ -8,30 +8,31 @@ using System;
 
 namespace Users.Controllers
 {
-   // [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly UserService _userCollection;
+        private readonly UserService _userCollection;       
 
         public UsersController(UserService userCollection) =>
-             _userCollection = userCollection;
+             _userCollection = userCollection;      
 
-        //[Authorize(Roles = "Admin")]
-        [HttpGet]
-        public async Task<List<User>> GetAll()
-        {
-            return await _userCollection.GetAllAsync();
-        }
+        //[HttpGet]
+        //public async Task<List<User>> GetAll()
+        //{
+        //    return await _userCollection.GetAllAsync();
+        //}
 
         [HttpGet("{id:length(24)}")]
         public async Task<ActionResult<User>> GetById(string id)
         {
             var userDb = await _userCollection.GetByIdAsync(id);
 
-            if (userDb is null) return NotFound();
 
+            
+            if (userDb is null) return NotFound();
+            
             return Ok(userDb);
         }
 
@@ -44,7 +45,7 @@ namespace Users.Controllers
                 Name = model.Name,
                 Email = model.Email,
                 Password = BCrypt.Net.BCrypt.HashPassword(model.Password),
-                Role = model.Role
+                //Role = model.Role
             };
 
             await _userCollection.CreateAsync(newUser);
@@ -64,7 +65,7 @@ namespace Users.Controllers
             updatedUserDb.Name = model.Name;
             updatedUserDb.Email = model.Email;
             updatedUserDb.Password = BCrypt.Net.BCrypt.HashPassword(model.Password);
-            updatedUserDb.Role = model.Role;
+           // updatedUserDb.Role = model.Role;
 
             await _userCollection.UpdateAsync(id, updatedUserDb);
 

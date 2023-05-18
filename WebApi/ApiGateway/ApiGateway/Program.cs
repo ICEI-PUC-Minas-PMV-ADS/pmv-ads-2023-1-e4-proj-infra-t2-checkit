@@ -32,10 +32,6 @@ builder.Services.AddAuthentication(options =>
        };
    });
 
-// Ocelot Configuration
-//builder.Configuration.AddJsonFile("configuration.json", optional: false, reloadOnChange: true);
-//builder.Services.AddOcelot(builder.Configuration);
-
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -50,10 +46,7 @@ app.UseSwaggerUI(options =>
     options.RoutePrefix = string.Empty;
 });
 
-app.MapControllers(); // Add
-//await app.UseOcelot(); // Add
-
-//app.MapGet("/", () => "");
+app.MapControllers();
 
 app.UseCors(option => option.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 

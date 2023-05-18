@@ -18,7 +18,7 @@ namespace ProjectManager.Services.Projects
 
             _projectsCollection = mongoDatabase.GetCollection<Project>(
                 projectManagementDatabaseSettings.Value.ProjectManagementName);
-        }
+        }       
 
         public async Task Register(Project project)
         {

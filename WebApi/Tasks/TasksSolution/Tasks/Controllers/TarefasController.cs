@@ -73,14 +73,14 @@ public class TarefasController : ControllerBase
     }
 
 
-    [HttpGet("getTaskProject/{id}")]
-    public async Task<List<Tarefa>> GetTaskFromProject(string id)
-    {
-        var tarefaList = await _tarefasCollection.GetAllIdProjectInTasks(id);
+    //[HttpGet("getTaskProject/{id}")]
+    //public async Task<List<Tarefa>> GetTaskFromProject(string id)
+    //{
+    //    var tarefaList = await _tarefasCollection.GetAllIdProjectInTasks(id);
 
       
-         return tarefaList;
-    }
+    //     return tarefaList;
+    //}
 
 
     private void GerarLinks(Tarefa model)
