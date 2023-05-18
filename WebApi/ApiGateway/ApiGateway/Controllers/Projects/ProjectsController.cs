@@ -1,7 +1,9 @@
 ﻿using ApiGateway.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using System.Text;
+using System.Text.Json;
 
 namespace ApiGateway.Controllers.Projects
 {
@@ -18,9 +20,12 @@ namespace ApiGateway.Controllers.Projects
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllProjectAsync()
+        public async Task<IActionResult> GetAllProjectsThisUserAsync()
         {
-            var result = await _httpClient.GetAsync("https://localhost:7152/api/Projects");
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var result = await _httpClient.GetAsync($"https://localhost:7152/api/Projects/getAllProjectsThisUser/{userId}");
+
             var allProjects = await result.Content.ReadAsStringAsync();
 
             return allProjects is null ? NotFound() : Ok(allProjects);
@@ -38,6 +43,10 @@ namespace ApiGateway.Controllers.Projects
         [HttpPost()]
         public async Task<IActionResult> PostProject([FromBody] Project project)
         {
+            // Get UserId
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            project.UserId = userId;
+
             var result = await _httpClient.PostAsJsonAsync($"https://localhost:7152/api/Projects", project);
 
             return Ok(result);
@@ -46,6 +55,9 @@ namespace ApiGateway.Controllers.Projects
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProject([FromRoute] string id, [FromBody] Project project)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            project.UserId = userId;
+
             var result = await _httpClient.PutAsJsonAsync($"https://localhost:7152/api/Projects/{id}", project);
 
             return Ok(result);

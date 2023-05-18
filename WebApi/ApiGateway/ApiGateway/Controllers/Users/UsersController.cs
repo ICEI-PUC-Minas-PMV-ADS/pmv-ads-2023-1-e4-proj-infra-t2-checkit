@@ -1,6 +1,7 @@
 ﻿using ApiGateway.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace ApiGateway.Controllers.Users
 {
@@ -20,7 +21,7 @@ namespace ApiGateway.Controllers.Users
         public async Task<IActionResult> GetUser([FromRoute] string id)
         {
             var result = await _httpClient.GetAsync($"https://localhost:7295/api/Users/{id}");
-            var userResult = await result.Content.ReadAsStringAsync();
+            var userResult = await result.Content.ReadAsStringAsync();            
 
             return userResult is null ? NotFound() : Ok(userResult);
         }
