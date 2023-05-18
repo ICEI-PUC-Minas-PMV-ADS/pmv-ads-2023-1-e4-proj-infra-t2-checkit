@@ -22,14 +22,14 @@ namespace ProjectManager.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet("GetAllProjectsThisUserAsync/{userId}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType((int)HttpStatusCode.Forbidden)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public async Task<List<Project>> GetAll()
+        public async Task<List<Project>> GetAll(string userId)
         {
-            return await _projectService.GetAllAsync();
+            return await _projectService.GetAllAsync(userId);
         }
 
 
@@ -55,7 +55,7 @@ namespace ProjectManager.Controllers
         public async Task<IActionResult> Register([FromBody] RegisterOrUpdateProjectRequest request)
         {
             var input = new Project(request);
-
+            
             await _projectService.Register(input);
 
             return CreatedAtAction("Get", new { id = input.Id }, input);
