@@ -14,10 +14,12 @@ const Input = (props) => {
 
 const styles = StyleSheet.create({
   input: {
-    height: 48,
+    height: 43,
     fontSize: 16,
     backgroundColor: "#FFFAFA",
-    margin: 3,
+   
+  
+  
   }
 });
 

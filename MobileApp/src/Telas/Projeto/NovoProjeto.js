@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import {
   TextInput,
@@ -7,6 +7,7 @@ import {
   Provider,
   RadioButton,
   Button,
+  FAB
 } from "react-native-paper";
 
 import Container from "../../Componentes/Container";
@@ -15,13 +16,23 @@ import Body from "../../Componentes/Body";
 import TextOverInput from "../../Componentes/TextOverInput";
 import { BASEPROJECTSURL } from "../../Services/URL";
 import { Botao } from "../../Componentes/Botao";
+import { ScrollView } from "react-native-gesture-handler";
+
 
 // import { useIsFocused } from '@react-navigation/native-stack';
 
 export default function NovoProjeto() {
+  const [tarefas,setTarefas] = useState([])
+  const textTask = tarefas.length==0?'Adicione Uma Tarefa a seu Projeto!':'Adicione Mais Tarefas ao seu projeto'
+  
+
+  
   return (
+    <ScrollView>
+
     <Container>
       <Body>
+
         <Text style={styles.Titulo}>Novo Projeto</Text>
 
         <TextOverInput>Nome do Projeto</TextOverInput>
@@ -30,6 +41,7 @@ export default function NovoProjeto() {
           activeOutlineColor={"#184C78"}
           left={<TextInput.Icon icon="book-edit-outline" />}
         />
+
         <TextOverInput>Descrição</TextOverInput>
         <TextInput
           mode="outlined"
@@ -40,18 +52,31 @@ export default function NovoProjeto() {
         />
         <TextOverInput>Prazo de Validade</TextOverInput>
         {/* Muda para compontente data */}
-        <TextInput
+        <Input
           mode="outlined"
           activeOutlineColor={"#184C78"}
           left={<TextInput.Icon icon="calendar-month" />}
         />
-        <TouchableOpacity style={styles.viewBtn}>
-          <Button style={styles.button} textColor="#FFF">
-            <Text style={styles.textBtn}>Salvar Projeto</Text>
-          </Button>
-        </TouchableOpacity>
+        <Button
+        style={styles.plusTask}
+        
+        icon="plus-box-outline">
+          {textTask}
+        </Button>
+
+        <TextOverInput>Tarefas</TextOverInput>
+
+        {/* Muda para compontente data */}
+        <Input
+          mode="outlined"
+          activeOutlineColor={"#184C78"}
+          left={<TextInput.Icon icon="sticker-check" />}
+        />
+       
       </Body>
     </Container>
+    </ScrollView>
+
   );
 }
 
@@ -59,10 +84,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    marginTop: 20,
+    
   },
   Titulo: {
     fontSize: 22,
+    marginTop:10,
+    marginTop: 40,
+    marginLeft:0,
   },
   viewBtn: {
     alignSelf: "center",
@@ -83,6 +111,15 @@ const styles = StyleSheet.create({
   textBtn: {
     fontSize: 18,
   },
+  plusTask:{
+    marginBottom:-15,
+    textAlignVertical: 'center',
+    marginLeft:-10,
+    fontSize: 16,
+    fontWeight: 'bold',
+    width:300
+
+  }
 });
 
 /*
