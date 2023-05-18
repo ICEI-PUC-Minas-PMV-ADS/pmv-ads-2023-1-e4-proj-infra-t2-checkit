@@ -12,9 +12,12 @@ const styles = StyleSheet.create({
     textTitulos: {
         marginTop: 14,
         textAlignVertical: 'center',
-        marginLeft: 10,
-        fontSize: 16,
-        fontWeight: 'bold'
+        marginLeft: 7,
+        fontSize: 13,
+        marginBottom:4,
+        fontStyle:'italic',
+        color:'#383F82',
+        
       }
 });
 

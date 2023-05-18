@@ -7,6 +7,7 @@ const Input = (props) => {
     <TextInput     
       style={styles.input}      
       mode="outlined"
+      outlineColor='#383F82'
       {...props}      
     />
   )

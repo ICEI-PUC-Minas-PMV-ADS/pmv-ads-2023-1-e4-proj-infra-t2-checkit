@@ -9,7 +9,7 @@ import {
   Button,
   FAB
 } from "react-native-paper";
-
+import moment from "moment/moment";
 import Container from "../../Componentes/Container";
 import Input from "../../Componentes/Input";
 import Body from "../../Componentes/Body";
@@ -17,14 +17,17 @@ import TextOverInput from "../../Componentes/TextOverInput";
 import { BASEPROJECTSURL } from "../../Services/URL";
 import { Botao } from "../../Componentes/Botao";
 import { ScrollView } from "react-native-gesture-handler";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 
 // import { useIsFocused } from '@react-navigation/native-stack';
 
 export default function NovoProjeto() {
   const [tarefas,setTarefas] = useState([])
-  const textTask = tarefas.length==0?'Adicione Uma Tarefa a seu Projeto!':'Adicione Mais Tarefas ao seu projeto'
-  
+  const textTask = tarefas.length==0?'Adicione Uma Tarefa a seu Projeto!':'Adicione Mais Tarefas ao seu projeto!'
+  const [date, setDate] = useState(new Date());
+  const [show, setShow] = useState(false); // pop up
+  const [data, setData] = useState(moment(new Date()).format("DD/MM/YYYY"));
 
   
   return (
@@ -52,11 +55,33 @@ export default function NovoProjeto() {
         />
         <TextOverInput>Prazo de Validade</TextOverInput>
         {/* Muda para compontente data */}
+        <>
+      {
+        // Configuração Date
+        show && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={date}
+            mode={"date"}
+            is24Hour={true}
+            display="default"
+            onTouchCancel={() => setShow(false)} // Para fechar
+            onChange={(event, date) => {
+              setShow(false);
+              setData(moment(date).format("DD/MM/YYYY"));
+            }}
+          />
+        )
+      }
+      <TouchableOpacity onPress={() => setShow(true)}>
         <Input
-          mode="outlined"
-          activeOutlineColor={"#184C78"}
-          left={<TextInput.Icon icon="calendar-month" />}
+          label="Data"
+          value={data}
+          left={<TextInput.Icon icon="calendar" />}
+          editable={false}
         />
+      </TouchableOpacity>
+    </>
         <Button
         style={styles.plusTask}
         
@@ -90,7 +115,8 @@ const styles = StyleSheet.create({
     fontSize: 22,
     marginTop:10,
     marginTop: 40,
-    marginLeft:0,
+    marginLeft:4,
+    fontStyle:'italic',
   },
   viewBtn: {
     alignSelf: "center",
@@ -114,7 +140,7 @@ const styles = StyleSheet.create({
   plusTask:{
     marginBottom:-15,
     textAlignVertical: 'center',
-    marginLeft:-10,
+    marginLeft:-13,
     fontSize: 16,
     fontWeight: 'bold',
     width:300
