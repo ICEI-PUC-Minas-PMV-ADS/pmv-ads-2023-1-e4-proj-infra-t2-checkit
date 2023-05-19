@@ -28,8 +28,10 @@ export default function NovoProjeto() {
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false); // pop up
   const [data, setData] = useState(moment(new Date()).format("DD/MM/YYYY"));
-
-  
+  const [nomeProjeto,setNomeProjeto]=useState('')
+  const [descricao,setDescricao] = useState(''
+  )
+  const [missInfo, setMissInfo] = useState(false);
   return (
     <ScrollView>
 
@@ -38,66 +40,81 @@ export default function NovoProjeto() {
 
         <Text style={styles.Titulo}>Novo Projeto</Text>
 
-        <TextOverInput>Nome do Projeto</TextOverInput>
-        <Input
-          mode="outlined"
-          activeOutlineColor={"#184C78"}
-          left={<TextInput.Icon icon="book-edit-outline" />}
-        />
-
-        <TextOverInput>Descrição</TextOverInput>
-        <TextInput
-          mode="outlined"
-          activeOutlineColor={"#184C78"}
-          multiline={true}
-          numberOfLines={5}
-          left={<TextInput.Icon icon="checkbook" />}
-        />
-        <TextOverInput>Prazo de Validade</TextOverInput>
-        {/* Muda para compontente data */}
-        <>
-      {
-        // Configuração Date
-        show && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            value={date}
-            mode={"date"}
-            is24Hour={true}
-            display="default"
-            onTouchCancel={() => setShow(false)} // Para fechar
-            onChange={(event, date) => {
-              setShow(false);
-              setData(moment(date).format("DD/MM/YYYY"));
-            }}
+        <View style={styles.viewInput}>
+          <TextOverInput>Nome do Projeto</TextOverInput>
+          <Input
+            mode="outlined"
+            value={nomeProjeto}
+            onChangeText={(text)=>setNomeProjeto(text)}
+            error={missInfo && !nomeProjeto ? true : false}
+            activeOutlineColor={"#184C78"}
+            left={<TextInput.Icon icon="book-edit-outline" />}
           />
-        )
-      }
-      <TouchableOpacity onPress={() => setShow(true)}>
-        <Input
-          label="Data"
-          value={data}
-          left={<TextInput.Icon icon="calendar" />}
-          editable={false}
-        />
-      </TouchableOpacity>
-    </>
-        <Button
-        style={styles.plusTask}
-        
-        icon="plus-box-outline">
-          {textTask}
-        </Button>
-
-        <TextOverInput>Tarefas</TextOverInput>
-
-        {/* Muda para compontente data */}
-        <Input
-          mode="outlined"
-          activeOutlineColor={"#184C78"}
-          left={<TextInput.Icon icon="sticker-check" />}
-        />
-       
+          <TextOverInput>Descrição</TextOverInput>
+          
+          <TextInput
+            mode="outlined"
+            activeOutlineColor={"#184C78"}
+            multiline={true}
+            value={descricao}
+            onChangeText={(text)=>setDescricao(text)}
+            numberOfLines={5}
+            outlineColor="#383F82"
+            left={<TextInput.Icon icon="checkbook" />}
+          />
+          <TextOverInput>Prazo de Validade</TextOverInput>
+          {/* Muda para compontente data */}
+          <>
+                {
+          // Configuração Date
+          show && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              value={date}
+              mode={"date"}
+              is24Hour={true}
+              display="default"
+              onTouchCancel={() => setShow(false)} // Para fechar
+              onChange={(event, date) => {
+                setShow(false);
+                setData(moment(date).format("DD/MM/YYYY"));
+              }}
+            />
+          )
+                }
+                <TouchableOpacity onPress={() => setShow(true)}>
+          <Input
+            label="Data"
+            value={data}
+            left={<TextInput.Icon icon="calendar" />}
+            editable={false}
+          />
+                </TouchableOpacity>
+              </>
+          <TouchableOpacity>
+            <Button
+            textColor="#383F82"
+            style={styles.plusTask}
+            
+            icon="plus-box-outline">
+              {textTask}
+            </Button>
+          </TouchableOpacity>
+          <TextOverInput>Tarefas</TextOverInput>
+          {/* Muda para compontente data */}
+          <Input
+            mode="outlined"
+            activeOutlineColor={"#184C78"}
+            left={<TextInput.Icon icon="sticker-check" />}
+          />
+        </View>
+       <View style={styles.viewBtn}>
+        <TouchableOpacity>
+          <Button style={styles.button} textColor="#fff">
+            <Text style={styles.textBtn}>Salvar Novo Projeto</Text>
+          </Button>
+        </TouchableOpacity>
+       </View>
       </Body>
     </Container>
     </ScrollView>
@@ -109,16 +126,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+   
     
   },
   Titulo: {
     fontSize: 22,
     marginTop:10,
     marginTop: 40,
-    marginLeft:4,
-    fontStyle:'italic',
+    marginLeft:13,
+ 
+  },
+  viewInput:{
+    flex:1,
+    width:350,
+    alignSelf:'center'
   },
   viewBtn: {
+    justifyContent:'center',
+    alignItems:'center',
     alignSelf: "center",
   },
   button: {
@@ -136,14 +161,19 @@ const styles = StyleSheet.create({
   },
   textBtn: {
     fontSize: 18,
+    fontStyle:'italic'
   },
   plusTask:{
     marginBottom:-15,
     textAlignVertical: 'center',
     marginLeft:-13,
+    marginTop:4,
     fontSize: 16,
-    fontWeight: 'bold',
-    width:300
+    fontWeight: 'normal',
+
+    width:300,
+    
+    
 
   }
 });

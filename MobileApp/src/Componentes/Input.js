@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
     height: 43,
     fontSize: 16,
     backgroundColor: "#FFFAFA",
+    padding:-2,
    
   
   

@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
+import Body from "../../Componentes/Body";
 const App = () => {
   const onPressLogin = async () => {
     // Do something about login operation
@@ -36,8 +37,9 @@ const App = () => {
   });
   return (
     <View style={styles.container}>
+     <Body>
       <Text style={styles.title}>Insira seus dados para iniciar um projeto com CheckIt!</Text>
-      <View style={styles.inputView}>
+     
       <Text style={styles.infoInputText}>Nome</Text>
       <TextInput
           style={styles.inputText}
@@ -64,13 +66,16 @@ const App = () => {
           placeholderTextColor="#003f5c"
           onChangeText={(text) => setState({ password: text })}
         />
+      
+      <View style={{flex:1,justifyContent:'center',alignContent:"center"}}>
+        <TouchableOpacity onPress={onPressLogin} style={styles.loginBtn}>
+          <Text style={styles.loginText}>Estou pronto </Text>
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity onPress={onPressLogin} style={styles.loginBtn}>
-        <Text style={styles.loginText}>Estou pronto </Text>
-      </TouchableOpacity>
       <TouchableOpacity onPress={onPressSignUp}>
         <Text style={styles.signUpText}>Já tem uma conta? Login!</Text>
       </TouchableOpacity>
+      </Body>
     </View>
   );
 };
@@ -86,8 +91,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 25,
     color: "#000000",
-    marginTop: 85,
-    padding: 30
+    marginTop: 50,
+    padding: 30,
+    width:340
   },
   inputView: {
     width: "80%",
