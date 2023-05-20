@@ -21,11 +21,10 @@ const App = () => {
       onToggleSnackBar();
       setAviso("Por favor, insira o email e a senha");
     } else {
-      console.log("hadiosdvfdahspk")
+      console.log("hadiosdvfdahspk");
       postLogin({
         email: email,
         senha: senha,
-      
       })
         .then((response) => {
           if (response.message == "Usuário não cadastrado") {
@@ -46,16 +45,16 @@ const App = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tire seus projetos do papel com CheckIt! </Text>
+      <Text style={styles.title}>
+        Tire seus projetos do papel com CheckIt!{" "}
+      </Text>
       <View style={styles.inputView}>
-
         <Text style={styles.infoInputText}>E-mail</Text>
         <TextInput
           style={styles.inputText}
           placeholderTextColor="#003f5c"
           onChangeText={(text) => setState({ email: text })}
         />
-
 
         <Text style={styles.infoInputText}>Senha</Text>
         <TextInput
@@ -66,14 +65,14 @@ const App = () => {
         />
       </View>
 
-
       <TouchableOpacity onPress={onPressLogin} style={styles.loginBtn}>
         <Text style={styles.loginText}>Entrar </Text>
       </TouchableOpacity>
 
-
       <TouchableOpacity onPress={onPressSignUp}>
-        <Text style={styles.signUpText}>Ainda não tem uma conta? Cadastre-se!</Text>
+        <Text style={styles.signUpText}>
+          Ainda não tem uma conta? Cadastre-se!
+        </Text>
       </TouchableOpacity>
     </View>
   );
@@ -91,8 +90,8 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: "#000000",
     marginTop: 85,
-    top:30,
-    padding: 50
+    top: 30,
+    padding: 50,
   },
   inputView: {
     width: "80%",
@@ -102,19 +101,20 @@ const styles = StyleSheet.create({
     height: 50,
     marginBottom: 2,
     justifyContent: "center",
-    display: "flex"
+    display: "flex",
   },
   inputText: {
     height: 50,
     marginBottom: 20,
     color: "black",
-    borderColor: '#000000',
+    borderColor: "#000000",
     borderWidth: 1,
     borderRadius: 5,
-    display: "flex"
+    display: "flex",
+    padding: 12,
   },
   signUpText: {
-    bottom: 70,
+    marginBottom: 60,
     color: "#505050",
     fontSize: 11,
   },
@@ -130,15 +130,15 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 40,
-    marginBottom: 10,
-    display: "flex"
+    marginTop: 50,
+    marginBottom: 20,
+    display: "flex",
   },
   loginText: {
     color: "#ffffff",
   },
   infoInputText: {
-    fontSize: 12
-  }
+    fontSize: 12,
+  },
 });
 export default App;
