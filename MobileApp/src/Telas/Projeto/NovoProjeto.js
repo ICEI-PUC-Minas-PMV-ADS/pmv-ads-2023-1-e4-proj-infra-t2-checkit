@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  FlatList,
+} from "react-native";
 import {
   TextInput,
   Portal,
-  Dialog,
   Provider,
   RadioButton,
   Button,
-  FAB
+  FAB,
+  List,
 } from "react-native-paper";
 import moment from "moment/moment";
 import Container from "../../Componentes/Container";
@@ -18,26 +24,72 @@ import { BASEPROJECTSURL } from "../../Services/URL";
 import { Botao } from "../../Componentes/Botao";
 import { ScrollView } from "react-native-gesture-handler";
 import DateTimePicker from "@react-native-community/datetimepicker";
-
+import Dialog from "react-native-dialog";
 
 // import { useIsFocused } from '@react-navigation/native-stack';
 
 export default function NovoProjeto() {
-  const [tarefas,setTarefas] = useState([])
-  const textTask = tarefas.length==0?'Adicione Uma Tarefa a seu Projeto!':'Adicione Mais Tarefas ao seu projeto!'
+  const [tarefas, setTarefas] = useState([]);
+  const [inputTarefas, setInputTarefas] = useState("");
+  const textTask =
+    tarefas.length == 0
+      ? "Adicione Uma Tarefa a seu Projeto!"
+      : "Adicione Mais Tarefas ao seu projeto!";
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false); // pop up
   const [data, setData] = useState(moment(new Date()).format("DD/MM/YYYY"));
-  const [nomeProjeto,setNomeProjeto]=useState('')
-  const [descricao,setDescricao] = useState(''
-  )
+  const [nomeProjeto, setNomeProjeto] = useState("");
+  const [descricao, setDescricao] = useState("");
+  const [showDialog, setShowDialog] = useState(false);
   const [missInfo, setMissInfo] = useState(false);
-  return (
-    <ScrollView>
 
+  const DATA = [
+    {
+      id: "1",
+      title: "Fiarst Item",
+    },
+    {
+      id: "2",
+      title: "Firsst Item",
+    },
+    {
+      id: "3",
+      title: "Fifrst Item",
+    },
+    {
+      id: "b4",
+      title: "Fgfirst Item",
+    },
+    {
+      id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+      title: "Firfsst Item",
+    },
+  ];
+  useEffect(() => {}, [tarefas]);
+
+  const createProject = async () => {
+    console.log(tarefas);
+  };
+  const addTask = () => {
+    tarefas.push(inputTarefas);
+
+    setShowDialog(false);
+    setInputTarefas("");
+  };
+  const deleteTask = (tarefa) => {
+    tarefas.pop;
+  };
+  const renderItem = ({ tarefa }) => (
+    <View style={styles.itensList}>
+      <List.Icon icon={"notebook-edit"} />
+
+      <Text style={styles.taskItens}>{tarefa.tituloTarefa}</Text>
+    </View>
+  );
+
+  return (
     <Container>
       <Body>
-
         <Text style={styles.Titulo}>Novo Projeto</Text>
 
         <View style={styles.viewInput}>
@@ -45,19 +97,19 @@ export default function NovoProjeto() {
           <Input
             mode="outlined"
             value={nomeProjeto}
-            onChangeText={(text)=>setNomeProjeto(text)}
+            onChangeText={(text) => setNomeProjeto(text)}
             error={missInfo && !nomeProjeto ? true : false}
             activeOutlineColor={"#184C78"}
             left={<TextInput.Icon icon="book-edit-outline" />}
           />
           <TextOverInput>Descrição</TextOverInput>
-          
+
           <TextInput
             mode="outlined"
             activeOutlineColor={"#184C78"}
             multiline={true}
             value={descricao}
-            onChangeText={(text)=>setDescricao(text)}
+            onChangeText={(text) => setDescricao(text)}
             numberOfLines={5}
             outlineColor="#383F82"
             left={<TextInput.Icon icon="checkbook" />}
@@ -65,60 +117,103 @@ export default function NovoProjeto() {
           <TextOverInput>Prazo de Validade</TextOverInput>
           {/* Muda para compontente data */}
           <>
-                {
-          // Configuração Date
-          show && (
-            <DateTimePicker
-              testID="dateTimePicker"
-              value={date}
-              mode={"date"}
-              is24Hour={true}
-              display="default"
-              onTouchCancel={() => setShow(false)} // Para fechar
-              onChange={(event, date) => {
-                setShow(false);
-                setData(moment(date).format("DD/MM/YYYY"));
-              }}
-            />
-          )
-                }
-                <TouchableOpacity onPress={() => setShow(true)}>
-          <Input
-            label="Data"
-            value={data}
-            left={<TextInput.Icon icon="calendar" />}
-            editable={false}
-          />
-                </TouchableOpacity>
-              </>
-          <TouchableOpacity>
+            {
+              // Configuração Date
+              show && (
+                <DateTimePicker
+                  testID="dateTimePicker"
+                  value={date}
+                  mode={"date"}
+                  is24Hour={true}
+                  display="default"
+                  onTouchCancel={() => setShow(false)} // Para fechar
+                  onChange={(event, date) => {
+                    setShow(false);
+                    setData(moment(date).format("DD/MM/YYYY"));
+                  }}
+                />
+              )
+            }
+            <TouchableOpacity onPress={() => setShow(true)}>
+              <Input
+                label="Data"
+                value={data}
+                left={<TextInput.Icon icon="calendar" />}
+                editable={false}
+              />
+            </TouchableOpacity>
+          </>
+          <TouchableOpacity onPress={() => setShowDialog(true)}>
             <Button
-            textColor="#383F82"
-            style={styles.plusTask}
-            
-            icon="plus-box-outline">
+              textColor="#383F82"
+              style={styles.plusTask}
+              icon="plus-box-outline"
+            >
               {textTask}
             </Button>
           </TouchableOpacity>
-          <TextOverInput>Tarefas</TextOverInput>
+          {tarefas.length > 0 && (
+            <TextOverInput>
+              {tarefas.length == 1
+                ? "Tarefa Deste Projeto :"
+                : "Tarefas Deste Projeto :"}
+            </TextOverInput>
+          )}
+
           {/* Muda para compontente data */}
-          <Input
-            mode="outlined"
-            activeOutlineColor={"#184C78"}
-            left={<TextInput.Icon icon="sticker-check" />}
-          />
+          <Dialog.Container
+            visible={showDialog}
+            onRequestClose={() => setShowDialog(false)}
+          >
+            <Dialog.Title>Tarefa</Dialog.Title>
+            <Dialog.Description>Digite o nome da sua Tarefa</Dialog.Description>
+            <Dialog.Description>
+              Ex: Levar Cachorro para passear
+            </Dialog.Description>
+
+            <Dialog.Input
+              onChangeText={(text) => setInputTarefas(text)}
+              value={inputTarefas}
+              error={true}
+            />
+
+            <Dialog.Button
+              label="Cancelar"
+              onPress={() => setShowDialog(false)}
+            />
+            <Dialog.Button label="Adicionar Tarefa" onPress={() => addTask()} />
+          </Dialog.Container>
+
+          {/* <FlatList
+            data={tarefas}
+             showsVerticalScrollIndicator={true}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.find((x)=>x=item)}
+          /> */}
+          <ScrollView scrollEnabled={tarefas.length > 2 ? true : false}>
+            {tarefas.map((x, y) => (
+              <View style={styles.itensList}>
+                <List.Icon icon={"notebook-edit"} />
+
+                <Text key={y} style={styles.taskItens}>
+                  {x}
+                </Text>
+                <List.Icon style={{marginLeft:130}} icon={"trash-can"} />
+                <List.Icon  style={{marginLeft:15}} icon={"notebook-edit"} />
+
+              </View>
+            ))}
+          </ScrollView>
         </View>
-       <View style={styles.viewBtn}>
-        <TouchableOpacity>
-          <Button style={styles.button} textColor="#fff">
-            <Text style={styles.textBtn}>Salvar Novo Projeto</Text>
-          </Button>
-        </TouchableOpacity>
-       </View>
+        <View style={styles.viewBtn}>
+          <TouchableOpacity onPress={createProject}>
+            <Button style={styles.button} textColor="#fff">
+              <Text style={styles.textBtn}>Salvar Novo Projeto</Text>
+            </Button>
+          </TouchableOpacity>
+        </View>
       </Body>
     </Container>
-    </ScrollView>
-
   );
 }
 
@@ -126,24 +221,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-   
-    
   },
   Titulo: {
     fontSize: 22,
-    marginTop:10,
+    marginTop: 10,
     marginTop: 40,
-    marginLeft:13,
- 
+    marginLeft: 13,
   },
-  viewInput:{
-    flex:1,
-    width:350,
-    alignSelf:'center'
+  viewInput: {
+    flex: 1,
+    width: 350,
+    alignSelf: "center",
   },
   viewBtn: {
-    justifyContent:'center',
-    alignItems:'center',
+    justifyContent: "center",
+    alignItems: "center",
     alignSelf: "center",
   },
   button: {
@@ -156,26 +248,33 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 40,
-    marginBottom: 10,
+    marginTop: 12,
+    marginBottom: 30,
   },
   textBtn: {
     fontSize: 18,
-    fontStyle:'italic'
+    fontStyle: "italic",
   },
-  plusTask:{
-    marginBottom:-15,
-    textAlignVertical: 'center',
-    marginLeft:-13,
-    marginTop:4,
+  plusTask: {
+    marginBottom: -15,
+    textAlignVertical: "center",
+    marginLeft: -13,
+    marginTop: 7,
     fontSize: 16,
-    fontWeight: 'normal',
+    fontWeight: "normal",
 
-    width:300,
-    
-    
-
-  }
+    width: 300,
+  },
+  itensList: {
+    flex: 1,
+    marginHorizontal: 10,
+    marginVertical: 20,
+    flexDirection: "row",
+  },
+  taskItens: {
+    marginLeft: 20,
+    marginVertical: 2,
+  },
 });
 
 /*
