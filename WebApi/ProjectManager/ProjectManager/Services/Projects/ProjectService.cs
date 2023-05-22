@@ -25,8 +25,8 @@ namespace ProjectManager.Services.Projects
             await _projectsCollection.InsertOneAsync(project);
         }
 
-        public async Task<List<Project>> GetAllAsync() =>
-           await _projectsCollection.Find(_ => true).ToListAsync();
+        public async Task<List<Project>> GetAllAsync(string userId) =>
+           await _projectsCollection.Find(x => x.UserId == userId).ToListAsync();
 
         public async Task<Project> Get(string id)
         {

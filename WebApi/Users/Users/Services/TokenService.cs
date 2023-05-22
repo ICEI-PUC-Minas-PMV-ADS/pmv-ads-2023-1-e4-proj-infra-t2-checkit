@@ -16,8 +16,10 @@ namespace Users.Services
             var claims = new ClaimsIdentity(new Claim[]
             {
                 new Claim(ClaimTypes.NameIdentifier, model.Id.ToString()),
+
               //  new Claim(ClaimTypes.Role, model.Role.ToString()),
             });
+
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {

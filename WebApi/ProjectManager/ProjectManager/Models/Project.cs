@@ -12,27 +12,21 @@ namespace ProjectManager.Models
         {
             Id = id;
             Title = request.Title!;
-            CreatedAt = DateTime.Now;
-            CreatedBy = request.CreatedBy!;
-            UpdatedAt = DateTime.Now;
-            UpdatedBy = request.UpdatedBy!;
-            DueDate = request.DueDate!.Value;
-            Members = request.Member!;
+            CreatedAt = DateTime.Now;            
+            UpdatedAt = DateTime.Now;           
+            DueDate = request.DueDate!.Value;           
             Status = request.Status!;
             TarefaId = request.TarefaId!;
             UserId = request.UserId!;
         }
 
-        public Project(string id, string title, DateTime createdAt, string createdBy, DateTime updatedAt, string updatedBy, DateTime dueDate, List<Member> members, string status, List<string?> tarefaId, string userId)
+        public Project(string id, string title, DateTime createdAt, DateTime updatedAt, DateTime dueDate, string status, List<string?> tarefaId, string userId)
         {
             Id = id;
             Title = title;
-            CreatedAt = createdAt;
-            CreatedBy = createdBy;
-            UpdatedAt = updatedAt;
-            UpdatedBy = updatedBy;
-            DueDate = dueDate;
-            Members = members;
+            CreatedAt = createdAt;            
+            UpdatedAt = updatedAt;            
+            DueDate = dueDate;            
             Status = status;
             TarefaId = tarefaId;
             UserId = userId;
@@ -46,13 +40,10 @@ namespace ProjectManager.Models
         [Required]
         public string Title { get; set; }
         public DateTime CreatedAt { get; set; }
-        [Required]
-        public string CreatedBy { get; set; }
-        public DateTime UpdatedAt { get; set; }
-        public string UpdatedBy { get; set; }
+        [Required]        
+        public DateTime UpdatedAt { get; set; }        
         public string? Status { get; set; }
-        public DateTime DueDate { get; set; }
-        public List<Member> Members { get; set; }
+        public DateTime DueDate { get; set; }        
         public List<string?> TarefaId { get; set; }
         public string UserId { get; set; }
     }

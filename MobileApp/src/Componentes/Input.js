@@ -7,6 +7,7 @@ const Input = (props) => {
     <TextInput     
       style={styles.input}      
       mode="outlined"
+      outlineColor='#383F82'
       {...props}      
     />
   )
@@ -17,6 +18,7 @@ const styles = StyleSheet.create({
     height: 43,
     fontSize: 16,
     backgroundColor: "#FFFAFA",
+    padding:-2,
    
   
   

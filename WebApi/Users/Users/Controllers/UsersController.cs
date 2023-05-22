@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Users.Models;
 using Users.Services;
-using System;
 
 namespace Users.Controllers
 {
@@ -13,26 +10,20 @@ namespace Users.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly UserService _userCollection;       
+        private readonly UserService _userCollection;
 
-        public UsersController(UserService userCollection) =>
-             _userCollection = userCollection;      
-
-        //[HttpGet]
-        //public async Task<List<User>> GetAll()
-        //{
-        //    return await _userCollection.GetAllAsync();
-        //}
+        public UsersController(UserService userCollection)
+        {
+            _userCollection = userCollection;
+        }
 
         [HttpGet("{id:length(24)}")]
         public async Task<ActionResult<User>> GetById(string id)
         {
             var userDb = await _userCollection.GetByIdAsync(id);
 
-
-            
             if (userDb is null) return NotFound();
-            
+
             return Ok(userDb);
         }
 
@@ -65,7 +56,7 @@ namespace Users.Controllers
             updatedUserDb.Name = model.Name;
             updatedUserDb.Email = model.Email;
             updatedUserDb.Password = BCrypt.Net.BCrypt.HashPassword(model.Password);
-           // updatedUserDb.Role = model.Role;
+            // updatedUserDb.Role = model.Role;
 
             await _userCollection.UpdateAsync(id, updatedUserDb);
 

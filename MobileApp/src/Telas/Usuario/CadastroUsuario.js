@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Body from "../../Componentes/Body";
+import Body from "../../Componentes/Body";
 const App = () => {
   const onPressLogin = async () => {
     // Do something about login operation
@@ -37,6 +38,7 @@ const App = () => {
   });
   return (
     <View style={styles.container}>
+     <Body>
       <Text style={styles.title}>Insira seus dados para iniciar um projeto com CheckIt!</Text>
       <Body>
       <Text style={styles.infoInputText}>Nome</Text>
@@ -71,6 +73,7 @@ const App = () => {
       <TouchableOpacity onPress={onPressSignUp}>
         <Text style={styles.signUpText}>Já tem uma conta? Login!</Text>
       </TouchableOpacity>
+      </Body>
       </Body>
     </View>
   );
