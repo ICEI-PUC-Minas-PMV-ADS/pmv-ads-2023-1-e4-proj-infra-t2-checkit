@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
+import Body from "../../Componentes/Body";
 const App = () => {
   const onPressLogin = async () => {
     // Do something about login operation
@@ -37,7 +38,7 @@ const App = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Insira seus dados para iniciar um projeto com CheckIt!</Text>
-      <View style={styles.inputView}>
+      <Body>
       <Text style={styles.infoInputText}>Nome</Text>
       <TextInput
           style={styles.inputText}
@@ -64,13 +65,13 @@ const App = () => {
           placeholderTextColor="#003f5c"
           onChangeText={(text) => setState({ password: text })}
         />
-      </View>
       <TouchableOpacity onPress={onPressLogin} style={styles.loginBtn}>
         <Text style={styles.loginText}>Estou pronto </Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={onPressSignUp}>
         <Text style={styles.signUpText}>Já tem uma conta? Login!</Text>
       </TouchableOpacity>
+      </Body>
     </View>
   );
 };
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: "#000000",
     marginTop: 85,
-    padding: 30
+    padding: 5
   },
   inputView: {
     width: "80%",
@@ -112,13 +113,15 @@ const styles = StyleSheet.create({
     bottom: 70,
     color: "#505050",
     fontSize: 11,
+    paddingLeft: 190,
+    paddingBottom: 5 
   },
   forgotText: {
     color: "#505050",
     fontSize: 11,
   },
   loginBtn: {
-    width: "80%",
+    width: "50%",
     color: "#85B1E4",
     backgroundColor: "#5C66BD",
     borderRadius: 11,
@@ -131,6 +134,8 @@ const styles = StyleSheet.create({
   },
   loginText: {
     color: "#ffffff",
+    paddingLeft: 115,
+    paddingTop: 10
   },
   infoInputText: {
     fontSize: 12

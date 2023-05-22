@@ -7,6 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
+
 const App = () => {
   const [state, setState] = useState({
     email: "",
