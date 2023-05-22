@@ -14,6 +14,8 @@ import {
   Button,
   FAB,
   List,
+
+
 } from "react-native-paper";
 import moment from "moment/moment";
 import Container from "../../Componentes/Container";
@@ -24,13 +26,18 @@ import { BASEPROJECTSURL } from "../../Services/URL";
 import { Botao } from "../../Componentes/Botao";
 import { ScrollView } from "react-native-gesture-handler";
 import DateTimePicker from "@react-native-community/datetimepicker";
+
 import Dialog from "react-native-dialog";
+
 
 // import { useIsFocused } from '@react-navigation/native-stack';
 
 export default function NovoProjeto() {
   const [tarefas, setTarefas] = useState([]);
+
   const [inputTarefas, setInputTarefas] = useState("");
+
+
   const textTask =
     tarefas.length == 0
       ? "Adicione Uma Tarefa a seu Projeto!"
@@ -40,6 +47,7 @@ export default function NovoProjeto() {
   const [data, setData] = useState(moment(new Date()).format("DD/MM/YYYY"));
   const [nomeProjeto, setNomeProjeto] = useState("");
   const [descricao, setDescricao] = useState("");
+  const [isEditing,setIsEditing] = useState()
   const [showDialog, setShowDialog] = useState(false);
   const [missInfo, setMissInfo] = useState(false);
 
@@ -65,7 +73,9 @@ export default function NovoProjeto() {
       title: "Firfsst Item",
     },
   ];
-  useEffect(() => {}, [tarefas]);
+  useEffect(() => {
+    setInputTarefas('')
+  }, [tarefas]);
 
   const createProject = async () => {
     console.log(tarefas);
@@ -77,15 +87,20 @@ export default function NovoProjeto() {
     setInputTarefas("");
   };
   const deleteTask = (tarefa) => {
-    tarefas.pop;
-  };
-  const renderItem = ({ tarefa }) => (
-    <View style={styles.itensList}>
-      <List.Icon icon={"notebook-edit"} />
+    const newListTask = tarefas.filter((task)=>tarefa!=task)
 
-      <Text style={styles.taskItens}>{tarefa.tituloTarefa}</Text>
-    </View>
-  );
+    setTarefas(newListTask)
+  };
+  const editTask = (tarefa)=>{
+    setShowDialog(true)
+    setIsEditing(true)
+    setInputTarefas(tarefa)
+    
+    const index = tarefas.findIndex((task)=>task==tarefa)
+    tarefas[index] = s
+
+  }
+
 
   return (
     <Container>
@@ -174,22 +189,17 @@ export default function NovoProjeto() {
             <Dialog.Input
               onChangeText={(text) => setInputTarefas(text)}
               value={inputTarefas}
-              error={true}
+        
             />
 
             <Dialog.Button
               label="Cancelar"
               onPress={() => setShowDialog(false)}
             />
-            <Dialog.Button label="Adicionar Tarefa" onPress={() => addTask()} />
+            <Dialog.Button label={inputTarefas!=''?'Editar Tarefa':`Adicionar Tarefa`} onPress={() => tarefas.includes(x)?editTask():addTask()} />
           </Dialog.Container>
 
-          {/* <FlatList
-            data={tarefas}
-             showsVerticalScrollIndicator={true}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.find((x)=>x=item)}
-          /> */}
+   
           <ScrollView scrollEnabled={tarefas.length > 2 ? true : false}>
             {tarefas.map((x, y) => (
               <View style={styles.itensList}>
@@ -198,8 +208,14 @@ export default function NovoProjeto() {
                 <Text key={y} style={styles.taskItens}>
                   {x}
                 </Text>
-                <List.Icon style={{marginLeft:130}} icon={"trash-can"} />
-                <List.Icon  style={{marginLeft:15}} icon={"notebook-edit"} />
+                <TouchableOpacity onPress={()=>setIsEditing(x)}>
+                <List.Icon  style={{marginLeft:170}} icon={"notebook-edit"} />
+                  
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=>deleteTask(x)}>
+
+                <List.Icon style={{marginLeft:20}} icon={"trash-can"} />
+                </TouchableOpacity>
 
               </View>
             ))}
@@ -214,9 +230,8 @@ export default function NovoProjeto() {
         </View>
       </Body>
     </Container>
-  );
-}
-
+  )
+            }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -239,8 +254,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   button: {
-    backgroundColor:
-      "radial-gradient(50% 50% at 50% 50%, #5C66BD 0%, rgba(133, 177, 228, 0.96) 100%)",
+    backgroundColor: "#85B1E4",     
     width: "80%",
     height: 50,
     width: 250,
@@ -254,6 +268,8 @@ const styles = StyleSheet.create({
   textBtn: {
     fontSize: 18,
     fontStyle: "italic",
+
+
   },
   plusTask: {
     marginBottom: -15,
