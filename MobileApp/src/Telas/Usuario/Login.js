@@ -4,35 +4,48 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput,
+
   TouchableOpacity,
 } from "react-native";
-const App = () => {
-  const [state, setState] = useState({
-    email: "",
-    senha: "",
-  });
+import { useNavigation } from "@react-navigation/native";
+import {
+  TextInput,
+  Snackbar
 
-  const onPressLogin = async () => {
+} from "react-native-paper";
+const App = () => {
+
+  const navigation= useNavigation()
+ 
+  const [email,setEmail] = useState('')
+  const [password,setPassword] = useState('')
+  const [aviso, setAviso] = useState("");
+  const [missInfo, setMissInfo] = useState(false);
+  const [escondeSenha, setEscondeSenha] = useState(true);
+  const [visible, setVisible] = useState(false);
+  const onToggleSnackBar = () => setVisible(!visible);
+  const onDismissSnackBar = () => setVisible(false);
+  const onPressLogin =  () => {
     console.log("funciona");
 
-    if (!email || !senha) {
+    if (!email || !password) {
       setMissInfo(true); // Ausência de email e/ou senha
-      onToggleSnackBar();
-      setAviso("Por favor, insira o email e a senha");
+      // onToggleSnackBar();
+      // setAviso("Por favor, insira o email e a senha");
     } else {
-      console.log("hadiosdvfdahspk");
-      postLogin({
-        email: email,
-        senha: senha,
-      })
-        .then((response) => {
-          if (response.message == "Usuário não cadastrado") {
-            setMissInfo(true); // Infica que o usuário não esta cadastrado
-            setAviso("Email ou senha incorretos");
-          }
-        })
-        .catch((e) => console.log(e));
+      navigation.navigate('Home')
+      // console.log("hadiosdvfdahspk");
+      // postLogin({
+      //   email: email,
+      //   senha: senha,
+      // })
+      //   .then((response) => {
+      //     if (response.message == "Usuário não cadastrado") {
+      //       setMissInfo(true); // Infica que o usuário não esta cadastrado
+      //       setAviso("Email ou senha incorretos");
+      //     }
+      //   })
+      //   .catch((e) => console.log(e));
     } // Implementar quando o usuário não for cadastrado
     // Do something about login operation
   };
@@ -52,16 +65,31 @@ const App = () => {
         <Text style={styles.infoInputText}>E-mail</Text>
         <TextInput
           style={styles.inputText}
+          value={email}
+          right={<TextInput.Icon icon="email-outline" />}
           placeholderTextColor="#003f5c"
-          onChangeText={(text) => setState({ email: text })}
+          error={missInfo || (missInfo && !email) ? true : false}
+
+          onChangeText={(text) => setEmail(text)}
         />
 
         <Text style={styles.infoInputText}>Senha</Text>
         <TextInput
           style={styles.inputText}
-          secureTextEntry
+          error={missInfo || (missInfo && !password) ? true : false}
+          secureTextEntry={escondeSenha}
+          right={
+            <TextInput.Icon
+              onPress={() =>
+                escondeSenha ? setEscondeSenha(false) : setEscondeSenha(true)
+              }
+              icon={escondeSenha ? "eye-off" : "eye"}
+            />
+          }
           placeholderTextColor="#003f5c"
-          onChangeText={(text) => setState({ senha: text })}
+          value={password}
+          onChangeText={(text) => setPassword(text)}
+          
         />
       </View>
 
@@ -69,12 +97,14 @@ const App = () => {
         <Text style={styles.loginText}>Entrar </Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={onPressSignUp}>
+      <TouchableOpacity onPress={()=>navigation.navigate("CadastroUsuario")}>
         <Text style={styles.signUpText}>
           Ainda não tem uma conta? Cadastre-se!
         </Text>
       </TouchableOpacity>
+   
     </View>
+    
   );
 };
 const styles = StyleSheet.create({
@@ -104,14 +134,14 @@ const styles = StyleSheet.create({
     display: "flex",
   },
   inputText: {
-    height: 50,
+    height: 35,
     marginBottom: 20,
     color: "black",
     borderColor: "#000000",
     borderWidth: 1,
     borderRadius: 5,
     display: "flex",
-    padding: 12,
+    padding: 4,
   },
   signUpText: {
     marginBottom: 60,

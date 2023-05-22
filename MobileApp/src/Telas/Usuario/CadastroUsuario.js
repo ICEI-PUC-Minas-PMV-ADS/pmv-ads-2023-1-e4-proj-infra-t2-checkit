@@ -7,7 +7,9 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Body from "../../Componentes/Body";
+import { useNavigation } from "@react-navigation/native";
 const App = () => {
+  const navigation = useNavigation()
   const onPressLogin = async () => {
     // Do something about login operation
     console.log("funciona");
@@ -72,7 +74,7 @@ const App = () => {
           <Text style={styles.loginText}>Estou pronto </Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity onPress={onPressSignUp}>
+      <TouchableOpacity onPress={()=>navigation.navigate('Login')}>
         <Text style={styles.signUpText}>Já tem uma conta? Login!</Text>
       </TouchableOpacity>
       </Body>
@@ -108,7 +110,7 @@ const styles = StyleSheet.create({
   inputText: {
     height: 50,
     marginBottom: 20,
-    color: "white",
+    color: "black",
     borderColor: '#000000',
     borderWidth: 1,
     borderRadius: 5,
@@ -118,6 +120,7 @@ const styles = StyleSheet.create({
     bottom: 70,
     color: "#505050",
     fontSize: 11,
+    marginTop:20
   },
   forgotText: {
     color: "#505050",
@@ -131,7 +134,7 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 40,
+    marginTop: 20,
     marginBottom: 10,
     display: "flex"
   },

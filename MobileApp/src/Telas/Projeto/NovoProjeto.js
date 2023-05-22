@@ -182,9 +182,7 @@ export default function NovoProjeto() {
           >
             <Dialog.Title>Tarefa</Dialog.Title>
             <Dialog.Description>Digite o nome da sua Tarefa</Dialog.Description>
-            <Dialog.Description>
-              Ex: Levar Cachorro para passear
-            </Dialog.Description>
+           
 
             <Dialog.Input
               onChangeText={(text) => setInputTarefas(text)}
@@ -196,7 +194,7 @@ export default function NovoProjeto() {
               label="Cancelar"
               onPress={() => setShowDialog(false)}
             />
-            <Dialog.Button label={inputTarefas!=''?'Editar Tarefa':`Adicionar Tarefa`} onPress={() => tarefas.includes(x)?editTask():addTask()} />
+            <Dialog.Button label={`Adicionar Tarefa`} onPress={() => addTask()} />
           </Dialog.Container>
 
    
@@ -209,7 +207,7 @@ export default function NovoProjeto() {
                   {x}
                 </Text>
                 <TouchableOpacity onPress={()=>setIsEditing(x)}>
-                <List.Icon  style={{marginLeft:170}} icon={"notebook-edit"} />
+                <List.Icon  style={{marginLeft:170}} icon={"notebook-edit-outline"} />
                   
                 </TouchableOpacity>
                 <TouchableOpacity onPress={()=>deleteTask(x)}>
