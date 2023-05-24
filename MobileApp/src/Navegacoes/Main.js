@@ -8,6 +8,7 @@ import CadastroUsuario from "../Telas/Usuario/CadastroUsuario";
 import NovoProjeto from "../Telas/Projeto/NovoProjeto";
 import Home from "../Telas/Home";
 import MainHome from "../Telas/Usuario/MainHome";
+import HomeProjeto from "../Telas/Projeto/HomeProjeto";
 
 // const Stack = createStackNavigator();
 
@@ -15,7 +16,7 @@ const Stack = createNativeStackNavigator();
 
 const Main = () => {
   return (
-    <Stack.Navigator initialRouteName="Login">
+    <Stack.Navigator initialRouteName="HomeProjeto">
       <Stack.Screen
         name="Login"
         component={Login}
@@ -49,6 +50,13 @@ const Main = () => {
       <Stack.Screen
         name="MainHome"
         component={MainHome}
+        options={{
+          header: () => null,
+        }}
+      />
+      <Stack.Screen
+        name="HomeProjeto"
+        component={HomeProjeto}
         options={{
           header: () => null,
         }}
