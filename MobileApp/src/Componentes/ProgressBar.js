@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { View } from "react-native";
+import { View ,Text} from "react-native";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -20,7 +20,9 @@ export function ProgressBar({ progresso }) {
   }, [progresso]);
   return (
     <View>
+      <Text>FDSFS</Text>
       <Animated.View  style={style} />
+      
     </View>
   );
 }

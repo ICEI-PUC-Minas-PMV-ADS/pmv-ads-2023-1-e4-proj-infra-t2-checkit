@@ -78,6 +78,7 @@ const App = () => {
         <Text style={styles.signUpText}>Já tem uma conta? Login!</Text>
       </TouchableOpacity>
       </Body>
+      
     </View>
   );
 };
