@@ -29,9 +29,10 @@ import Dialog from "react-native-dialog";
 
 // import { useIsFocused } from '@react-navigation/native-stack';
 
-export default function NovoProjeto() {
-  const [tarefas, setTarefas] = useState([]);
+export default function NovoProjeto(route) {
+  const { item } = route.params ? route.params : {};
 
+  const [tarefas, setTarefas] = useState([]);
   const [inputTarefas, setInputTarefas] = useState("");
 
   const textTask =
@@ -95,6 +96,15 @@ export default function NovoProjeto() {
     const index = tarefas.findIndex((task) => task == tarefa);
     tarefas[index] = s;
   };
+
+  useEffect(() => {
+    // Se vier dados da rota
+    console.log(item)
+    if (item) {
+      setNomeProjeto(item.nomeProjeto);
+      setDescricao(item.descricao);
+    }
+  }, [item]);
 
   return (
     <Container>
@@ -218,7 +228,7 @@ export default function NovoProjeto() {
             <Button style={styles.button} textColor="#fff">
               <Text style={styles.textBtn}>Salvar Novo Projeto</Text>
             </Button>
-          </TouchableOpacity>
+          </TouchableOpacity> 
         </View>
       </Body>
     </Container>
