@@ -18,17 +18,32 @@ const item = [
   {
     id: 1,
     nomeProjeto: "Fazer festa",
-    descricao: "Comprar balões",
+    descricao: "Organização da festa",
   },
   {
     id: 2,
     nomeProjeto: "Reformar Mesa",
-    descricao: "Comprar Verniz",
+    descricao: "Reforma",
+  },
+];
+const task = [
+  {
+    id: 1,
+    projId: 1,
+    tasks: ["Arrumar mesa", "Comprar salgado", "Comprar breja"],
+  },
+  {
+    id: 2,
+    projId: 2,
+    tasks: ["Comprar verniz", "Comprar estopa", "Chave de fenda"],
   },
 ];
 
 export default function HomeProjeto() {
   const navigation = useNavigation();
+
+  // const [expanded, setExpanded] = useState(true);
+  // const handlePress = () => setExpanded(!expanded);
 
   const handleExcluir = (item) => {
     console.log("Excluir Item");
@@ -59,6 +74,16 @@ export default function HomeProjeto() {
           </>
         )}
       />
+      <List.Section>
+        <List.Accordion
+          title="Tarefas"
+          left={(props) => <List.Icon {...props} icon="view-dashboard" />}
+        >
+          <List.Item title={task[0].tasks[0]} />
+          <List.Item title={task[0].tasks[1]} />
+          <List.Item title={task[0].tasks[2]} />
+        </List.Accordion>
+      </List.Section>
     </View>
   );
 
