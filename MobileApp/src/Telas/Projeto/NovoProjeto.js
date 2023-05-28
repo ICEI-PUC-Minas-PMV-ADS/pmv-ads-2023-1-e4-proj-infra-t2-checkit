@@ -29,7 +29,7 @@ import Dialog from "react-native-dialog";
 
 // import { useIsFocused } from '@react-navigation/native-stack';
 
-export default function NovoProjeto(route) {
+export default function NovoProjeto({ route }) {
   const { item } = route.params ? route.params : {};
 
   const [tarefas, setTarefas] = useState([]);
@@ -99,7 +99,7 @@ export default function NovoProjeto(route) {
 
   useEffect(() => {
     // Se vier dados da rota
-    console.log(item)
+    console.log(item);
     if (item) {
       setNomeProjeto(item.nomeProjeto);
       setDescricao(item.descricao);
@@ -228,7 +228,7 @@ export default function NovoProjeto(route) {
             <Button style={styles.button} textColor="#fff">
               <Text style={styles.textBtn}>Salvar Novo Projeto</Text>
             </Button>
-          </TouchableOpacity> 
+          </TouchableOpacity>
         </View>
       </Body>
     </Container>

@@ -30,6 +30,10 @@ const item = [
 export default function HomeProjeto() {
   const navigation = useNavigation();
 
+  const handleExcluir = (item) => {
+    console.log("Excluir Item");
+  };
+
   const renderItem = ({ item }) => (
     <View style={styles.viewCard}>
       <List.Item
@@ -44,7 +48,7 @@ export default function HomeProjeto() {
         }
         right={(props) => (
           <>
-            <TouchableOpacity onPress={() => {}}>
+            <TouchableOpacity onPress={() => handleExcluir(item)}>
               <List.Icon {...props} icon="trash-can" />
             </TouchableOpacity>
             <TouchableOpacity
