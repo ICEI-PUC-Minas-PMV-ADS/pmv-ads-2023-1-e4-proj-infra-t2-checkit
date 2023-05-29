@@ -11,7 +11,6 @@ import { useNavigation } from "@react-navigation/native";
 import {
   TextInput,
   Snackbar
-
 } from "react-native-paper";
 const App = () => {
 
