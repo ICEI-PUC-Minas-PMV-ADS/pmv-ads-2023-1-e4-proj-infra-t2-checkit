@@ -16,34 +16,82 @@ import { useNavigation } from "@react-navigation/native";
 
 const item = [
   {
-    id: 1,
-    nomeProjeto: "Fazer festa",
-    descricao: "Organização da festa",
+    id: "646559d730418929632cee6c",
+    title: "Reformar Casa",
+    createdAt: "2023-05-17T22:48:55.604Z",
+    createdBy: "",
+    updatedAt: "2023-05-17T22:48:55.604Z",
+    updatedBy: "",
+    status: "Em Andamento",
+    dueDate: "2023-05-17T22:43:44.243Z",
+    members: null,
+    tarefaId: ["64655877d423bfb671802d70", "64655877d423bfb671802d10"],
+    userId: null,
   },
   {
-    id: 2,
-    nomeProjeto: "Reformar Mesa",
-    descricao: "Reforma",
+    id: "646559d730418929632cef6c",
+    title: "Estudar Inglês",
+    createdAt: "2023-05-17T22:48:55.604Z",
+    createdBy: "",
+    updatedAt: "2023-05-17T22:48:55.604Z",
+    updatedBy: "",
+    status: "Em Andamento",
+    dueDate: "2023-05-17T22:43:44.243Z",
+    members: null,
+    tarefaId: ["64655877d423bfb671812d11", "64655877d423bfb671812d12"],
+    userId: null,
   },
 ];
+
 const task = [
   {
-    id: 1,
-    projId: 1,
-    tasks: ["Arrumar mesa", "Comprar salgado", "Comprar breja"],
+    id: "64655877d423bfb671802d70",
+    tituloTarefa: "Comprar Tijolo",
+    descricao: "Depósito São Miguel",
+    dataInicio: "2023-04-22T18:35:05.334Z",
+    dataVencimento: "2023-04-22T18:35:05.334Z",
+    prioridade: 0,
   },
   {
-    id: 2,
-    projId: 2,
-    tasks: ["Comprar verniz", "Comprar estopa", "Chave de fenda"],
+    id: "64655877d423bfb671802d10",
+    tituloTarefa: "Comprar Bolsa",
+    descricao: "Depósito São Miguel",
+    dataInicio: "2023-04-22T18:35:05.334Z",
+    dataVencimento: "2023-04-22T18:35:05.334Z",
+    prioridade: 0,
+  },
+  {
+    id: "64655877d423bfb671812d11",
+    tituloTarefa: "Comprar livros",
+    descricao: "Depósito São Miguel",
+    dataInicio: "2023-04-22T18:35:05.334Z",
+    dataVencimento: "2023-04-22T18:35:05.334Z",
+    prioridade: 0,
+  },
+  {
+    id: "64655877d423bfb671812d12",
+    tituloTarefa: "Comprar Caderno",
+    descricao: "Depósito São Miguel",
+    dataInicio: "2023-04-22T18:35:05.334Z",
+    dataVencimento: "2023-04-22T18:35:05.334Z",
+    prioridade: 0,
   },
 ];
 
 export default function HomeProjeto() {
   const navigation = useNavigation();
 
-  // const [expanded, setExpanded] = useState(true);
-  // const handlePress = () => setExpanded(!expanded);
+  const handleTask = (task, tarefaIdProject) => {
+    const arr = [];
+
+    tarefaIdProject.forEach((element) => {
+      task.map((tarefa) => {
+        if (tarefa.id == element) arr.push(tarefa.tituloTarefa);
+      });
+    });
+
+    return arr.map((x) => <List.Item title={x} key={x.id} />);
+  };
 
   const handleExcluir = (item) => {
     console.log("Excluir Item");
@@ -52,7 +100,7 @@ export default function HomeProjeto() {
   const renderItem = ({ item }) => (
     <View style={styles.viewCard}>
       <List.Item
-        title={<Text style={styles.nomeProjeto}>{item.nomeProjeto}</Text>}
+        title={<Text style={styles.nomeProjeto}>{item.title}</Text>}
         description={
           <View>
             <Text style={styles.textList}>{item.descricao}</Text>
@@ -79,9 +127,7 @@ export default function HomeProjeto() {
           title="Tarefas"
           left={(props) => <List.Icon {...props} icon="view-dashboard" />}
         >
-          <List.Item title={task[0].tasks[0]} />
-          <List.Item title={task[0].tasks[1]} />
-          <List.Item title={task[0].tasks[2]} />
+          {item.tarefaId != "" && handleTask(task, item.tarefaId)}
         </List.Accordion>
       </List.Section>
     </View>
@@ -90,19 +136,17 @@ export default function HomeProjeto() {
   return (
     <Container>
       <Body>
-        <>
-          <View>
-            <Text style={styles.welcomeText}>Bem vindx USER!</Text>
-            <Text style={styles.projectText}>
-              Você tem X projetos em andamento
-            </Text>
-          </View>
-          <FlatList
-            data={item}
-            renderItem={renderItem}
-            keyExtractor={((item) => item.id, console.log(item))}
-          />
-        </>
+        <View>
+          <Text style={styles.welcomeText}>Bem vindx USER!</Text>
+          <Text style={styles.projectText}>
+            Você tem X projetos em andamento
+          </Text>
+        </View>
+        <FlatList
+          data={item}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+        />
       </Body>
     </Container>
   );

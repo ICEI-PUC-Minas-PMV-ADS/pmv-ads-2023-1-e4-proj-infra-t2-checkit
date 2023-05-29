@@ -101,7 +101,7 @@ export default function NovoProjeto({ route }) {
     // Se vier dados da rota
     console.log(item);
     if (item) {
-      setNomeProjeto(item.nomeProjeto);
+      setNomeProjeto(item.title);
       setDescricao(item.descricao);
     }
   }, [item]);
