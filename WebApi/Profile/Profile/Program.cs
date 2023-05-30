@@ -3,7 +3,6 @@ using Profiles.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
 
 // Database Configuration
 builder.Services.Configure<ProfileDatabaseSettings>(
@@ -16,19 +15,17 @@ if (portVar is { Length: > 0} && int.TryParse(portVar, out int port))
     builder.WebHost.ConfigureKestrel(options => { options.ListenAnyIP(port); });
 }
 
-builder.Services.AddSingleton<ProfilesServices>();
-
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddSingleton<ProfilesServices>();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseAuthorization();
 
