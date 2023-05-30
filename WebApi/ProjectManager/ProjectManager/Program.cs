@@ -36,14 +36,17 @@ builder.Services.AddAuthentication(options =>
        };
    });
 
+// Railway
+var portVar = Environment.GetEnvironmentVariable("PORT");
+if (portVar is { Length: > 0 } && int.TryParse(portVar, out int port))
+{
+    builder.WebHost.ConfigureKestrel(options => { options.ListenAnyIP(port); });
+}
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
