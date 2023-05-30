@@ -7,9 +7,9 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Body from "../../Componentes/Body";
-import Body from "../../Componentes/Body";
+
 const App = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   const onPressLogin = async () => {
     // Do something about login operation
     console.log("funciona");
@@ -39,42 +39,44 @@ const App = () => {
   });
   return (
     <View style={styles.container}>
-     <Body>
-      <Text style={styles.title}>Insira seus dados para iniciar um projeto com CheckIt!</Text>
       <Body>
-      <Text style={styles.infoInputText}>Nome</Text>
-      <TextInput
-          style={styles.inputText}
-          placeholderTextColor="#003f5c"
-          onChangeText={(text) => setState({ nome: text })}
-        />
-         <Text style={styles.infoInputText}>E-mail</Text>
-        <TextInput
-          style={styles.inputText}
-          placeholderTextColor="#003f5c"
-          onChangeText={(text) => setState({ email: text })}
-        />
-        <Text style={styles.infoInputText} >Senha</Text>
-        <TextInput
-          style={styles.inputText}
-          secureTextEntry
-          placeholderTextColor="#003f5c"
-          onChangeText={(text) => setState({ password: text })}
-        />
-        <Text style={styles.infoInputText}>Confirmar senha</Text>
-        <TextInput
-          style={styles.inputText}
-          secureTextEntry
-          placeholderTextColor="#003f5c"
-          onChangeText={(text) => setState({ password: text })}
-        />
-      <TouchableOpacity onPress={onPressLogin} style={styles.loginBtn}>
-        <Text style={styles.loginText}>Estou pronto </Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={onPressSignUp}>
-        <Text style={styles.signUpText}>Já tem uma conta? Login!</Text>
-      </TouchableOpacity>
-      </Body>
+        <Text style={styles.title}>
+          Insira seus dados para iniciar um projeto com CheckIt!
+        </Text>
+        <Body>
+          <Text style={styles.infoInputText}>Nome</Text>
+          <TextInput
+            style={styles.inputText}
+            placeholderTextColor="#003f5c"
+            onChangeText={(text) => setState({ nome: text })}
+          />
+          <Text style={styles.infoInputText}>E-mail</Text>
+          <TextInput
+            style={styles.inputText}
+            placeholderTextColor="#003f5c"
+            onChangeText={(text) => setState({ email: text })}
+          />
+          <Text style={styles.infoInputText}>Senha</Text>
+          <TextInput
+            style={styles.inputText}
+            secureTextEntry
+            placeholderTextColor="#003f5c"
+            onChangeText={(text) => setState({ password: text })}
+          />
+          <Text style={styles.infoInputText}>Confirmar senha</Text>
+          <TextInput
+            style={styles.inputText}
+            secureTextEntry
+            placeholderTextColor="#003f5c"
+            onChangeText={(text) => setState({ password: text })}
+          />
+          <TouchableOpacity onPress={onPressLogin} style={styles.loginBtn}>
+            <Text style={styles.loginText}>Estou pronto </Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={onPressSignUp}>
+            <Text style={styles.signUpText}>Já tem uma conta? Login!</Text>
+          </TouchableOpacity>
+        </Body>
       </Body>
     </View>
   );
@@ -92,7 +94,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: "#000000",
     marginTop: 85,
-    padding: 5
+    padding: 5,
   },
   inputView: {
     width: "80%",
@@ -102,23 +104,23 @@ const styles = StyleSheet.create({
     height: 50,
     marginBottom: 2,
     justifyContent: "center",
-    display: "flex"
+    display: "flex",
   },
   inputText: {
     height: 50,
     marginBottom: 20,
     color: "black",
-    borderColor: '#000000',
+    borderColor: "#000000",
     borderWidth: 1,
     borderRadius: 5,
-    display: "flex"
+    display: "flex",
   },
   signUpText: {
     bottom: 70,
     color: "#505050",
     fontSize: 11,
     paddingLeft: 190,
-    paddingBottom: 5 
+    paddingBottom: 5,
   },
   forgotText: {
     color: "#505050",
@@ -134,15 +136,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 20,
     marginBottom: 10,
-    display: "flex"
+    display: "flex",
   },
   loginText: {
     color: "#ffffff",
     paddingLeft: 115,
-    paddingTop: 10
+    paddingTop: 10,
   },
   infoInputText: {
-    fontSize: 12
-  }
+    fontSize: 12,
+  },
 });
 export default App;
