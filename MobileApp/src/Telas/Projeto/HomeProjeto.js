@@ -1,4 +1,4 @@
-import { Profiler, useState } from "react";
+import { Profiler, useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -13,7 +13,8 @@ import { Botao } from "../../Componentes/Botao";
 import { ProgressBar } from "../../Componentes/ProgressBar";
 import { ScrollView } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
-
+import API from "../../Services/webapiservices";
+import { URLTASK } from "../../Services/URL";
 const item = [
   {
     id: "646559d730418929632cee6c",
@@ -43,7 +44,7 @@ const item = [
   },
 ];
 
-const task = [
+const tasks = [
   {
     id: "64655877d423bfb671802d70",
     tituloTarefa: "Comprar Tijolo",
@@ -51,6 +52,7 @@ const task = [
     dataInicio: "2023-04-22T18:35:05.334Z",
     dataVencimento: "2023-04-22T18:35:05.334Z",
     prioridade: 0,
+    status:'Completa'
   },
   {
     id: "64655877d423bfb671802d10",
@@ -59,6 +61,8 @@ const task = [
     dataInicio: "2023-04-22T18:35:05.334Z",
     dataVencimento: "2023-04-22T18:35:05.334Z",
     prioridade: 0,
+    status:'Completa'
+
   },
   {
     id: "64655877d423bfb671812d11",
@@ -67,6 +71,9 @@ const task = [
     dataInicio: "2023-04-22T18:35:05.334Z",
     dataVencimento: "2023-04-22T18:35:05.334Z",
     prioridade: 0,
+    status:'Não iniciada'
+
+
   },
   {
     id: "64655877d423bfb671812d12",
@@ -75,6 +82,8 @@ const task = [
     dataInicio: "2023-04-22T18:35:05.334Z",
     dataVencimento: "2023-04-22T18:35:05.334Z",
     prioridade: 0,
+    status:'Não iniciada'
+
   },
 ];
 
@@ -82,25 +91,42 @@ export default function HomeProjeto() {
   const navigation = useNavigation();
   const [check, setCheck] = useState("unchecked");
 
+
+
+  useEffect(()=>{
+    API.get(URLTASK).then(x=>console.log(x))
+  },[])
   // Renderiza accordion
   const handleTask = (task, tarefaIdProject) => {
     const arr = [];
-
+    
     tarefaIdProject.forEach((element) => {
       task.map((tarefa) => {
         if (tarefa.id == element) arr.push(tarefa.tituloTarefa);
       });
     });
 
+    const handleCheckbox = (item)=>{
+
+      console.log(item)
+
+    }
     return arr.map((task) => (
       <>
         <Checkbox.Item
           key={task.id}
           label={task}
-          status={check}
-          onPress={() => {
-            check == "unchecked" ? setCheck("checked") : setCheck("unchecked");
-          }}
+          status={tasks.map(x=> {
+            if(x.tituloTarefa==="Completa")  return "Checked"
+          })}
+            // task.status==='Completa'?'checked':'unchecked'
+          
+          onPress={() => 
+              tasks.forEach((x)=>{
+                console.log(x.tituloTarefa)
+              })
+             
+              }
         />
         {/* <List.Item title={x} key={x.id} />         */}
       </>
@@ -141,7 +167,7 @@ export default function HomeProjeto() {
           title="Tarefas"
           left={(props) => <List.Icon {...props} icon="view-dashboard" />}
         >
-          {item.tarefaId != "" && handleTask(task, item.tarefaId)}
+          {item.tarefaId != "" && handleTask(tasks, item.tarefaId)}
         </List.Accordion>
       </List.Section>
     </View>
