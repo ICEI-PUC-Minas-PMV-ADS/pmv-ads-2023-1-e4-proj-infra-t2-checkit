@@ -6,7 +6,7 @@ import {
   View,
   FlatList,
 } from "react-native";
-import { List, Button, Divider } from "react-native-paper";
+import { List, Checkbox } from "react-native-paper";
 import Container from "../../Componentes/Container";
 import Body from "../../Componentes/Body";
 import { Botao } from "../../Componentes/Botao";
@@ -80,7 +80,9 @@ const task = [
 
 export default function HomeProjeto() {
   const navigation = useNavigation();
+  const [check, setCheck] = useState("unchecked");
 
+  // Renderiza accordion
   const handleTask = (task, tarefaIdProject) => {
     const arr = [];
 
@@ -90,7 +92,19 @@ export default function HomeProjeto() {
       });
     });
 
-    return arr.map((x) => <List.Item title={x} key={x.id} />);
+    return arr.map((task) => (
+      <>
+        <Checkbox.Item
+          key={task.id}
+          label={task}
+          status={check}
+          onPress={() => {
+            check == "unchecked" ? setCheck("checked") : setCheck("unchecked");
+          }}
+        />
+        {/* <List.Item title={x} key={x.id} />         */}
+      </>
+    ));
   };
 
   const handleExcluir = (item) => {

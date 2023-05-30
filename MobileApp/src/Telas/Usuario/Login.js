@@ -1,30 +1,21 @@
 import React, { useState } from "react";
 import API from "../../Services/webapiservices";
-import {
-  StyleSheet,
-  Text,
-  View,
-
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import {
-  TextInput,
-  Snackbar
-} from "react-native-paper";
-const App = () => {
+import { TextInput, Snackbar } from "react-native-paper";
 
-  const navigation= useNavigation()
- 
-  const [email,setEmail] = useState('')
-  const [password,setPassword] = useState('')
+const App = () => {
+  const navigation = useNavigation();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [aviso, setAviso] = useState("");
   const [missInfo, setMissInfo] = useState(false);
   const [escondeSenha, setEscondeSenha] = useState(true);
   const [visible, setVisible] = useState(false);
   const onToggleSnackBar = () => setVisible(!visible);
   const onDismissSnackBar = () => setVisible(false);
-  const onPressLogin =  () => {
+  const onPressLogin = () => {
     console.log("funciona");
 
     if (!email || !password) {
@@ -32,7 +23,7 @@ const App = () => {
       // onToggleSnackBar();
       // setAviso("Por favor, insira o email e a senha");
     } else {
-      navigation.navigate('Home')
+      navigation.navigate("Home");
       // console.log("hadiosdvfdahspk");
       // postLogin({
       //   email: email,
@@ -68,7 +59,6 @@ const App = () => {
           right={<TextInput.Icon icon="email-outline" />}
           placeholderTextColor="#003f5c"
           error={missInfo || (missInfo && !email) ? true : false}
-
           onChangeText={(text) => setEmail(text)}
         />
 
@@ -88,7 +78,6 @@ const App = () => {
           placeholderTextColor="#003f5c"
           value={password}
           onChangeText={(text) => setPassword(text)}
-          
         />
       </View>
 
@@ -96,14 +85,12 @@ const App = () => {
         <Text style={styles.loginText}>Entrar </Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={()=>navigation.navigate("CadastroUsuario")}>
+      <TouchableOpacity onPress={() => navigation.navigate("CadastroUsuario")}>
         <Text style={styles.signUpText}>
           Ainda não tem uma conta? Cadastre-se!
         </Text>
       </TouchableOpacity>
-   
     </View>
-    
   );
 };
 const styles = StyleSheet.create({
