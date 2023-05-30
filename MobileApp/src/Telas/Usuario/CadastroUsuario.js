@@ -9,6 +9,7 @@ import {
 import Body from "../../Componentes/Body";
 import Body from "../../Componentes/Body";
 const App = () => {
+  const navigation = useNavigation()
   const onPressLogin = async () => {
     // Do something about login operation
     console.log("funciona");
@@ -106,7 +107,7 @@ const styles = StyleSheet.create({
   inputText: {
     height: 50,
     marginBottom: 20,
-    color: "white",
+    color: "black",
     borderColor: '#000000',
     borderWidth: 1,
     borderRadius: 5,
@@ -131,7 +132,7 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 40,
+    marginTop: 20,
     marginBottom: 10,
     display: "flex"
   },
