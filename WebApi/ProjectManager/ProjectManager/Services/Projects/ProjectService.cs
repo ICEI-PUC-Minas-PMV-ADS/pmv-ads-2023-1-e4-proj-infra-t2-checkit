@@ -8,16 +8,16 @@ namespace ProjectManager.Services.Projects
     {
         private readonly IMongoCollection<Project> _projectsCollection;
 
-        public ProjectService(IOptions<ProjectManagementDatabaseSettings> projectManagementDatabaseSettings)
+        public ProjectService()
         {
             var mongoClient = new MongoClient(
-                projectManagementDatabaseSettings.Value.ConnectionString);
+               Environment.GetEnvironmentVariable("MONGODB_CONNECTIONSTRING"));
 
             var mongoDatabase = mongoClient.GetDatabase(
-                projectManagementDatabaseSettings.Value.DatabaseName);
+                Environment.GetEnvironmentVariable("MONGODB_DATABASENAME"));
 
             _projectsCollection = mongoDatabase.GetCollection<Project>(
-                projectManagementDatabaseSettings.Value.ProjectManagementName);
+                Environment.GetEnvironmentVariable("MONGODB_PROJECTMANAGEMENTNAME"));
         }       
 
         public async Task Register(Project project)
