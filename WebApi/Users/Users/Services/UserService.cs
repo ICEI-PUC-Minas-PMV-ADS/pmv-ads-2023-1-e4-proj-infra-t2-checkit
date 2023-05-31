@@ -14,12 +14,8 @@ namespace Users.Services
             var mongoDatabase = mongoClient.GetDatabase(UserDatabaseSettings.Value.DatabaseName);
             _usersCollection = mongoDatabase.GetCollection<User>(UserDatabaseSettings.Value.UsersCollectionName);
         }
-
-        // User: Register
+        
         // Get
-        public async Task<List<User>> GetAllAsync() =>
-            await _usersCollection.Find(_ => true).ToListAsync();
-
         public async Task<User> GetByIdAsync(string id) =>
             await _usersCollection.Find(x => x.Id == id).FirstOrDefaultAsync();     
 
@@ -34,7 +30,6 @@ namespace Users.Services
         // Delete
         public async Task RemoveAsync(string id) =>
             await _usersCollection.DeleteOneAsync(x => x.Id == id);
-
 
         // Get Authenticate
         public async Task<User> GetByEmailAsync(string email) =>

@@ -1,6 +1,7 @@
 ﻿using ApiGateway.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace ApiGateway.Controllers.Users
 {
@@ -20,30 +21,26 @@ namespace ApiGateway.Controllers.Users
         public async Task<IActionResult> GetUser([FromRoute] string id)
         {
             var result = await _httpClient.GetAsync($"https://localhost:7295/api/Users/{id}");
-            var userResult = await result.Content.ReadAsStringAsync();
+            var userResult = await result.Content.ReadAsStringAsync();            
 
             return userResult is null ? NotFound() : Ok(userResult);
-       
         }
 
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> PostUser([FromBody] User user)
-        {      
+        {
             var result = await _httpClient.PostAsJsonAsync($"https://localhost:7295/api/Users", user);
-           // Console.WriteLine($"{result.Headers.Location}");
 
             return Ok(result);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser([FromBody] User user, [FromRoute] string id)
-        {            
-            // Password vindo na request, acertar
+        {
             var result = await _httpClient.PutAsJsonAsync($"https://localhost:7295/api/Users/{id}", user);
 
             return Ok(result);
-
         }
 
         [HttpDelete("{id}")]
@@ -54,16 +51,14 @@ namespace ApiGateway.Controllers.Users
             return Ok();
         }
 
-        // Precisa de Retornar TOKEN
         [AllowAnonymous]
         [HttpPost("authenticate")]
         public async Task<IActionResult> Authenticate([FromBody] Authenticate login)
         {
-            var result = await _httpClient.PostAsJsonAsync($"https://localhost:7295/api/users/authenticate", login);            
-            var resultJson = await result.Content.ReadAsStringAsync();
-            
+            var result = await _httpClient.PostAsJsonAsync($"https://localhost:7295/api/users/authenticate", login);
+            var resultJson = await result.Content.ReadAsStringAsync(); // Token
+
             return Ok(resultJson);
-            //return Ok(result);
         }
     }
 }

@@ -8,7 +8,7 @@ public class Tarefa : LinksHATEOS
     [BsonRepresentation(BsonType.ObjectId)]
     public string? Id { get; set; }
 
-    public string ProjectId { get; set; }
+    //public string ProjectId { get; set; }
 
     public string TituloTarefa { get; set; }
     public string Descricao { get; set; }

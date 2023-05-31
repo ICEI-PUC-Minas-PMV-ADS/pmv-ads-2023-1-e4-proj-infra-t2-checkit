@@ -3,13 +3,11 @@
 namespace ApiGateway.Models
 {
     public class Project
-    {            
-        public string Title { get; set; }
-        public string CreatedBy { get; set; }
-        public string UpdatedBy { get; set; }
-        public DateTime DueDate { get; set; }       
+    {
+        public string Title { get; set; }        
+        public DateTime DueDate { get; set; }
         public string Status { get; set; }
-
-      //  public List<string?> TarefaId { get; set; } // Add teste
+        public List<string?> TarefaId { get; set; }
+        public string UserId { get; set; }
     }
 }

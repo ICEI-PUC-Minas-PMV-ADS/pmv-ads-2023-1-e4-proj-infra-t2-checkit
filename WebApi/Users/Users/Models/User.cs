@@ -18,17 +18,16 @@ namespace Users.Models
         [Required]
         [JsonIgnore]     // Não retorna password na response
         public string Password { get; set; }
-        [Required]
-        public Role Role { get; set; }
-
-        public List<string> IdProjetos { get; set; }
+        //[Required]
+        //public Role Role { get; set; }
+       
     }
 
-    public enum Role
-    {
-        [Display(Name = "Admin")]
-        Admin,
-        [Display(Name = "User")]
-        User,        
-    }
+    //public enum Role
+    //{
+    //    [Display(Name = "Admin")]
+    //    Admin,
+    //    [Display(Name = "User")]
+    //    User,        
+    //}
 }

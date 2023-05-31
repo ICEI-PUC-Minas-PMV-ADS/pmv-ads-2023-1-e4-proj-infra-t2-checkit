@@ -7,8 +7,8 @@ using Tasks.Models;
 
 namespace ApiGateway.Controllers.TarefasCosntroller
 {
-/*    [Authorize]
-*/    [Route("api/[controller]")]
+    [Authorize]
+    [Route("api/[controller]")]
     [ApiController]
     public class TarefasController : ControllerBase
     {
@@ -23,7 +23,6 @@ namespace ApiGateway.Controllers.TarefasCosntroller
         public async Task<IActionResult> GetTarefaById([FromRoute] string id)
         {
             var result = await _httpClient.GetAsync($"https://localhost:7246/api/Tarefas/{id}");
-
             var taskResult = await result.Content.ReadAsStringAsync();
 
             return taskResult is null ? NotFound() : Ok(taskResult);
@@ -51,19 +50,6 @@ namespace ApiGateway.Controllers.TarefasCosntroller
             await _httpClient.DeleteAsync($"https://localhost:7246/api/Tarefas/{id}");
 
             return Ok();
-        }
-
-
-        [HttpGet("getTaskProject/{id}")]
-        public async Task<IActionResult> GetTaskFromProject([FromRoute] string id)
-        {
-            var result = await _httpClient.GetAsync($"https://localhost:7246/api/tarefas/getTaskProject/{id}");
-            var data = await result.Content.ReadAsStringAsync();
-
-            
-
-
-            return Ok(data);
         }
     }
 }
