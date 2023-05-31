@@ -52,7 +52,7 @@ const tasks = [
     dataInicio: "2023-04-22T18:35:05.334Z",
     dataVencimento: "2023-04-22T18:35:05.334Z",
     prioridade: 0,
-    status:'Completa'
+    status: "Completa",
   },
   {
     id: "64655877d423bfb671802d10",
@@ -61,8 +61,7 @@ const tasks = [
     dataInicio: "2023-04-22T18:35:05.334Z",
     dataVencimento: "2023-04-22T18:35:05.334Z",
     prioridade: 0,
-    status:'Completa'
-
+    status: "Completa",
   },
   {
     id: "64655877d423bfb671812d11",
@@ -71,9 +70,7 @@ const tasks = [
     dataInicio: "2023-04-22T18:35:05.334Z",
     dataVencimento: "2023-04-22T18:35:05.334Z",
     prioridade: 0,
-    status:'Não iniciada'
-
-
+    status: "Não iniciada",
   },
   {
     id: "64655877d423bfb671812d12",
@@ -82,8 +79,7 @@ const tasks = [
     dataInicio: "2023-04-22T18:35:05.334Z",
     dataVencimento: "2023-04-22T18:35:05.334Z",
     prioridade: 0,
-    status:'Não iniciada'
-
+    status: "Não iniciada",
   },
 ];
 
@@ -91,46 +87,52 @@ export default function HomeProjeto() {
   const navigation = useNavigation();
   const [check, setCheck] = useState("unchecked");
 
+  useEffect(() => {
+     //API.get(URLTASK).then((x) => console.log(x));
+  }, []);
 
-
-  useEffect(()=>{
-    API.get(URLTASK).then(x=>console.log(x))
-  },[])
   // Renderiza accordion
   const handleTask = (task, tarefaIdProject) => {
     const arr = [];
-    
+
     tarefaIdProject.forEach((element) => {
       task.map((tarefa) => {
         if (tarefa.id == element) arr.push(tarefa.tituloTarefa);
       });
     });
-
-    const handleCheckbox = (item)=>{
-
-      console.log(item)
-
-    }
     return arr.map((task) => (
       <>
+        {console.log(task.id)}
         <Checkbox.Item
           key={task.id}
           label={task}
-          status={tasks.map(x=> {
-            if(x.tituloTarefa==="Completa")  return "Checked"
-          })}
-            // task.status==='Completa'?'checked':'unchecked'
-          
-          onPress={() => 
-              tasks.forEach((x)=>{
-                console.log(x.tituloTarefa)
-              })
-             
-              }
+          status={check}
+          onPress={() => {
+            check == "unchecked" ? setCheck("checked") : setCheck("unchecked");
+          }}
         />
-        {/* <List.Item title={x} key={x.id} />         */}
       </>
     ));
+
+    // return arr.map((task) => (
+    //   <>
+    //     <Checkbox.Item
+    //       key={task.id}
+    //       label={task}
+    //       // status={tasks.map((x) => {
+    //       //   if (x.tituloTarefa === "Completa") return "Checked";
+    //       // })}
+    //       status={
+    //         check == "unchecked" ? setCheck("checked") : setCheck("unchecked")
+    //       }
+    //       // onPress={() =>
+    //       //   tasks.forEach((x) => {
+    //       //     console.log(x.tituloTarefa);
+    //       //   })
+    //       // }
+    //     />
+    //   </>
+    // ));
   };
 
   const handleExcluir = (item) => {

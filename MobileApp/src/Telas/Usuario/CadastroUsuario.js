@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Body from "../../Componentes/Body";
+import { Button } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 
 const App = () => {
   const navigation = useNavigation();
@@ -27,16 +29,12 @@ const App = () => {
         // Handle any errors
       });
   };
-  const onPressForgotPassword = () => {
-    // Do something about forgot password operation
-  };
-  const onPressSignUp = () => {
-    // Do something about signup operation
-  };
+
   const [state, setState] = useState({
     email: "",
     password: "",
   });
+
   return (
     <View style={styles.container}>
       <Body>
@@ -70,10 +68,15 @@ const App = () => {
             placeholderTextColor="#003f5c"
             onChangeText={(text) => setState({ password: text })}
           />
-          <TouchableOpacity onPress={onPressLogin} style={styles.loginBtn}>
+          {/* <TouchableOpacity onPress={onPressLogin} style={styles.loginBtn}>
             <Text style={styles.loginText}>Estou pronto </Text>
+          </TouchableOpacity> */}
+          <TouchableOpacity onPress={() => {}}>
+            <Button style={styles.loginBtn} textColor="#fff">
+              <Text style={styles.textBtn}>Estou pronto</Text>
+            </Button>
           </TouchableOpacity>
-          <TouchableOpacity onPress={onPressSignUp}>
+          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
             <Text style={styles.signUpText}>Já tem uma conta? Login!</Text>
           </TouchableOpacity>
         </Body>
@@ -114,6 +117,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     display: "flex",
+    padding: 10,
   },
   signUpText: {
     bottom: 70,
