@@ -12,9 +12,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.Configure<ProjectManagementDatabaseSettings>(
-    builder.Configuration.GetSection("ProjectManagementDatabase"));
-
 builder.Services.AddScoped<IProjectService, ProjectService>();
 
 // Authentication 

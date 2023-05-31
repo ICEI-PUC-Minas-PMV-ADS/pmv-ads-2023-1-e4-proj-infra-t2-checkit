@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ProjectManager.Controllers.Requests;
 using ProjectManager.Models;
 using ProjectManager.Services.Projects;
@@ -7,18 +6,16 @@ using System.Net;
 
 namespace ProjectManager.Controllers
 {
-   //[Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProjectsController : ControllerBase
     {
         private readonly IProjectService _projectService;
-        private readonly HttpClient _httpClient;
 
         public ProjectsController(IProjectService projectService)
         {
             _projectService = projectService;
-            _httpClient = new HttpClient();
         }
 
 
