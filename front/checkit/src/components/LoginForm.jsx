@@ -26,6 +26,10 @@ export function LoginForm() {
     navigate("/register");
   }
 
+  const handleClickLogin = () => {
+    navigate("/index");
+  }
+
   return (
     <div className="form-container d-flex justify-content-center text-center">
       <div className="wrapper rounded">
@@ -49,7 +53,7 @@ export function LoginForm() {
             </span>
           </div>
           <div className="justify-content-around px-3">
-  `        <Button className="btn cyan-50" label="Login" type="submit"/>
+  `        <Button className="btn cyan-50" label="Login" type="submit" onClick={handleClickLogin}/>
           </div>
           <label htmlFor="register" className="justify-content-around p-3 mt-3 mb-0 text-muted">
             Ainda não é cadastrado?
