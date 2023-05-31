@@ -5,6 +5,7 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import Body from "../../Componentes/Body";
 import { Button } from "react-native-paper";
@@ -12,28 +13,45 @@ import { useNavigation } from "@react-navigation/native";
 
 const App = () => {
   const navigation = useNavigation();
-  const onPressLogin = async () => {
-    // Do something about login operation
-    console.log("funciona");
 
-    fetch(
-      "https://api.nasa.gov/planetary/apod?api_key=gkimsne4yrAAj6jBFaTrAIUn9DxWkRlq4ZGDWqen"
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        // Do something with the data
-      })
-      .catch((error) => {
-        console.log(error);
-        // Handle any errors
-      });
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  
+  // Temrinar
+  const [missInfo, setMissInfo] = useState(false);
+
+  // const onPressLogin = async () => {
+  //   console.log("funciona");
+
+  //   fetch(
+  //     "https://api.nasa.gov/planetary/apod?api_key=gkimsne4yrAAj6jBFaTrAIUn9DxWkRlq4ZGDWqen"
+  //   )
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       // Do something with the data
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       // Handle any errors
+  //     });
+  // };
+
+  const handleRegister = () => {
+    //console.log(`${name}, ${email}, ${password}, ${confirmPassword}`);
+    // Validando senha
+    if (!name || !email || !password || !confirmPassword) {
+      console.log("missinfo");
+      setMissInfo(true);
+    }
+    if (password !== confirmPassword) {
+      Alert.alert("Atenção", "Confirmação de senha incorreta");
+    } else {
+      console.log("Ir para tela inicial");
+    }
   };
-
-  const [state, setState] = useState({
-    email: "",
-    password: "",
-  });
 
   return (
     <View style={styles.container}>
@@ -46,32 +64,34 @@ const App = () => {
           <TextInput
             style={styles.inputText}
             placeholderTextColor="#003f5c"
-            onChangeText={(text) => setState({ nome: text })}
+            onChangeText={(name) => setName(name)}
           />
           <Text style={styles.infoInputText}>E-mail</Text>
           <TextInput
             style={styles.inputText}
             placeholderTextColor="#003f5c"
-            onChangeText={(text) => setState({ email: text })}
+            onChangeText={(email) => setEmail(email)}
           />
           <Text style={styles.infoInputText}>Senha</Text>
           <TextInput
             style={styles.inputText}
             secureTextEntry
             placeholderTextColor="#003f5c"
-            onChangeText={(text) => setState({ password: text })}
+            onChangeText={(password) => setPassword(password)}
           />
           <Text style={styles.infoInputText}>Confirmar senha</Text>
           <TextInput
             style={styles.inputText}
             secureTextEntry
             placeholderTextColor="#003f5c"
-            onChangeText={(text) => setState({ password: text })}
+            onChangeText={(confirmPassword) => {
+              setConfirmPassword(confirmPassword);
+            }}
           />
           {/* <TouchableOpacity onPress={onPressLogin} style={styles.loginBtn}>
             <Text style={styles.loginText}>Estou pronto </Text>
           </TouchableOpacity> */}
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity onPress={handleRegister}>
             <Button style={styles.loginBtn} textColor="#fff">
               <Text style={styles.textBtn}>Estou pronto</Text>
             </Button>
