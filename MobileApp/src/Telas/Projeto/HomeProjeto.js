@@ -15,6 +15,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import API from "../../Services/webapiservices";
 import { URLTASK } from "../../Services/URL";
+import { combineTransition } from "react-native-reanimated";
 const item = [
   {
     id: "646559d730418929632cee6c",
@@ -27,7 +28,7 @@ const item = [
     dueDate: "2023-05-17T22:43:44.243Z",
     members: null,
     tarefaId: ["64655877d423bfb671802d70", "64655877d423bfb671802d10"],
-    userId: null,
+    userId: null,    
   },
   {
     id: "646559d730418929632cef6c",
@@ -53,6 +54,7 @@ const tasks = [
     dataVencimento: "2023-04-22T18:35:05.334Z",
     prioridade: 0,
     status: "Completa",
+    isChecked: false
   },
   {
     id: "64655877d423bfb671802d10",
@@ -62,6 +64,7 @@ const tasks = [
     dataVencimento: "2023-04-22T18:35:05.334Z",
     prioridade: 0,
     status: "Completa",
+    isChecked: false
   },
   {
     id: "64655877d423bfb671812d11",
@@ -71,6 +74,7 @@ const tasks = [
     dataVencimento: "2023-04-22T18:35:05.334Z",
     prioridade: 0,
     status: "Não iniciada",
+    isChecked: false
   },
   {
     id: "64655877d423bfb671812d12",
@@ -80,6 +84,7 @@ const tasks = [
     dataVencimento: "2023-04-22T18:35:05.334Z",
     prioridade: 0,
     status: "Não iniciada",
+    isChecked: false
   },
 ];
 
@@ -88,27 +93,33 @@ export default function HomeProjeto() {
   const [check, setCheck] = useState("unchecked");
 
   useEffect(() => {
-     //API.get(URLTASK).then((x) => console.log(x));
+    //API.get(URLTASK).then((x) => console.log(x));
   }, []);
 
   // Renderiza accordion
-  const handleTask = (task, tarefaIdProject) => {
+  const handleTask = (tarefa, projetoTarefaId) => {
     const arr = [];
+    console.log(tarefa.id);
 
-    tarefaIdProject.forEach((element) => {
-      task.map((tarefa) => {
-        if (tarefa.id == element) arr.push(tarefa.tituloTarefa);
+    projetoTarefaId.forEach((projetoTarefaId) => {
+      tarefa.map((tarefa) => {
+        if (tarefa.id == projetoTarefaId) {
+          tarefa.isChecked = true
+          arr.push(tarefa);
+        } 
       });
     });
-    return arr.map((task) => (
+    return arr.map((tarefa) => (
       <>
-        {console.log(task.id)}
+        {/* {console.log(tarefa.tituloTarefa)} */}
+        {console.log(arr)}
+        {tarefa.isChecked = true}
         <Checkbox.Item
-          key={task.id}
-          label={task}
+          key={tarefa.id}
+          label={tarefa.tituloTarefa}
           status={check}
           onPress={() => {
-            check == "unchecked" ? setCheck("checked") : setCheck("unchecked");
+            check == "unchecked" && tarefa.isChecked ? setCheck("checked") : setCheck("unchecked");
           }}
         />
       </>
