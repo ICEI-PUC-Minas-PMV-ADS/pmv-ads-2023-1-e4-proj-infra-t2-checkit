@@ -28,7 +28,7 @@ const item = [
     dueDate: "2023-05-17T22:43:44.243Z",
     members: null,
     tarefaId: ["64655877d423bfb671802d70", "64655877d423bfb671802d10"],
-    userId: null,    
+    userId: null,
   },
   {
     id: "646559d730418929632cef6c",
@@ -54,7 +54,7 @@ const tasks = [
     dataVencimento: "2023-04-22T18:35:05.334Z",
     prioridade: 0,
     status: "Completa",
-    isChecked: false
+    isChecked: false,
   },
   {
     id: "64655877d423bfb671802d10",
@@ -64,7 +64,7 @@ const tasks = [
     dataVencimento: "2023-04-22T18:35:05.334Z",
     prioridade: 0,
     status: "Completa",
-    isChecked: false
+    isChecked: false,
   },
   {
     id: "64655877d423bfb671812d11",
@@ -74,7 +74,7 @@ const tasks = [
     dataVencimento: "2023-04-22T18:35:05.334Z",
     prioridade: 0,
     status: "Não iniciada",
-    isChecked: false
+    isChecked: false,
   },
   {
     id: "64655877d423bfb671812d12",
@@ -84,7 +84,7 @@ const tasks = [
     dataVencimento: "2023-04-22T18:35:05.334Z",
     prioridade: 0,
     status: "Não iniciada",
-    isChecked: false
+    isChecked: false,
   },
 ];
 
@@ -104,22 +104,24 @@ export default function HomeProjeto() {
     projetoTarefaId.forEach((projetoTarefaId) => {
       tarefa.map((tarefa) => {
         if (tarefa.id == projetoTarefaId) {
-          tarefa.isChecked = true
+          tarefa.isChecked = true;
           arr.push(tarefa);
-        } 
+        }
       });
     });
     return arr.map((tarefa) => (
       <>
         {/* {console.log(tarefa.tituloTarefa)} */}
         {console.log(arr)}
-        {tarefa.isChecked = true}
+        {(tarefa.isChecked = true)}
         <Checkbox.Item
           key={tarefa.id}
           label={tarefa.tituloTarefa}
           status={check}
           onPress={() => {
-            check == "unchecked" && tarefa.isChecked ? setCheck("checked") : setCheck("unchecked");
+            check == "unchecked" && tarefa.isChecked
+              ? setCheck("checked")
+              : setCheck("unchecked");
           }}
         />
       </>

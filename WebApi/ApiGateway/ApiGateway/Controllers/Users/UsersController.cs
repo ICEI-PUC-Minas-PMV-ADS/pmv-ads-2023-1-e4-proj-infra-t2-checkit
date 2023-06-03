@@ -55,8 +55,9 @@ namespace ApiGateway.Controllers.Users
         [HttpPost("authenticate")]
         public async Task<IActionResult> Authenticate([FromBody] Authenticate login)
         {
-            var result = await _httpClient.PostAsJsonAsync($"https://localhost:7295/api/users/authenticate", login);
+            var result = await _httpClient.PostAsJsonAsync($"https://localhost:7295/api/users/authenticate", login);          
             var resultJson = await result.Content.ReadAsStringAsync(); // Token
+            Console.WriteLine(resultJson);
 
             return Ok(resultJson);
         }

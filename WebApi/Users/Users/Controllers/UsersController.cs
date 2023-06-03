@@ -88,7 +88,7 @@ namespace Users.Controllers
             var tokenService = new TokenService();
             var jwt = tokenService.GenerateJwtToken(userDb);
 
-            return Ok(new { jwtToken = jwt });
+            return Ok(new { jwtToken = jwt, userId = userDb.Id });
         }
     }
 }
