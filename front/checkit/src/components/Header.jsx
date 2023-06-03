@@ -4,6 +4,7 @@ import { BsGrid1X2Fill, BsPlusSquareFill, BsGearFill, BsDoorClosedFill } from "r
 import CreateProject from './CreateProject';
 import EditUserForm from './EditUserForm';
 import { Dialog } from 'primereact/dialog';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -11,6 +12,15 @@ export default function MenuBar() {
 
   const [displayCreateForm, setDisplayCreateForm] = useState(false);
   const [displayUserForm, setDisplayUserForm] = useState(false);
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+      e.preventDefault();
+      localStorage.removeItem('token');
+      navigate("/");
+    };
+
 
 
   const items = [
@@ -27,7 +37,7 @@ export default function MenuBar() {
             command: () => setDisplayUserForm(true)
         }
   ]
-  const end = < BsDoorClosedFill className="mx-3" />;
+  const end = < BsDoorClosedFill className="mx-3" onClick={handleSubmit} />;
 
   const onHide = () => {
       setDisplayCreateForm(false);
