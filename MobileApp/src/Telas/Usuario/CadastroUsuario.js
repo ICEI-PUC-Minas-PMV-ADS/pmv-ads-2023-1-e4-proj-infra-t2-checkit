@@ -1,24 +1,20 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-  Alert,
-} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
+import Input from "../../Componentes/Input";
+
 import Body from "../../Componentes/Body";
 import { Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
-
+import { TextInput } from "react-native-paper";
 const App = () => {
   const navigation = useNavigation();
-
+  const [escondeSenha, setEscondeSenha] = useState(true);
+  const [escondeConfirmaSenha, setEscondeConfirmaSenha] = useState(true);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  
+
   // Temrinar
   const [missInfo, setMissInfo] = useState(false);
 
@@ -56,50 +52,71 @@ const App = () => {
   return (
     <View style={styles.container}>
       <Body>
+
         <Text style={styles.title}>
           Insira seus dados para iniciar um projeto com CheckIt!
         </Text>
-        <Body>
-          <Text style={styles.infoInputText}>Nome</Text>
-          <TextInput
-            style={styles.inputText}
-            placeholderTextColor="#003f5c"
-            onChangeText={(name) => setName(name)}
-          />
-          <Text style={styles.infoInputText}>E-mail</Text>
-          <TextInput
-            style={styles.inputText}
-            placeholderTextColor="#003f5c"
-            onChangeText={(email) => setEmail(email)}
-          />
-          <Text style={styles.infoInputText}>Senha</Text>
-          <TextInput
-            style={styles.inputText}
-            secureTextEntry
-            placeholderTextColor="#003f5c"
-            onChangeText={(password) => setPassword(password)}
-          />
-          <Text style={styles.infoInputText}>Confirmar senha</Text>
-          <TextInput
-            style={styles.inputText}
-            secureTextEntry
-            placeholderTextColor="#003f5c"
-            onChangeText={(confirmPassword) => {
-              setConfirmPassword(confirmPassword);
-            }}
-          />
-          {/* <TouchableOpacity onPress={onPressLogin} style={styles.loginBtn}>
+
+        <Text style={styles.infoInputText}>Nome</Text>
+        <Input
+          mode="outlined"
+          activeOutlineColor={"#184C78"}
+          placeholderTextColor="#003f5c"
+          onChangeText={(name) => setName(name)}
+        />
+        <Text style={styles.infoInputText}>E-mail</Text>
+        <Input
+          mode="outlined"
+          activeOutlineColor={"#184C78"}
+          placeholderTextColor="#003f5c"
+          onChangeText={(email) => setEmail(email)}
+          right={<TextInput.Icon icon="email-outline" />}
+        />
+        <Text style={styles.infoInputText}>Senha</Text>
+        <Input
+          mode="outlined"
+          activeOutlineColor={"#184C78"}
+          secureTextEntry={escondeSenha}
+          placeholderTextColor="#003f5c"
+          right={
+            <TextInput.Icon
+              onPress={() =>
+                escondeSenha ? setEscondeSenha(false) : setEscondeSenha(true)
+              }
+              icon={escondeSenha ? "eye-off" : "eye"}
+            />
+          }
+          onChangeText={(password) => setPassword(password)}
+        />
+        <Text style={styles.infoInputText}>Confirmar senha</Text>
+        <Input
+          mode="outlined"
+          activeOutlineColor={"#184C78"}
+          secureTextEntry={escondeConfirmaSenha}
+          placeholderTextColor="#003f5c"
+          right={
+            <TextInput.Icon
+              onPress={() =>
+                escondeConfirmaSenha ? setEscondeConfirmaSenha(false) : setEscondeConfirmaSenha(true)
+              }
+              icon={escondeConfirmaSenha ? "eye-off" : "eye"}
+            />
+          }
+          onChangeText={(confirmPassword) => {
+            setConfirmPassword(confirmPassword);
+          }}
+        />
+        {/* <TouchableOpacity onPress={onPressLogin} style={styles.loginBtn}>
             <Text style={styles.loginText}>Estou pronto </Text>
           </TouchableOpacity> */}
-          <TouchableOpacity onPress={handleRegister}>
-            <Button style={styles.loginBtn} textColor="#fff">
-              <Text style={styles.textBtn}>Estou pronto</Text>
-            </Button>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-            <Text style={styles.signUpText}>Já tem uma conta? Login!</Text>
-          </TouchableOpacity>
-        </Body>
+        <TouchableOpacity onPress={handleRegister}>
+          <Button style={styles.loginBtn} textColor="#fff">
+            <Text style={styles.textBtn}>Estou pronto</Text>
+          </Button>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+          <Text style={styles.signUpText}>Já tem uma conta? Login!</Text>
+        </TouchableOpacity>
       </Body>
     </View>
   );
@@ -109,14 +126,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#ffffff",
     alignItems: "center",
-    justifyContent: "space-between",
   },
   title: {
-    height: 200,
+    height: 100,
     fontWeight: "bold",
     fontSize: 25,
     color: "#000000",
-    marginTop: 85,
+    marginTop: 10,
+    marginBottom:5,
     padding: 5,
   },
   inputView: {
@@ -130,14 +147,12 @@ const styles = StyleSheet.create({
     display: "flex",
   },
   inputText: {
-    height: 50,
+    height: 40,
     marginBottom: 20,
     color: "black",
     borderColor: "#000000",
     borderWidth: 1,
     borderRadius: 5,
-    display: "flex",
-    padding: 10,
   },
   signUpText: {
     bottom: 70,
@@ -168,7 +183,10 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   infoInputText: {
-    fontSize: 12,
+    fontSize: 13,
+    fontWeight: "bold",
+ 
+    margin: 6,
   },
 });
 export default App;
