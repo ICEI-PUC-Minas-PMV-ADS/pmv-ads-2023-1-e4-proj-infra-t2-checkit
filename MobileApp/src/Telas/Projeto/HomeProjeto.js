@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   View,
   FlatList,
+  Pressable,
 } from "react-native";
 import { List, Checkbox } from "react-native-paper";
 import Container from "../../Componentes/Container";
@@ -16,6 +17,8 @@ import { useNavigation } from "@react-navigation/native";
 import API from "../../Services/webapiservices";
 import { URLTASK } from "../../Services/URL";
 import { combineTransition } from "react-native-reanimated";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+
 const item = [
   {
     id: "646559d730418929632cee6c",
@@ -54,7 +57,7 @@ const tasks = [
     dataVencimento: "2023-04-22T18:35:05.334Z",
     prioridade: 0,
     status: "Completa",
-    isChecked: false,
+    isChecked: true,
   },
   {
     id: "64655877d423bfb671802d10",
@@ -92,19 +95,37 @@ export default function HomeProjeto() {
   const navigation = useNavigation();
   const [check, setCheck] = useState("unchecked");
 
+  const [checkMat, setCheckMat] = useState();
+
   useEffect(() => {
     //API.get(URLTASK).then((x) => console.log(x));
   }, []);
 
+  const handleCheck = (tarefa) => {
+    // console.log(tarefa);
+    console.log(tarefa.id);
+    // console.log(tarefa.isChecked);
+    if (!tarefa.isChecked) {
+      tarefa.isChecked = true;
+      console.log("1 - IsChecked: " + tarefa.isChecked);
+      setCheckMat("checkbox-marked");
+      //setCheck("checked");
+    } else {
+      tarefa.isChecked = false;
+      console.log("2 - IsChecked: " + tarefa.isChecked);
+      setCheckMat("checkbox-blank-outline");
+      //setCheck("unchecked");
+    }
+  };
+
   // Renderiza accordion
   const handleTask = (tarefa, projetoTarefaId) => {
     const arr = [];
-    console.log(tarefa.id);
+    //console.log(tarefa.id);
 
     projetoTarefaId.forEach((projetoTarefaId) => {
       tarefa.map((tarefa) => {
         if (tarefa.id == projetoTarefaId) {
-          tarefa.isChecked = true;
           arr.push(tarefa);
         }
       });
@@ -112,40 +133,42 @@ export default function HomeProjeto() {
     return arr.map((tarefa) => (
       <>
         {/* {console.log(tarefa.tituloTarefa)} */}
-        {console.log(arr)}
-        {(tarefa.isChecked = true)}
-        <Checkbox.Item
+        {/* {console.log(arr)}        */}
+        {/* <Checkbox.Item
           key={tarefa.id}
           label={tarefa.tituloTarefa}
           status={check}
           onPress={() => {
-            check == "unchecked" && tarefa.isChecked
+            // if (!tarefa.isChecked) {
+            //   tarefa.isChecked = true;
+            //   setCheck("checked")
+            // } else {
+            //   tarefa.isChecked = false;
+            //   setCheck("unchecked");
+            // }
+            tarefa.isChecked && check == "unchecked"
               ? setCheck("checked")
               : setCheck("unchecked");
+           // handleCheck(tarefa);
           }}
-        />
+        /> */}
+        <Pressable
+          onPress={() => {
+            handleCheck(tarefa), console.log("--> " + tarefa.isChecked);
+          }}
+        >
+          {/* {console.log("--> " + tarefa.id)} */}
+          <MaterialCommunityIcons
+            name={
+              tarefa.isChecked ? "checkbox-marked" : "checkbox-blank-outline"
+            }
+            size={24}
+            color="#000"
+          />
+        </Pressable>
+        <Text key={tarefa.id}>{tarefa.tituloTarefa}</Text>
       </>
     ));
-
-    // return arr.map((task) => (
-    //   <>
-    //     <Checkbox.Item
-    //       key={task.id}
-    //       label={task}
-    //       // status={tasks.map((x) => {
-    //       //   if (x.tituloTarefa === "Completa") return "Checked";
-    //       // })}
-    //       status={
-    //         check == "unchecked" ? setCheck("checked") : setCheck("unchecked")
-    //       }
-    //       // onPress={() =>
-    //       //   tasks.forEach((x) => {
-    //       //     console.log(x.tituloTarefa);
-    //       //   })
-    //       // }
-    //     />
-    //   </>
-    // ));
   };
 
   const handleExcluir = (item) => {
