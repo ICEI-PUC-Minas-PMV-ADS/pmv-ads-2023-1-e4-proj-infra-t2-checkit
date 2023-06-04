@@ -95,7 +95,7 @@ export default function HomeProjeto() {
   const navigation = useNavigation();
   const [check, setCheck] = useState("unchecked");
 
-  const [checkMat, setCheckMat] = useState();
+  const [checkMat, setCheckMat] = useState("checkbox-blank-outline");
 
   useEffect(() => {
     //API.get(URLTASK).then((x) => console.log(x));
@@ -132,6 +132,29 @@ export default function HomeProjeto() {
     });
     return arr.map((tarefa) => (
       <>
+        <Pressable
+          onPress={() => {
+            handleCheck(tarefa), console.log("--> " + tarefa.isChecked);
+          }}
+        >
+          {/* {console.log("--> " + tarefa.id)} */}
+          {tarefa.isChecked && (
+            <MaterialCommunityIcons
+              name={"checkbox-marked"}
+              size={24}
+              color="#000"
+            />
+          )}
+          {!tarefa.isChecked && (
+            <MaterialCommunityIcons
+              name={"checkbox-blank-outline"}
+              size={24}
+              color="#000"
+            />
+          )}
+        </Pressable>
+        <Text key={tarefa.id}>{tarefa.tituloTarefa}</Text>
+
         {/* {console.log(tarefa.tituloTarefa)} */}
         {/* {console.log(arr)}        */}
         {/* <Checkbox.Item
@@ -152,21 +175,6 @@ export default function HomeProjeto() {
            // handleCheck(tarefa);
           }}
         /> */}
-        <Pressable
-          onPress={() => {
-            handleCheck(tarefa), console.log("--> " + tarefa.isChecked);
-          }}
-        >
-          {/* {console.log("--> " + tarefa.id)} */}
-          <MaterialCommunityIcons
-            name={
-              tarefa.isChecked ? "checkbox-marked" : "checkbox-blank-outline"
-            }
-            size={24}
-            color="#000"
-          />
-        </Pressable>
-        <Text key={tarefa.id}>{tarefa.tituloTarefa}</Text>
       </>
     ));
   };
