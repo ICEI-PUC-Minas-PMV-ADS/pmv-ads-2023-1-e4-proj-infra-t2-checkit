@@ -9,14 +9,13 @@ import NovoProjeto from "../Telas/Projeto/NovoProjeto";
 import Home from "../Telas/Home";
 import MainHome from "../Telas/Usuario/MainHome";
 import HomeProjeto from "../Telas/Projeto/HomeProjeto";
-
 // const Stack = createStackNavigator();
 
 const Stack = createNativeStackNavigator();
 
 const Main = () => {
   return (
-    <Stack.Navigator initialRouteName="HomeProjeto">
+    <Stack.Navigator initialRouteName="Home">
       <Stack.Screen
         name="Login"
         component={Login}
