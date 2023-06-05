@@ -10,7 +10,7 @@ import Home from "../Telas/Home";
 import MainHome from "../Telas/Usuario/MainHome";
 import HomeProjeto from "../Telas/Projeto/HomeProjeto";
 // const Stack = createStackNavigator();
-
+import EditarUsuario from "../Telas/Usuario/EditarUsuario";
 const Stack = createNativeStackNavigator();
 
 const Main = () => {
@@ -49,6 +49,13 @@ const Main = () => {
       <Stack.Screen
         name="MainHome"
         component={MainHome}
+        options={{
+          header: () => null,
+        }}
+      />
+      <Stack.Screen
+        name="EditarUsuario"
+        component={EditarUsuario}
         options={{
           header: () => null,
         }}

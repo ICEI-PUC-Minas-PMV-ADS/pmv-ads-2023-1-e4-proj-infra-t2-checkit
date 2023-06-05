@@ -6,7 +6,7 @@ import Body from "../../Componentes/Body";
 import { Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { TextInput } from "react-native-paper";
-const CadastroUsuario = () => {
+const EditarUsuario = () => {
   const navigation = useNavigation();
   const [escondeSenha, setEscondeSenha] = useState(true);
   const [escondeConfirmaSenha, setEscondeConfirmaSenha] = useState(true);
@@ -14,7 +14,6 @@ const CadastroUsuario = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
 
   // Temrinar
   const [missInfo, setMissInfo] = useState(false);
@@ -36,8 +35,7 @@ const CadastroUsuario = () => {
   //     });
   // };
 
-
-  const handleRegister = () => {
+  const handleEdit = () => {
     //console.log(`${name}, ${email}, ${password}, ${confirmPassword}`);
     // Validando senha
     if (!name || !email || !password || !confirmPassword) {
@@ -50,19 +48,21 @@ const CadastroUsuario = () => {
       console.log("Ir para tela inicial");
     }
   };
+  navigation.navigate("Home")
 
   return (
     <View style={styles.container}>
       <Body>
 
-        <View style={{width:300}}>
-          <Text style={styles.title}>
-          Insira seus dados para iniciar um projeto com CheckIt!
-          </Text>
-        </View>
+        <Text style={styles.title}>
+          Editar Minhas informações
+
+        </Text>
 
         <Text style={styles.infoInputText}>Nome</Text>
         <Input
+          disabled={true}
+
           mode="outlined"
           activeOutlineColor={"#184C78"}
           placeholderTextColor="#003f5c"
@@ -115,27 +115,15 @@ const CadastroUsuario = () => {
         {/* <TouchableOpacity onPress={onPressLogin} style={styles.loginBtn}>
             <Text style={styles.loginText}>Estou pronto </Text>
           </TouchableOpacity> */}
-        <View style={styles.viewBtn}>
-        
-        <TouchableOpacity >
+          <View style={styles.viewBtn}>
+
+        <TouchableOpacity onPress={handleEdit}>
           <Button style={styles.loginBtn} textColor="#fff">
-            <Text style={styles.textBtn}>Estou pronto</Text>
+            <Text style={styles.textBtn}>Editar </Text>
           </Button>
         </TouchableOpacity>
-        </View>
-        <View style={styles.viewOr}>
+          </View>
         
-        
-          <Text>OU</Text>
-       
-        </View>
-        <View style={styles.viewText}>
-
-        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-          <Text style={styles.signUpText}>Já tem uma conta? Login!</Text>
-        </TouchableOpacity>
-
-        </View>
       </Body>
     </View>
   );
@@ -145,7 +133,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#ffffff",
     alignItems: "center",
-
   },
   title: {
     height: 100,
@@ -177,9 +164,9 @@ const styles = StyleSheet.create({
   signUpText: {
     bottom: 70,
     color: "#505050",
-    fontSize: 12,
-    
-
+    fontSize: 11,
+    paddingLeft: 190,
+    paddingBottom: 5,
   },
   forgotText: {
     color: "#505050",
@@ -189,11 +176,11 @@ const styles = StyleSheet.create({
     width: 140,
     color: "#85B1E4",
     backgroundColor: "#5C66BD",
-    borderRadius: 8,
+    borderRadius: 11,
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 20,
+    marginTop: 40,
     marginBottom: 10,
     display: "flex",
   },
@@ -203,32 +190,19 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   viewBtn: {
-    
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
-  },
-  viewOr:{
-    justifyContent: "center",
-    alignItems: "center",
-    alignSelf: "center",
-    marginTop:10,
-    marginBottom:-10,
-  },
-  viewText:{
-    width: 320,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 100,
   },
   textBtn:{
-    fontSize:16,
+    fontSize:17,
+
   },
   infoInputText: {
     fontSize: 13,
     fontWeight: "bold",
-    
+ 
     margin: 6,
   },
 });
-export default CadastroUsuario;
+export default EditarUsuario;

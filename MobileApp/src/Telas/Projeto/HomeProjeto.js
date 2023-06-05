@@ -160,7 +160,7 @@ export default function HomeProjeto() {
           {/* {console.log("--> " + tarefa.id)} */}
           <MaterialCommunityIcons
             name={
-              tarefa.isChecked ? "checkbox-marked" : "checkbox-blank-outline"
+              tarefa.status== "Completa" ? "checkbox-marked" : "checkbox-blank-outline"
             }
             size={24}
             color="#000"
