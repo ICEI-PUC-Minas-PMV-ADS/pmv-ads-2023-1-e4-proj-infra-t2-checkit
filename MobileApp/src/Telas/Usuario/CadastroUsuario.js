@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import Input from "../../Componentes/Input";
 
 import Body from "../../Componentes/Body";
-import { Button } from "react-native-paper";
+import { Button,Snackbar } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { TextInput } from "react-native-paper";
 const CadastroUsuario = () => {
@@ -14,8 +14,12 @@ const CadastroUsuario = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [aviso, setAviso] = useState("");
 
 
+  const [visible, setVisible] = useState(false);
+  const onToggleSnackBar = () => setVisible(!visible);
+  const onDismissSnackBar = () => setVisible(false);
   // Temrinar
   const [missInfo, setMissInfo] = useState(false);
 
@@ -43,9 +47,12 @@ const CadastroUsuario = () => {
     if (!name || !email || !password || !confirmPassword) {
       console.log("missinfo");
       setMissInfo(true);
+      onToggleSnackBar()
+      setAviso("Preencha todos os campos para realizarmos o seu cadastro")
     }
     if (password !== confirmPassword) {
-      Alert.alert("Atenção", "Confirmação de senha incorreta");
+      setAviso("Insira senhas iguais")
+
     } else {
       console.log("Ir para tela inicial");
     }
@@ -117,7 +124,7 @@ const CadastroUsuario = () => {
           </TouchableOpacity> */}
         <View style={styles.viewBtn}>
         
-        <TouchableOpacity >
+        <TouchableOpacity onPress={handleRegister} >
           <Button style={styles.loginBtn} textColor="#fff">
             <Text style={styles.textBtn}>Estou pronto</Text>
           </Button>
@@ -134,7 +141,15 @@ const CadastroUsuario = () => {
         <TouchableOpacity onPress={() => navigation.navigate("Login")}>
           <Text style={styles.signUpText}>Já tem uma conta? Login!</Text>
         </TouchableOpacity>
-
+        <Snackbar
+          visible={visible}
+          onDismiss={onDismissSnackBar}
+          action={{
+            label: "Ok",
+          }}
+        >
+         {aviso}
+        </Snackbar>
         </View>
       </Body>
     </View>

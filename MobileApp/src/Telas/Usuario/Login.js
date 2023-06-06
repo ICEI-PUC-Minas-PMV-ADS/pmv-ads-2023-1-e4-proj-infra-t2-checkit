@@ -18,26 +18,20 @@ const App = () => {
   const onPressLogin = () => {
     console.log("funciona");
 
-    if (!email || !password) {
+    if (!email && !password) {
       setMissInfo(true); // Ausência de email e/ou senha
-      // onToggleSnackBar();
+      onToggleSnackBar();
+      setAviso("Por favor insira o seu Email e Senha")
       // setAviso("Por favor, insira o email e a senha");
-    } else {
-      navigation.navigate("Home");
-      // console.log("hadiosdvfdahspk");
-      // postLogin({
-      //   email: email,
-      //   senha: senha,
-      // })
-      //   .then((response) => {
-      //     if (response.message == "Usuário não cadastrado") {
-      //       setMissInfo(true); // Infica que o usuário não esta cadastrado
-      //       setAviso("Email ou senha incorretos");
-      //     }
-      //   })
-      //   .catch((e) => console.log(e));
-    } // Implementar quando o usuário não for cadastrado
-    // Do something about login operation
+    } else if(email.length==0) {
+      onToggleSnackBar();
+      setAviso("Por favor insira o seu Email")
+    
+    } 
+    else if(password.length==0){
+      onToggleSnackBar();
+      setAviso("Por favor insira a sua Senha")
+    }
   };
   const onPressForgotPassword = () => {
     // Do something about forgot password operation
@@ -80,7 +74,7 @@ const App = () => {
           onChangeText={(text) => setPassword(text)}
         />
       </View>
-
+      {missInfo && <Text style={styles.aviso}>{aviso}</Text>}
       <TouchableOpacity onPress={onPressLogin} style={styles.loginBtn}>
         <Text style={styles.loginText}>Entrar </Text>
       </TouchableOpacity>
@@ -90,6 +84,15 @@ const App = () => {
           Ainda não tem uma conta? Cadastre-se!
         </Text>
       </TouchableOpacity>
+      <Snackbar
+          visible={visible}
+          onDismiss={onDismissSnackBar}
+          action={{
+            label: "Ok",
+          }}
+        >
+         {aviso}
+        </Snackbar>
     </View>
   );
 };
@@ -146,7 +149,7 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 50,
+    marginTop: 20,
     marginBottom: 20,
     display: "flex",
   },
@@ -154,7 +157,9 @@ const styles = StyleSheet.create({
     color: "#ffffff",
   },
   infoInputText: {
-    fontSize: 12,
+    fontSize: 14,
+    marginBottom:10,
+    marginLeft:3,
   },
 });
 export default App;
