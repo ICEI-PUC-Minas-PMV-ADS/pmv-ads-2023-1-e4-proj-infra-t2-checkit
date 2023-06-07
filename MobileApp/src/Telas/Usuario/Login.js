@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import API from "../../Services/webapiservices";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { TextInput, Snackbar } from "react-native-paper";
-
+import { AuthUserContext } from "../../Contexts/AuthUserProvider";
 const App = () => {
   const navigation = useNavigation();
+  const {postLogin,user,setUser} = useContext(AuthUserContext)
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,9 +14,12 @@ const App = () => {
   const [missInfo, setMissInfo] = useState(false);
   const [escondeSenha, setEscondeSenha] = useState(true);
   const [visible, setVisible] = useState(false);
+
   const onToggleSnackBar = () => setVisible(!visible);
   const onDismissSnackBar = () => setVisible(false);
+ 
   const onPressLogin = () => {
+    
     console.log("funciona");
 
     if (!email && !password) {

@@ -6,11 +6,12 @@ import MainHome from "./Usuario/MainHome";
 import CadastroUsuario from "./Usuario/CadastroUsuario";
 import NovoProjeto from "./Projeto/NovoProjeto";
 import { useNavigation, useRoute } from "@react-navigation/native";
-
+import { AuthUserContext } from "../Contexts/AuthUserProvider";
 const Home = () => {
   // const {} = useContext(AuthContext);
   const [index, setIndex] = useState(0);
-
+  const {user}= useContext(AuthUserContext)
+  
   const [routes] = useState([
     { key: "novoProjeto", 
     title: "Novo Projeto", 
