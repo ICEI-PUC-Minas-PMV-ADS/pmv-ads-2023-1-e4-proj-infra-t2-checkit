@@ -22,7 +22,11 @@ import Body from "../../Componentes/Body";
 import TextOverInput from "../../Componentes/TextOverInput";
 import { BASEPROJECTSURL } from "../../Services/URL";
 import { Botao } from "../../Componentes/Botao";
-import { ScrollView,NativeViewGestureHandler,GestureHandlerRootView } from "react-native-gesture-handler";
+import {
+  ScrollView,
+  NativeViewGestureHandler,
+  GestureHandlerRootView,
+} from "react-native-gesture-handler";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 import Dialog from "react-native-dialog";
@@ -107,7 +111,6 @@ export default function NovoProjeto({ route }) {
   }, [item]);
 
   return (
-    
     <Container>
       <Body>
         <Text style={styles.Titulo}>Novo Projeto</Text>
@@ -165,7 +168,7 @@ export default function NovoProjeto({ route }) {
           </>
           <TouchableOpacity onPress={() => setShowDialog(true)}>
             <Button
-              textColor="#383F82"
+              textColor="#FFF"
               style={styles.plusTask}
               icon="plus-box-outline"
             >
@@ -203,40 +206,37 @@ export default function NovoProjeto({ route }) {
             />
           </Dialog.Container>
           <GestureHandlerRootView>
+            <ScrollView scrollEnabled={tarefas.length > 2 ? true : false}>
+              {tarefas.map((x, y) => (
+                <View style={styles.itensList}>
+                  <List.Icon icon={"notebook-edit"} />
 
-          <ScrollView scrollEnabled={tarefas.length > 2 ? true : false}>
-            {tarefas.map((x, y) => (
-              <View style={styles.itensList}>
-                <List.Icon icon={"notebook-edit"} />
-
-                <Text key={y} style={styles.taskItens}>
-                  {x}
-                </Text>
-                <TouchableOpacity onPress={() => setIsEditing(x)}>
-                  <List.Icon
-                    style={{ marginLeft: 170 }}
-                    icon={"notebook-edit-outline"}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => deleteTask(x)}>
-                  <List.Icon style={{ marginLeft: 20 }} icon={"trash-can"} />
-                </TouchableOpacity>
-              </View>
-            ))}
-          </ScrollView>
+                  <Text key={y} style={styles.taskItens}>
+                    {x}
+                  </Text>
+                  <TouchableOpacity onPress={() => setIsEditing(x)}>
+                    <List.Icon
+                      style={{ marginLeft: 170 }}
+                      icon={"notebook-edit-outline"}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => deleteTask(x)}>
+                    <List.Icon style={{ marginLeft: 20 }} icon={"trash-can"} />
+                  </TouchableOpacity>
+                </View>
+              ))}
+            </ScrollView>
           </GestureHandlerRootView>
-
         </View>
         <View style={styles.viewBtn}>
           <TouchableOpacity onPress={createProject}>
             <Button style={styles.button} textColor="#fff">
-              <Text style={styles.textBtn}>Salvar Novo Projeto</Text>
+              <Text style={styles.textBtn}>Salvar Projeto</Text>
             </Button>
           </TouchableOpacity>
         </View>
       </Body>
     </Container>
-
   );
 }
 const styles = StyleSheet.create({
@@ -249,6 +249,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginTop: 40,
     marginLeft: 13,
+    color: "#fff",
+    fontWeight: "bold",
+    textAlign: "center",
   },
   viewInput: {
     flex: 1,
@@ -261,20 +264,19 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   button: {
-    backgroundColor: "#85B1E4",
+    backgroundColor: "#FEC044",
     width: "80%",
-    height: 50,
-    width: 250,
+    width: 200,
     borderRadius: 12,
     height: 50,
     alignItems: "center",
     justifyContent: "center",
     marginTop: 12,
-    marginBottom: 30,
+    marginBottom: 40,
   },
   textBtn: {
     fontSize: 18,
-    fontStyle: "italic",
+    fontWeight: "bold",
   },
   plusTask: {
     marginBottom: -15,
