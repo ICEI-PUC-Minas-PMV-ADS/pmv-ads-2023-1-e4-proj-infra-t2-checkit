@@ -70,8 +70,9 @@ const CadastroUsuario = () => {
 
         <Text style={styles.infoInputText}>Nome</Text>
         <Input
-          mode="outlined"
-          activeOutlineColor={"#184C78"}
+         mode="outlined"
+         outlineColor={"#262626"}
+         activeOutlineColor={"#262626"}
           placeholderTextColor="#003f5c"
           onChangeText={(name) => setName(name)}
           right={<TextInput.Icon icon="account-circle-outline" />}
@@ -79,16 +80,20 @@ const CadastroUsuario = () => {
         />
         <Text style={styles.infoInputText}>E-mail</Text>
         <Input
-          mode="outlined"
-          activeOutlineColor={"#184C78"}
+         mode="outlined"
+         outlineColor={"#262626"}
+         activeOutlineColor={"#262626"}
+
           placeholderTextColor="#003f5c"
           onChangeText={(email) => setEmail(email)}
           right={<TextInput.Icon icon="email-outline" />}
         />
         <Text style={styles.infoInputText}>Senha</Text>
         <Input
-          mode="outlined"
-          activeOutlineColor={"#184C78"}
+            mode="outlined"
+         activeOutlineColor={"#262626"}
+
+            outlineColor={"#262626"}
           secureTextEntry={escondeSenha}
           placeholderTextColor="#003f5c"
           right={
@@ -103,8 +108,10 @@ const CadastroUsuario = () => {
         />
         <Text style={styles.infoInputText}>Confirmar senha</Text>
         <Input
-          mode="outlined"
-          activeOutlineColor={"#184C78"}
+         mode="outlined"
+         outlineColor={"#262626"}
+         activeOutlineColor={"#262626"}
+
           secureTextEntry={escondeConfirmaSenha}
           placeholderTextColor="#003f5c"
           right={
@@ -124,10 +131,10 @@ const CadastroUsuario = () => {
           </TouchableOpacity> */}
         <View style={styles.viewBtn}>
         
-        <TouchableOpacity onPress={handleRegister} >
-          <Button style={styles.loginBtn} textColor="#fff">
+        <TouchableOpacity onPress={handleRegister} style={styles.loginBtn} >
+          
             <Text style={styles.textBtn}>Estou pronto</Text>
-          </Button>
+   
         </TouchableOpacity>
         </View>
         <View style={styles.viewOr}>
@@ -160,16 +167,22 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#ffffff",
     alignItems: "center",
+    backgroundColor: "#7D8AFF",
+
 
   },
   title: {
-    height: 100,
+    height: 140,
     fontWeight: "bold",
-    fontSize: 25,
+    fontSize: 24,
     color: "#000000",
     marginTop: 10,
     marginBottom:5,
+  
     padding: 5,
+    color:"white",
+    letterSpacing:6.7,
+    width:380
   },
   inputView: {
     width: "80%",
@@ -191,7 +204,8 @@ const styles = StyleSheet.create({
   },
   signUpText: {
     bottom: 70,
-    color: "#505050",
+    color: "white",
+    fontWeight:"bold",
     fontSize: 12,
     
 
@@ -203,14 +217,14 @@ const styles = StyleSheet.create({
   loginBtn: {
     width: 140,
     color: "#85B1E4",
-    backgroundColor: "#5C66BD",
+    backgroundColor: "#FEC044",
     borderRadius: 8,
     height: 50,
     alignItems: "center",
     justifyContent: "center",
     marginTop: 20,
     marginBottom: 10,
-    display: "flex",
+
   },
   loginText: {
     color: "#ffffff",
@@ -238,12 +252,13 @@ const styles = StyleSheet.create({
   },
   textBtn:{
     fontSize:16,
+    color:'white'
   },
   infoInputText: {
-    fontSize: 13,
+    fontSize: 14,
     fontWeight: "bold",
-    
-    margin: 6,
+    color:"white",
+    margin: 8,
   },
 });
 export default CadastroUsuario;

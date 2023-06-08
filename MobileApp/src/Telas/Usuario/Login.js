@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import API from "../../Services/webapiservices";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity,Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { TextInput, Snackbar } from "react-native-paper";
 import { AuthUserContext } from "../../Contexts/AuthUserProvider";
@@ -46,12 +46,25 @@ const App = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>
-        Tire seus projetos do papel com CheckIt!{" "}
-      </Text>
+      
+      <View style={styles.viewLogo}>
+
+      <Image
+          style={styles.logo}
+          source={require("../../../assets/Logos/logo_transparent.png")}
+        />
+      </View>
+     
+      
+      
       <View style={styles.inputView}>
+
         <Text style={styles.infoInputText}>E-mail</Text>
         <TextInput
+           mode="outlined"
+           outlineColor="#262626"
+           activeOutlineColor="#262626"
+          
           style={styles.inputText}
           value={email}
           right={<TextInput.Icon icon="email-outline" />}
@@ -59,10 +72,14 @@ const App = () => {
           error={missInfo || (missInfo && !email) ? true : false}
           onChangeText={(text) => setEmail(text)}
         />
+      
 
         <Text style={styles.infoInputText}>Senha</Text>
         <TextInput
+          mode="outlined"
+          outlineColor={"#262626"}
           style={styles.inputText}
+          activeOutlineColor="#262626"
           error={missInfo || (missInfo && !password) ? true : false}
           secureTextEntry={escondeSenha}
           right={
@@ -79,15 +96,19 @@ const App = () => {
         />
       </View>
       {missInfo && <Text style={styles.aviso}>{aviso}</Text>}
+      <View style={styles.viewButton}>
+
       <TouchableOpacity onPress={onPressLogin} style={styles.loginBtn}>
         <Text style={styles.loginText}>Entrar </Text>
       </TouchableOpacity>
-
+      </View>
+      <View style={styles.viewAvisoCadastro}>
       <TouchableOpacity onPress={() => navigation.navigate("CadastroUsuario")}>
         <Text style={styles.signUpText}>
           Ainda não tem uma conta? Cadastre-se!
         </Text>
       </TouchableOpacity>
+      </View>
       <Snackbar
           visible={visible}
           onDismiss={onDismissSnackBar}
@@ -103,23 +124,40 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ffffff",
+    backgroundColor: "#7D8AFF",
     alignItems: "center",
     justifyContent: "space-between",
   },
+  viewLogo:{
+    marginTop:20,
+
+    marginBottom:-20,
+    marginTop:70,
+  },
+  logo: {
+    height: 190,
+    width: 170,
+    padding: 10,
+    marginBottom: 0,
+    marginTop:0,
+    alignSelf: "center",
+  },
+ 
   title: {
     height: 200,
+    width:450,
     fontWeight: "bold",
     fontSize: 25,
-    color: "#000000",
-    marginTop: 85,
+    color: "#ffff",
+    marginTop: -200,
     top: 30,
     padding: 50,
+    letterSpacing:5,
+    marginLeft:30,
   },
   inputView: {
     width: "80%",
-    borderColor: "black",
-    backgroundColor: "#ffffff",
+  
     borderRadius: 11,
     height: 50,
     marginBottom: 2,
@@ -128,17 +166,19 @@ const styles = StyleSheet.create({
   },
   inputText: {
     height: 35,
-    marginBottom: 20,
+    marginBottom: 15,
     color: "black",
-    borderColor: "#000000",
-    borderWidth: 1,
+   
+
     borderRadius: 5,
-    display: "flex",
+  
     padding: 4,
   },
   signUpText: {
     marginBottom: 60,
-    color: "#505050",
+    alignSelf:"center",
+    color: "white",
+    fontWeight:'bold',
     fontSize: 11,
   },
   forgotText: {
@@ -146,24 +186,44 @@ const styles = StyleSheet.create({
     fontSize: 11,
   },
   loginBtn: {
-    width: "80%",
+    
+    width:200,
     color: "#85B1E4",
-    backgroundColor: "#5C66BD",
-    borderRadius: 11,
+    backgroundColor: "#FEC044",
+    borderRadius: 8,
     height: 50,
-    alignItems: "center",
-    justifyContent: "center",
+    
     marginTop: 20,
     marginBottom: 20,
-    display: "flex",
+    
+  },
+  viewButton:{
+    width:130,
+    alignItems: "center",
+    justifyContent: "center",
   },
   loginText: {
     color: "#ffffff",
+    textAlign:"center",
+    alignSelf:"center",
+    justifyContent:"center"
+    
   },
   infoInputText: {
     fontSize: 14,
+    color:"white",
     marginBottom:10,
     marginLeft:3,
+
+  },
+  aviso: {
+    marginTop: 10,
+    marginLeft: 10,
+    fontSize: 15,
+    color: "#D32F2F",
+    fontStyle: "italic",
+    fontWeight: "bold",
+  
   },
 });
 export default App;
