@@ -6,8 +6,12 @@ const api = axios.create({
   }
 });
 
-export const getAllProjects = async () => {
- const response = await api.get("https://localhost:5278/api/projects");
+export const getAllProjects = async (token) => {
+ const response = await api.get("https://localhost:5278/api/projects", {
+  headers: {
+    Authorization: `Bearer ${token}`,
+    },
+ } );
 return response.data
 };
 
