@@ -7,11 +7,11 @@ const api = axios.create({
   }
 });
 
-export const getAllProjects = async (token) => {
+export const getAllProjects = async () => {
  const response = await api.get("https://localhost:5278/api/projects", {
-  headers: {
-    Authorization: `Bearer ${token}`,
-    },
+  // headers: {
+  //   Authorization: `Bearer ${token}`,
+  //   },
  } );
 return response.data
 };
@@ -52,14 +52,18 @@ export const updateUser = async (name, password, email) => {
   return response.data;
 };
 
-// export const getTodos = async (token) => {
-//   const response = await api.get('/todos', {
+// export const getTodos = async (id) => {
+//   const token = validateToken();
+//   console.log(`${token}`);
+//   const response = await api.get(`/tarefas/${id}`, {
 //     headers: {
-//       Authorization: `Bearer ${token}`,
+//       Authorization: `${token}`,
 //     },
 //   });
+//   console.log(response.data);
 //   return response.data;
 // };
+
 
 // export const createTodo = async (todo, token) => {
 //   const response = await api.post('/todos', todo, {
