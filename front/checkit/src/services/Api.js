@@ -7,12 +7,10 @@ const api = axios.create({
   }
 });
 
-export const getAllProjects = async () => {
+export const getProjectsByUser = async () => {
 
   const tokenObject = validateToken();
-  console.log(tokenObject.jwtToken)
-
- const response = await api.get("https://localhost:5278/api/projects", {
+ const response = await api.get(`https://localhost:7152/api/Projects/getAllProjectsThisUser/${tokenObject.userId}`, {
   headers: {
     Authorization: `Bearer ${tokenObject.jwtToken}`,
     },
