@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import React, {useContext} from 'react'
+import { AuthContext } from './services/AuthContext'
 import 'bootstrap/dist/css/bootstrap.css'
 import "./style/styles.css";
 import '@fontsource/roboto/300.css';
@@ -15,45 +16,8 @@ import ProjectList from "./components/ProjectList";
 
 
 export default function App() {
-
-  // const [todos, setTodos] = useState(() => {
-  //   const localValue = localStorage.getItem("ITEMS")
-  //   if (localValue == null) return []
-
-  //   return JSON.parse(localValue)
-  // })
-
-  // useEffect(() => {
-  //   localStorage.setItem("ITEMS", JSON.stringify(todos))
-  // }, [todos])
-
-  // function addTodo(title) {
-  //   setTodos(currentTodos => {
-  //     return [
-  //       ...currentTodos,
-  //       { id: crypto.randomUUID(), title, completed: false },
-  //     ]
-  //   })
-  // }
-
-  // function toggleTodo(id, completed) {
-  //   setTodos(currentTodos => {
-  //     return currentTodos.map(todo => {
-  //       if (todo.id === id) {
-  //         return { ...todo, completed }
-  //       }
-
-  //       return todo
-  //     })
-  //   })
-  // }
-
-  // function deleteTodo(id) {
-  //   setTodos(currentTodos => {
-  //     return currentTodos.filter(todo => todo.id !== id)
-  //   })
-  // }
-
+  const { auth } = useContext(AuthContext)
+  console.log("auth", auth)
 
   return (
     <>
