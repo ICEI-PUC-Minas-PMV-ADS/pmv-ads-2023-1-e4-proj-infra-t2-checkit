@@ -17,7 +17,6 @@ export function LoginForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await login(email, pass);
-    console.log(response);
     localStorage.setItem("token", JSON.stringify(response));
     navigate("/");
   };
@@ -26,9 +25,6 @@ export function LoginForm() {
     navigate("/register");
   }
 
-  const handleClickLogin = () => {
-    navigate("/index");
-  }
 
   return (
     <div className="form-container d-flex justify-content-center text-center">
@@ -53,7 +49,7 @@ export function LoginForm() {
             </span>
           </div>
           <div className="justify-content-around px-3">
-  `        <Button className="btn cyan-50" label="Login" type="submit" onClick={handleClickLogin}/>
+  `        <Button className="btn cyan-50" label="Login" type="submit" onClick={handleSubmit}/>
           </div>
           <label htmlFor="register" className="justify-content-around p-3 mt-3 mb-0 text-muted">
             Ainda não é cadastrado?
