@@ -13,6 +13,7 @@ export const getProjectsByUser = async () => {
  const response = await api.get(`https://localhost:7152/api/Projects/getAllProjectsThisUser/${tokenObject.userId}`, {
   headers: {
     Authorization: `Bearer ${tokenObject.jwtToken}`,
+    "Access-Control-Allow-Origin": "http://127.0.0.1:5173"
     },
  } );
 return response.data
