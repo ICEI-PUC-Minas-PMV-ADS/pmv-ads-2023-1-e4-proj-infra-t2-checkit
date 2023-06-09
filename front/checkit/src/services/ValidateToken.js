@@ -1,11 +1,15 @@
 export default function validateToken() {
     const jwtToken = localStorage.getItem("jwtToken");
-    let token = "";
-
     if (jwtToken != null) {
-      const jwtHeaderToken = jwtToken.slice(13, jwtToken.length - 2);
-      token = `Bearer ${jwtHeaderToken}`;
+      const tokenObject = JSON.parse(jwtToken);
+      return {
+        jwtToken: tokenObject.jwtToken,
+        userId: tokenObject.userId
+      };
     }
 
-    return token;
+    return {
+      jwtToken: "",
+      userId: ""
+    };
   }

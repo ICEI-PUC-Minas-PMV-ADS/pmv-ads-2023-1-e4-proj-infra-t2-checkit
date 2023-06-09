@@ -8,10 +8,14 @@ const api = axios.create({
 });
 
 export const getAllProjects = async () => {
+
+  const tokenObject = validateToken();
+  console.log(tokenObject.jwtToken)
+
  const response = await api.get("https://localhost:5278/api/projects", {
-  // headers: {
-  //   Authorization: `Bearer ${token}`,
-  //   },
+  headers: {
+    Authorization: `Bearer ${tokenObject.jwtToken}`,
+    },
  } );
 return response.data
 };
@@ -19,6 +23,7 @@ return response.data
 export const login = async (email, password) => {
   const response = await api.post("https://localhost:5278/api/users/authenticate", { email, password });
   localStorage.setItem("jwtToken", JSON.stringify(response.data));
+  console.log(response.data)
   return response.data;
 };
 
