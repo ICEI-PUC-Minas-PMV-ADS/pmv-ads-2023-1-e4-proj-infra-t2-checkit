@@ -17,10 +17,8 @@ return response.data
 };
 
 export const login = async (email, password) => {
-  console.log(email, password);
   const response = await api.post("https://localhost:5278/api/users/authenticate", { email, password });
   localStorage.setItem("jwtToken", JSON.stringify(response.data));
-  //console.log(response.data);
   return response.data;
 };
 
