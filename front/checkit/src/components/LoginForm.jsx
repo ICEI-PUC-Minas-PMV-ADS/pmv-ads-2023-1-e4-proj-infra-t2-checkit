@@ -16,9 +16,14 @@ export function LoginForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await login(email, pass);
-    localStorage.setItem("token", JSON.stringify(response));
-    navigate("/");
+    try {
+      const response = await login(email, pass);
+        localStorage.setItem('token', JSON.stringify(response));
+        navigate('/index');
+      }
+    catch (error) {
+      console.log('error')
+    }
   };
 
   const handleClick = () => {
