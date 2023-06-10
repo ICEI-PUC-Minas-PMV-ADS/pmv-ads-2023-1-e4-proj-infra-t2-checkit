@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
+  ScrollView
 } from "react-native";
 import {
   TextInput,
@@ -22,14 +23,11 @@ import Body from "../../Componentes/Body";
 import TextOverInput from "../../Componentes/TextOverInput";
 import { BASEPROJECTSURL } from "../../Services/URL";
 import { Botao } from "../../Componentes/Botao";
-import {
-  ScrollView,
-  NativeViewGestureHandler,
-  GestureHandlerRootView,
-} from "react-native-gesture-handler";
+import { NativeViewGestureHandler,GestureHandlerRootView } from "react-native-gesture-handler";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 import Dialog from "react-native-dialog";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 // import { useIsFocused } from '@react-navigation/native-stack';
 
@@ -111,6 +109,7 @@ export default function NovoProjeto({ route }) {
   }, [item]);
 
   return (
+    
     <Container>
       <Body>
         <Text style={styles.Titulo}>Novo Projeto</Text>
@@ -120,21 +119,24 @@ export default function NovoProjeto({ route }) {
           <Input
             mode="outlined"
             value={nomeProjeto}
+            
             onChangeText={(text) => setNomeProjeto(text)}
             error={missInfo && !nomeProjeto ? true : false}
-            activeOutlineColor={"#184C78"}
+            activeOutlineColor={"#262626"}
+
             left={<TextInput.Icon icon="book-edit-outline" />}
           />
           <TextOverInput>Descrição</TextOverInput>
 
           <TextInput
             mode="outlined"
-            activeOutlineColor={"#184C78"}
+            activeOutlineColor={"#262626"}
             multiline={true}
+            
             value={descricao}
             onChangeText={(text) => setDescricao(text)}
             numberOfLines={5}
-            outlineColor="#383F82"
+            outlineColor="#262626"
             left={<TextInput.Icon icon="checkbook" />}
           />
           <TextOverInput>Prazo de Validade</TextOverInput>
@@ -168,7 +170,7 @@ export default function NovoProjeto({ route }) {
           </>
           <TouchableOpacity onPress={() => setShowDialog(true)}>
             <Button
-              textColor="#FFF"
+              textColor="#383F82"
               style={styles.plusTask}
               icon="plus-box-outline"
             >
@@ -205,38 +207,41 @@ export default function NovoProjeto({ route }) {
               onPress={() => addTask()}
             />
           </Dialog.Container>
-          <GestureHandlerRootView>
-            <ScrollView scrollEnabled={tarefas.length > 2 ? true : false}>
-              {tarefas.map((x, y) => (
-                <View style={styles.itensList}>
-                  <List.Icon icon={"notebook-edit"} />
+          <SafeAreaView>
 
-                  <Text key={y} style={styles.taskItens}>
-                    {x}
-                  </Text>
-                  <TouchableOpacity onPress={() => setIsEditing(x)}>
-                    <List.Icon
-                      style={{ marginLeft: 170 }}
-                      icon={"notebook-edit-outline"}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress={() => deleteTask(x)}>
-                    <List.Icon style={{ marginLeft: 20 }} icon={"trash-can"} />
-                  </TouchableOpacity>
-                </View>
-              ))}
+            <ScrollView >
+            {tarefas.map((x, y) => (
+              <View style={styles.itensList}>
+                <List.Icon icon={"notebook-edit"} />
+
+                <Text key={y} style={styles.taskItens}>
+                  {x}
+                </Text>
+                <TouchableOpacity onPress={() => setIsEditing(x)}>
+                  <List.Icon
+                    style={{ marginLeft: 170 }}
+                    icon={"notebook-edit-outline"}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => deleteTask(x)}>
+                  <List.Icon style={{ marginLeft: 20 }} icon={"trash-can"} />
+                </TouchableOpacity>
+              </View>
+            ))}
             </ScrollView>
-          </GestureHandlerRootView>
+          </SafeAreaView>
+
         </View>
         <View style={styles.viewBtn}>
           <TouchableOpacity onPress={createProject}>
             <Button style={styles.button} textColor="#fff">
-              <Text style={styles.textBtn}>Salvar Projeto</Text>
+              <Text style={styles.textBtn}>Salvar Novo Projeto</Text>
             </Button>
           </TouchableOpacity>
         </View>
       </Body>
     </Container>
+
   );
 }
 const styles = StyleSheet.create({
@@ -249,9 +254,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginTop: 40,
     marginLeft: 13,
-    color: "#fff",
-    fontWeight: "bold",
-    textAlign: "center",
   },
   viewInput: {
     flex: 1,
@@ -264,19 +266,20 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   button: {
-    backgroundColor: "#FEC044",
+    backgroundColor: "#85B1E4",
     width: "80%",
-    width: 200,
+    height: 50,
+    width: 250,
     borderRadius: 12,
     height: 50,
     alignItems: "center",
     justifyContent: "center",
     marginTop: 12,
-    marginBottom: 40,
+    marginBottom: 30,
   },
   textBtn: {
     fontSize: 18,
-    fontWeight: "bold",
+    fontStyle: "italic",
   },
   plusTask: {
     marginBottom: -15,

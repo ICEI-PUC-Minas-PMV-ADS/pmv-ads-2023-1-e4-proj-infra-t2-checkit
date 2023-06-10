@@ -44,7 +44,7 @@ if (portVar is { Length: > 0 } && int.TryParse(portVar, out int port))
 {
     builder.WebHost.ConfigureKestrel(options => { options.ListenAnyIP(port); });
 }
-
+if (portVar is {Length:>0 })
 // Swager
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -6,7 +6,7 @@ import { TextInput, Snackbar } from "react-native-paper";
 import { AuthUserContext } from "../../Contexts/AuthUserProvider";
 import Container from "../../Componentes/Container";
 import Body from "../../Componentes/Body";
-const App = () => {
+const Login = () => {
   const navigation = useNavigation();
   const { postLogin, user, setUser } = useContext(AuthUserContext);
 
@@ -212,4 +212,4 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
-export default App;
+export default Login;

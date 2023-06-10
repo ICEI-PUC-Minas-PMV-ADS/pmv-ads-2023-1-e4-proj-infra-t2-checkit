@@ -131,12 +131,12 @@ const CadastroUsuario = () => {
           <View style={styles.viewOr}>
             <Text style={{ color: "#FFF" }}>OU</Text>
           </View>
+
           <View style={styles.viewText}>
             <TouchableOpacity onPress={() => navigation.navigate("Login")}>
               <Text style={styles.signUpText}>Já tem uma conta? Login!</Text>
             </TouchableOpacity>
           </View>
-
           <Snackbar
             visible={visible}
             onDismiss={onDismissSnackBar}
@@ -236,6 +236,7 @@ const styles = StyleSheet.create({
   textBtn: {
     fontSize: 16,
     color: "white",
+    fontWeight:"orange"
   },
   infoInputText: {
     fontSize: 14,

@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "my-app",
-    "slug": "my-app",
+    "name": "Checkit",
+    "slug": "Checkit",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/Logos/logo.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
     "splash": {
       "image": "./assets/Logos/logo_transparent.png",
       "resizeMode": "contain",
