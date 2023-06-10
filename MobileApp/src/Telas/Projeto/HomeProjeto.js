@@ -192,7 +192,9 @@ export default function HomeProjeto() {
             <Text style={styles.textList}>{item.descricao}</Text>
             <Text>Vence 01/01/2001</Text>
             {/* <ProgressBar progresso={20} />  */}
-            <Text>Progress Bar Aqui</Text>
+            <View style={styles.viewProgressBar}>
+            <ProgressBar progresso={10}/>
+            </View>
           </View>
         }
         right={(props) => (
@@ -270,6 +272,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginLeft: 40,
   },
+  viewProgressBar:{
+
+    },
 });
 
 // <View style={styles.containerText}>

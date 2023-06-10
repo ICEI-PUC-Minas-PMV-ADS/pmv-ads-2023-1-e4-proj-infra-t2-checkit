@@ -11,11 +11,12 @@ import MainHome from "../Telas/Usuario/MainHome";
 import HomeProjeto from "../Telas/Projeto/HomeProjeto";
 // const Stack = createStackNavigator();
 import EditarUsuario from "../Telas/Usuario/EditarUsuario";
+import MeuPerfil from "../Telas/Usuario/MeuPerfil";
 const Stack = createNativeStackNavigator();
 
 const Main = () => {
   return (
-    <Stack.Navigator initialRouteName="Login">
+    <Stack.Navigator initialRouteName="HomeProjeto">
       <Stack.Screen
         name="Login"
         component={Login}
@@ -63,6 +64,13 @@ const Main = () => {
       <Stack.Screen
         name="HomeProjeto"
         component={HomeProjeto}
+        options={{
+          header: () => null,
+        }}
+      />
+      <Stack.Screen
+        name="MeuPerfil"
+        component={MeuPerfil}
         options={{
           header: () => null,
         }}
