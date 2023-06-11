@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getProjectsByUser } from "../services/Api.js";
+import { getProjects } from "../services/Api.js";
 
 
 export default function ProjectList() {
@@ -44,7 +44,7 @@ export default function ProjectList() {
 
 
   useEffect(() => {
-    getProjectsByUser()
+    getProjects()
       .then((res) => {
         console.log(res);
         setProjects(res.data);
