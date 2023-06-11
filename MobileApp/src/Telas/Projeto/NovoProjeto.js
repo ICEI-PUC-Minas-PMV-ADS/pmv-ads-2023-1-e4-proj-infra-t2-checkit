@@ -5,7 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
-  ScrollView
+  ScrollView,
 } from "react-native";
 import {
   TextInput,
@@ -23,7 +23,10 @@ import Body from "../../Componentes/Body";
 import TextOverInput from "../../Componentes/TextOverInput";
 import { BASEPROJECTSURL } from "../../Services/URL";
 import { Botao } from "../../Componentes/Botao";
-import { NativeViewGestureHandler,GestureHandlerRootView } from "react-native-gesture-handler";
+import {
+  NativeViewGestureHandler,
+  GestureHandlerRootView,
+} from "react-native-gesture-handler";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 import Dialog from "react-native-dialog";
@@ -109,7 +112,6 @@ export default function NovoProjeto({ route }) {
   }, [item]);
 
   return (
-    
     <Container>
       <Body>
         <Text style={styles.Titulo}>Novo Projeto</Text>
@@ -119,11 +121,9 @@ export default function NovoProjeto({ route }) {
           <Input
             mode="outlined"
             value={nomeProjeto}
-            
             onChangeText={(text) => setNomeProjeto(text)}
             error={missInfo && !nomeProjeto ? true : false}
             activeOutlineColor={"#262626"}
-
             left={<TextInput.Icon icon="book-edit-outline" />}
           />
           <TextOverInput>Descrição</TextOverInput>
@@ -132,7 +132,6 @@ export default function NovoProjeto({ route }) {
             mode="outlined"
             activeOutlineColor={"#262626"}
             multiline={true}
-            
             value={descricao}
             onChangeText={(text) => setDescricao(text)}
             numberOfLines={5}
@@ -170,7 +169,7 @@ export default function NovoProjeto({ route }) {
           </>
           <TouchableOpacity onPress={() => setShowDialog(true)}>
             <Button
-              textColor="#383F82"
+              textColor="#fff"
               style={styles.plusTask}
               icon="plus-box-outline"
             >
@@ -208,29 +207,27 @@ export default function NovoProjeto({ route }) {
             />
           </Dialog.Container>
           <SafeAreaView>
+            <ScrollView>
+              {tarefas.map((x, y) => (
+                <View style={styles.itensList}>
+                  <List.Icon icon={"notebook-edit"} />
 
-            <ScrollView >
-            {tarefas.map((x, y) => (
-              <View style={styles.itensList}>
-                <List.Icon icon={"notebook-edit"} />
-
-                <Text key={y} style={styles.taskItens}>
-                  {x}
-                </Text>
-                <TouchableOpacity onPress={() => setIsEditing(x)}>
-                  <List.Icon
-                    style={{ marginLeft: 170 }}
-                    icon={"notebook-edit-outline"}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => deleteTask(x)}>
-                  <List.Icon style={{ marginLeft: 20 }} icon={"trash-can"} />
-                </TouchableOpacity>
-              </View>
-            ))}
+                  <Text key={y} style={styles.taskItens}>
+                    {x}
+                  </Text>
+                  <TouchableOpacity onPress={() => setIsEditing(x)}>
+                    <List.Icon
+                      style={{ marginLeft: 170 }}
+                      icon={"notebook-edit-outline"}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => deleteTask(x)}>
+                    <List.Icon style={{ marginLeft: 20 }} icon={"trash-can"} />
+                  </TouchableOpacity>
+                </View>
+              ))}
             </ScrollView>
           </SafeAreaView>
-
         </View>
         <View style={styles.viewBtn}>
           <TouchableOpacity onPress={createProject}>
@@ -241,7 +238,6 @@ export default function NovoProjeto({ route }) {
         </View>
       </Body>
     </Container>
-
   );
 }
 const styles = StyleSheet.create({
@@ -266,7 +262,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   button: {
-    backgroundColor: "#85B1E4",
+    backgroundColor: "#FEC044",
     width: "80%",
     height: 50,
     width: 250,
@@ -279,7 +275,7 @@ const styles = StyleSheet.create({
   },
   textBtn: {
     fontSize: 18,
-    fontStyle: "italic",
+    fontWeight: "bold",
   },
   plusTask: {
     marginBottom: -15,

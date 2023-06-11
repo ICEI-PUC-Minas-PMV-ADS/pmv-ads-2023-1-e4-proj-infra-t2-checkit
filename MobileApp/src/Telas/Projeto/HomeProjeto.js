@@ -193,7 +193,7 @@ export default function HomeProjeto() {
             <Text>Vence 01/01/2001</Text>
             {/* <ProgressBar progresso={20} />  */}
             <View style={styles.viewProgressBar}>
-            <ProgressBar progresso={10}/>
+              <ProgressBar progresso={10} />
             </View>
           </View>
         }
@@ -245,18 +245,20 @@ const styles = StyleSheet.create({
     fontSize: 28,
     marginTop: 40,
     textAlign: "center",
+    color: "#fff",
   },
   projectText: {
     marginTop: 8,
     marginBottom: 20,
     fontSize: 22,
     textAlign: "center",
+    color: "#fff",
   },
   textList: {
     fontSize: 16,
   },
   viewCard: {
-    backgroundColor: "#85B1E4",
+    backgroundColor: "#FEC044",
     borderRadius: 10,
     padding: 10,
     marginVertical: 8,
@@ -272,9 +274,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginLeft: 40,
   },
-  viewProgressBar:{
-
-    },
+  viewProgressBar: {},
 });
 
 // <View style={styles.containerText}>
