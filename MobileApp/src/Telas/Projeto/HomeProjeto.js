@@ -7,7 +7,7 @@ import {
   FlatList,
   Pressable,
 } from "react-native";
-import { List, Checkbox } from "react-native-paper";
+import { List, Checkbox, Card } from "react-native-paper";
 import Container from "../../Componentes/Container";
 import Body from "../../Componentes/Body";
 import { Botao } from "../../Componentes/Botao";
@@ -93,35 +93,29 @@ const tasks = [
 
 export default function HomeProjeto() {
   const navigation = useNavigation();
-  const [check, setCheck] = useState("unchecked");
-
-  const [checkMat, setCheckMat] = useState("checkbox-blank-outline");
 
   useEffect(() => {
     //API.get(URLTASK).then((x) => console.log(x));
   }, []);
 
-  const handleCheck = (tarefa) => {
-    // console.log(tarefa);
-    console.log(tarefa.id);
-    // console.log(tarefa.isChecked);
-    if (!tarefa.isChecked) {
-      tarefa.isChecked = true;
-      console.log("1 - IsChecked: " + tarefa.isChecked);
-      setCheckMat("checkbox-marked");
-      //setCheck("checked");
-    } else {
-      tarefa.isChecked = false;
-      console.log("2 - IsChecked: " + tarefa.isChecked);
-      setCheckMat("checkbox-blank-outline");
-      //setCheck("unchecked");
-    }
+  const [task, setTask] = useState(tasks);
+
+  const handleChange = (id) => {
+    console.log(id);
+    let temp = task.map((task) => {
+      if (id === task.id) {
+        //task.isChecked == true;
+        return { ...task, isChecked: !task.isChecked };
+      }
+      console.log("-->" + task.tituloTarefa);
+      return task;
+    });
+    setTask(temp);
   };
 
   // Renderiza accordion
   const handleTask = (tarefa, projetoTarefaId) => {
     const arr = [];
-    //console.log(tarefa.id);
 
     projetoTarefaId.forEach((projetoTarefaId) => {
       tarefa.map((tarefa) => {
@@ -130,53 +124,38 @@ export default function HomeProjeto() {
         }
       });
     });
-    return arr.map((tarefa) => (
-      <>
-        <Pressable
-          onPress={() => {
-            handleCheck(tarefa), console.log("--> " + tarefa.isChecked);
-          }}
-        >
-          {/* {console.log("--> " + tarefa.id)} */}
-          {tarefa.isChecked && (
-            <MaterialCommunityIcons
-              name={"checkbox-marked"}
-              size={24}
-              color="#000"
-            />
-          )}
-          {!tarefa.isChecked && (
-            <MaterialCommunityIcons
-              name={"checkbox-blank-outline"}
-              size={24}
-              color="#000"
-            />
-          )}
-        </Pressable>
-        <Text key={tarefa.id}>{tarefa.tituloTarefa}</Text>
-
-        {/* {console.log(tarefa.tituloTarefa)} */}
-        {/* {console.log(arr)}        */}
-        {/* <Checkbox.Item
-          key={tarefa.id}
-          label={tarefa.tituloTarefa}
-          status={check}
-          onPress={() => {
-            // if (!tarefa.isChecked) {
-            //   tarefa.isChecked = true;
-            //   setCheck("checked")
-            // } else {
-            //   tarefa.isChecked = false;
-            //   setCheck("unchecked");
-            // }
-            tarefa.isChecked && check == "unchecked"
-              ? setCheck("checked")
-              : setCheck("unchecked");
-           // handleCheck(tarefa);
-          }}
-        /> */}
-      </>
-    ));
+    // console.log(arr);
+    return (
+      <FlatList
+        data={task}
+        renderItem={({ item }) => (
+          <Card style={{ margin: 5 }}>
+            <View style={styles.card}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  flex: 1,
+                  justifyContent: "space-between",
+                }}
+              >
+                <Pressable onPress={() => handleChange(item.id)}>
+                  <MaterialCommunityIcons
+                    name={
+                      item.isChecked
+                        ? "checkbox-marked"
+                        : "checkbox-blank-outline"
+                    }
+                    size={24}
+                    color="#000"
+                  />
+                </Pressable>
+                <Text>{item.tituloTarefa}</Text>
+              </View>
+            </View>
+          </Card>
+        )}
+      />
+    );
   };
 
   const handleExcluir = (item) => {
