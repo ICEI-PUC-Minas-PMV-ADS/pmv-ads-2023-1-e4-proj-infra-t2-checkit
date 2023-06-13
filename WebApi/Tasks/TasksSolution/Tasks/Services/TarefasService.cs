@@ -8,11 +8,16 @@ namespace Tasks.Services
     {          
         private readonly IMongoCollection<Tarefa> _tarefasCollection;
 
-        public TarefasService(IOptions<TarefasDatabaseSettings> tarefaDatabaseSettings)
+        public TarefasService()
         {
-            var mongoClient = new MongoClient(tarefaDatabaseSettings.Value.ConnectionString);
-            var mongoDatabase = mongoClient.GetDatabase(tarefaDatabaseSettings.Value.DatabaseName);
-            _tarefasCollection = mongoDatabase.GetCollection<Tarefa>(tarefaDatabaseSettings.Value.TarefasCollectionName);
+            var mongoClient = new MongoClient(
+               Environment.GetEnvironmentVariable("MONGODB_CONNECTIONSTRING"));
+
+            var mongoDatabase = mongoClient.GetDatabase(
+                Environment.GetEnvironmentVariable("MONGODB_DATABASENAME"));
+
+            _tarefasCollection = mongoDatabase.GetCollection<Tarefa>(
+                Environment.GetEnvironmentVariable("MONGODB_TASKMANAGEMENTNAME"));
         }
 
         public async Task<List<Tarefa>> GetAllAsync() =>
