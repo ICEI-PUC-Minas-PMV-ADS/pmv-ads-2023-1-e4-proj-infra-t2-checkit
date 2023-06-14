@@ -20,7 +20,7 @@ namespace ApiGateway.Controllers.Users
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser([FromRoute] string id)
         {
-            var result = await _httpClient.GetAsync($"https://localhost:7295/api/Users/{id}");
+            var result = await _httpClient.GetAsync($"https://checkit-users-production.up.railway.app/api/Users/{id}");
             var userResult = await result.Content.ReadAsStringAsync();            
 
             return userResult is null ? NotFound() : Ok(userResult);
@@ -30,7 +30,7 @@ namespace ApiGateway.Controllers.Users
         [HttpPost]
         public async Task<IActionResult> PostUser([FromBody] User user)
         {
-            var result = await _httpClient.PostAsJsonAsync($"https://localhost:7295/api/Users", user);
+            var result = await _httpClient.PostAsJsonAsync($"https://checkit-users-production.up.railway.app/api/Users", user);
 
             return Ok(result);
         }
@@ -38,7 +38,7 @@ namespace ApiGateway.Controllers.Users
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser([FromBody] User user, [FromRoute] string id)
         {
-            var result = await _httpClient.PutAsJsonAsync($"https://localhost:7295/api/Users/{id}", user);
+            var result = await _httpClient.PutAsJsonAsync($"https://checkit-users-production.up.railway.app/api/Users/{id}", user);
 
             return Ok(result);
         }
@@ -46,7 +46,7 @@ namespace ApiGateway.Controllers.Users
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser([FromRoute] string id)
         {
-            await _httpClient.DeleteAsync($"https://localhost:7295/api/Users/{id}");
+            await _httpClient.DeleteAsync($"https://checkit-users-production.up.railway.app/api/Users/{id}");
 
             return Ok();
         }
@@ -55,7 +55,7 @@ namespace ApiGateway.Controllers.Users
         [HttpPost("authenticate")]
         public async Task<IActionResult> Authenticate([FromBody] Authenticate login)
         {
-            var result = await _httpClient.PostAsJsonAsync($"https://localhost:7295/api/users/authenticate", login);          
+            var result = await _httpClient.PostAsJsonAsync($"https://checkit-users-production.up.railway.app/api/Users/authenticate", login);          
             var resultJson = await result.Content.ReadAsStringAsync(); // Token
             Console.WriteLine(resultJson);
 
