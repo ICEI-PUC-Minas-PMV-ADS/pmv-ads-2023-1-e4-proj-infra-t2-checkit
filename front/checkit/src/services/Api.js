@@ -15,7 +15,7 @@ export const getProjects = async () => {
     Authorization: `Bearer ${tokenObject.jwtToken}`,
     },
  } );
-return response.data
+return response.data;
 };
 
 export const login = async (email, password) => {
