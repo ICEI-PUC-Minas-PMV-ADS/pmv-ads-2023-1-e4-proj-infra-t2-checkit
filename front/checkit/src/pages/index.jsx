@@ -4,7 +4,7 @@ import ProjectList from '../components/ProjectList';
 
 
 export default function IndexGrid() {
-  const projects = ProjectList();
+  // const projects = ProjectList();
 
   return (
     <>
@@ -13,6 +13,7 @@ export default function IndexGrid() {
     <div className="container p-3">
       <div className="d-flex flex-wrap text-center">
       {/* {projects.map(project => <ProjectCard project={project} key={project.id} />)} */}
+      <ProjectList />
 
       </div>
     </div>
