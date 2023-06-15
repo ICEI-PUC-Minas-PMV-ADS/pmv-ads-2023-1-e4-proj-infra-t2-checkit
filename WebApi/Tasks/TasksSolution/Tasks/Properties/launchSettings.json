@@ -5,7 +5,10 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "MONGODB_CONNECTIONSTRING": "mongodb+srv://project-management:projectmanagement@cluster-checkit.a5oypuu.mongodb.net/test",
+        "MONGODB_DATABASENAME": "TasksManagement",
+        "MONGODB_TASKMANAGEMENTNAME": "Tasks"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:7246;http://localhost:5050"

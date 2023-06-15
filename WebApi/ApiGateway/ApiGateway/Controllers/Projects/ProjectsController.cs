@@ -24,7 +24,7 @@ namespace ApiGateway.Controllers.Projects
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var result = await _httpClient.GetAsync($"https://localhost:7152/api/Projects/getAllProjectsThisUser/{userId}");
+            var result = await _httpClient.GetAsync($"https://checkit-project-manager.up.railway.app/api/Projects/getAllProjectsThisUser/{userId}");
 
             var allProjects = await result.Content.ReadAsStringAsync();
 
@@ -34,7 +34,7 @@ namespace ApiGateway.Controllers.Projects
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProject([FromRoute] string id)
         {
-            var result = await _httpClient.GetAsync($"https://localhost:7152/api/Projects/{id}");
+            var result = await _httpClient.GetAsync($"https://checkit-project-manager.up.railway.app/api/Projects/{id}");
             var projectResult = await result.Content.ReadAsStringAsync();
 
             return projectResult is null ? NotFound() : Ok(projectResult);
@@ -47,7 +47,7 @@ namespace ApiGateway.Controllers.Projects
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             project.UserId = userId;
 
-            var result = await _httpClient.PostAsJsonAsync($"https://localhost:7152/api/Projects", project);
+            var result = await _httpClient.PostAsJsonAsync($"https://checkit-project-manager.up.railway.app/api/Projects", project);
 
             return Ok(result);
         }
@@ -58,7 +58,7 @@ namespace ApiGateway.Controllers.Projects
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             project.UserId = userId;
 
-            var result = await _httpClient.PutAsJsonAsync($"https://localhost:7152/api/Projects/{id}", project);
+            var result = await _httpClient.PutAsJsonAsync($"https://checkit-project-manager.up.railway.app/api/Projects/{id}", project);
 
             return Ok(result);
         }
@@ -66,7 +66,7 @@ namespace ApiGateway.Controllers.Projects
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProject([FromRoute] string id)
         {
-            await _httpClient.DeleteAsync($"https://localhost:7152/api/Projects/{id}");
+            await _httpClient.DeleteAsync($"https://checkit-project-manager.up.railway.app/api/Projects/{id}");
 
             return Ok();
         }
@@ -75,7 +75,7 @@ namespace ApiGateway.Controllers.Projects
         [HttpGet("GetTaskFromProject/{id}")]
         public async Task<IActionResult> GetTaskFromProject([FromRoute] string id)
         {
-            var result = await _httpClient.GetAsync($"https://localhost:7152/api/Projects/GetTaskFromProject/{id}");
+            var result = await _httpClient.GetAsync($"https://checkit-project-manager.up.railway.app/api/Projects/GetTaskFromProject/{id}");
             var data = await result.Content.ReadAsStringAsync();            
 
             return Ok(data);

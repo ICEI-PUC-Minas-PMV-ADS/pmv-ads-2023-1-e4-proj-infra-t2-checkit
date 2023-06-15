@@ -10,9 +10,14 @@ namespace Users.Services
 
         public UserService(IOptions<UserDatabaseSettings> UserDatabaseSettings)
         {
-            var mongoClient = new MongoClient(UserDatabaseSettings.Value.ConnectionString);
-            var mongoDatabase = mongoClient.GetDatabase(UserDatabaseSettings.Value.DatabaseName);
-            _usersCollection = mongoDatabase.GetCollection<User>(UserDatabaseSettings.Value.UsersCollectionName);
+            var mongoClient = new MongoClient(
+               Environment.GetEnvironmentVariable("MONGODB_CONNECTIONSTRING"));
+
+            var mongoDatabase = mongoClient.GetDatabase(
+                Environment.GetEnvironmentVariable("MONGODB_DATABASENAME"));
+
+            _usersCollection = mongoDatabase.GetCollection<User>(
+                Environment.GetEnvironmentVariable("MONGODB_USERSMANAGEMENTNAME"));
         }
         
         // Get

@@ -16,7 +16,10 @@
       "launchUrl": "swagger",
       "applicationUrl": "https://localhost:7295;http://localhost:5295",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "MONGODB_CONNECTIONSTRING": "mongodb+srv://project-management:projectmanagement@cluster-checkit.a5oypuu.mongodb.net/test",
+        "MONGODB_DATABASENAME": "UsersManagement",
+        "MONGODB_USERSMANAGEMENTNAME": "Users"
       }
     },
     "IIS Express": {

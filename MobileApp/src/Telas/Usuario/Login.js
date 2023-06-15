@@ -22,19 +22,28 @@ const Login = () => {
 
   const onPressLogin = () => {
     console.log("funciona");
+   postLogin({
+    email:email,
+    senha:password
+   }).then(a=>console.log(a))
 
-    if (!email && !password) {
-      setMissInfo(true); // Ausência de email e/ou senha
-      onToggleSnackBar();
-      setAviso("Por favor insira o seu Email e Senha");
-      // setAviso("Por favor, insira o email e a senha");
-    } else if (email.length == 0) {
-      onToggleSnackBar();
-      setAviso("Por favor insira o seu Email");
-    } else if (password.length == 0) {
-      onToggleSnackBar();
-      setAviso("Por favor insira a sua Senha");
-    }
+
+
+
+
+    
+    // if (!email && !password) {
+    //   setMissInfo(true); // Ausência de email e/ou senha
+    //   onToggleSnackBar();
+    //   setAviso("Por favor insira o seu Email e Senha");
+    //   // setAviso("Por favor, insira o email e a senha");
+    // } else if (email.length == 0) {
+    //   onToggleSnackBar();
+    //   setAviso("Por favor insira o seu Email");
+    // } else if (password.length == 0) {
+    //   onToggleSnackBar();
+    //   setAviso("Por favor insira a sua Senha");
+    // }
   };
 
   return (

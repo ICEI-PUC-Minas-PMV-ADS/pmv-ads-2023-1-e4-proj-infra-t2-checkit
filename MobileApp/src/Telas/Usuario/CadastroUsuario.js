@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import Input from "../../Componentes/Input";
-
+import { useContext } from "react";
 import Body from "../../Componentes/Body";
 import { Button, Snackbar } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { TextInput } from "react-native-paper";
+import { AuthUserContext } from "../../Contexts/AuthUserProvider";
+import { UserContext } from "../../Contexts/UserProvider";
 const CadastroUsuario = () => {
+  const { postLogin, setUser } = useContext(AuthUserContext);
+const {postUsuario,getUsuario}= useContext(UserContext)
   const navigation = useNavigation();
+
   const [escondeSenha, setEscondeSenha] = useState(true);
   const [escondeConfirmaSenha, setEscondeConfirmaSenha] = useState(true);
   const [name, setName] = useState("");
@@ -40,6 +45,7 @@ const CadastroUsuario = () => {
   // };
 
   const handleRegister = () => {
+    getUsuario("6488f79c3b4a1321921c86fc").then(a=> console.log(a))
     //console.log(`${name}, ${email}, ${password}, ${confirmPassword}`);
     // Validando senha
     if (!name || !email || !password || !confirmPassword) {
@@ -53,7 +59,13 @@ const CadastroUsuario = () => {
     } else {
       console.log("Ir para tela inicial");
     }
+    
   };
+  postLogin({
+    nome:name,
+    email:email,
+
+  })
 
   return (
     <View style={styles.container}>
