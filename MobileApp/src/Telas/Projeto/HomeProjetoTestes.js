@@ -1,4 +1,4 @@
-import { Profiler, useEffect, useState, useContext } from "react";
+import { Profiler, useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -18,8 +18,6 @@ import API from "../../Services/webapiservices";
 import { URLTASK } from "../../Services/URL";
 import { combineTransition } from "react-native-reanimated";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { baseURL } from "../../Services/URL";
-import { ProjectContext } from "../../Contexts/ProjectsProvider";
 
 const item = [
   {
@@ -32,7 +30,11 @@ const item = [
     status: "Em Andamento",
     dueDate: "2023-05-17T22:43:44.243Z",
     members: null,
-    tarefaId: ["64655877d423bfb671802d70", "64655877d423bfb671802d10"],
+    tarefaId: [
+      "64655877d423bfb671802d70",
+      "64655877d423bfb671802d10",
+      "64655877d423bfb671812d14",
+    ],
     userId: null,
   },
   {
@@ -91,106 +93,23 @@ const tasks = [
     status: "Não iniciada",
     isChecked: false,
   },
+  {
+    id: "64655877d423bfb671812d14",
+    tituloTarefa: "Comprar Estopa",
+    descricao: "Depósito São Miguel",
+    dataInicio: "2023-04-22T18:35:05.334Z",
+    dataVencimento: "2023-04-22T18:35:05.334Z",
+    prioridade: 0,
+    status: "Não iniciada",
+    isChecked: false,
+  },
 ];
 
 export default function HomeProjeto() {
   const navigation = useNavigation();
-  const { project, getProject } = useContext(ProjectContext);
 
   useEffect(() => {
-    // getProject().then().catch();
-  }, []);
-
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI2NDhiOGI0N2E1NzFlMGI4Y2ZmYjUwNjEiLCJuYmYiOjE2ODY4NjY3NzcsImV4cCI6MTY4Njg5NTU3NywiaWF0IjoxNjg2ODY2Nzc3fQ.hGmfEE6KSGDOSP0GqukXWqWz80HlkXEtl5-JxLTv3Qs";
-
-  // Testes API
-  useEffect(() => {
-    const getAllProjects = async (userId) => {
-      // console.log(
-      //   `${baseURL}/api/projects/GetAllProjectsThisUserAsync/${userId}`
-      // );
-      //console.log(token)
-      return await fetch(
-        `${baseURL}/api/projects/getAllProjectsThisUserAsync/${userId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-        .then((response) => response.json())
-        .then((data) => console.log(data))
-        .catch((error) => console.error(error));
-    };
-    getAllProjects("648b8b47a571e0b8cffb5061");
-
-    //   // GET id
-    //   const getProject = async (id) => {
-    //     console.log(`${baseURL}/api/projects/${id}`);
-    //     return await fetch(`${baseURL}/api/projects/${id}`, {
-    //       method: "GET",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //         Authorization: `Bearer ${token}`,
-    //       },
-    //     })
-    //       .then((response) => response.json())
-    //       .then((data) => console.log(data))
-    //       .catch((error) => console.error(error));
-    //   };
-    //   // getProject("648b95c03661951d2e855f49");
-    //   // const param = {
-    //   //   title: "Consertar Som Aiwa",
-    //   //   dueDate: new Date(),
-    //   //   status: "Finalizado",
-    //   //   tarefaId: [],
-    //   //   userId: "648b8b47a571e0b8cffb5061",
-    //   // };
-    //   // const postProject = async (param) => {
-    //   //   console.log("param: " + JSON.stringify(param));
-    //   //   return await fetch(`${baseURL}/api/projects/`, {
-    //   //     method: "POST",
-    //   //     headers: {
-    //   //       "Content-Type": "application/json",
-    //   //       Authorization: `Bearer ${token}`,
-    //   //     },
-    //   //     body: JSON.stringify(param),
-    //   //   })
-    //   //     .then((response) => response.json())
-    //   //     .then((json) => console.log(json))
-    //   //     .catch((e) => console.error(e));
-    //   // };
-    //   // //postProject(param);
-    //   // PUT
-    //   const putProject = async (id, param) => {
-    //     return await fetch(`${baseURL}/api/projects/${id}`, {
-    //       method: "PUT",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //         Authorization: `Bearer ${token}`,
-    //       },
-    //       body: JSON.stringify(param),
-    //     })
-    //       .then((response) => console.log(response.status))
-    //       .catch((error) => console.error(error));
-    //   };
-    //   //putProject("648b95c03661951d2e855f49", param);
-    //   // DELETE
-    //   const deleteProject = async (id) => {
-    //     return await fetch(`${baseURL}/api/projects/${id}`, {
-    //       method: "DELETE",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //         Authorization: `Bearer ${token}`,
-    //       },
-    //     })
-    //       .then((response) => console.log(response.status))
-    //       .catch((error) => console.error(error));
-    //   };
-    //   //deleteProject("6488dbc9500ac58c938de768");
+    //API.get(URLTASK).then((x) => console.log(x));
   }, []);
 
   const [task, setTask] = useState(tasks);
@@ -210,11 +129,53 @@ export default function HomeProjeto() {
     setTask(temp);
   };
 
-  const handleFilterTask = (task) => {};
+  const handleFilterTask = (task, projetoTarefaId, idProjeto) => {
+    //    console.log(projetoTarefaId)
+    let contador = 0;
+    //console.log(contador);
+    //let z = {};
+    projetoTarefaId.forEach((projetoTarefaId) => {
+      const z = task.map((task) => {
+        if (task.id == projetoTarefaId) {
+          console.log("TASKID", task.id);
+          contador++;
+          console.log(contador);
+
+          return (
+            <Card style={{ margin: 5 }}>
+              <View style={styles.card}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    flex: 1,
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Pressable onPress={() => handleChange(item.id)}>
+                    <MaterialCommunityIcons
+                      name={
+                        item.isChecked
+                          ? "checkbox-marked"
+                          : "checkbox-blank-outline"
+                      }
+                      size={24}
+                      color="#000"
+                    />
+                  </Pressable>
+                  <Text>{item.tituloTarefa}</Text>
+                </View>
+              </View>
+            </Card>
+          );
+        }
+      });
+      console.log(z);
+    });
+  };
 
   // Renderiza accordion
-  const handleTask = (tarefa, projetoTarefaId) => {
-    const arr = [];
+  const handleTask = (task, projetoTarefaId) => {
+    //const arr = [];
     // console.log(projetoTarefaId)
     // projetoTarefaId.forEach((projetoTarefaId) => {
     //   tarefa.map((tarefa) => {
@@ -225,36 +186,37 @@ export default function HomeProjeto() {
     //   });
     // });
     //console.log(test.id);
-
+    console.log("entrou");
     return (
       <FlatList
         data={task}
-        renderItem={({ item }) => (
-          <Card style={{ margin: 5 }}>
-            <View style={styles.card}>
-              <View
-                style={{
-                  flexDirection: "row",
-                  flex: 1,
-                  justifyContent: "space-between",
-                }}
-              >
-                <Pressable onPress={() => handleChange(item.id)}>
-                  <MaterialCommunityIcons
-                    name={
-                      item.isChecked
-                        ? "checkbox-marked"
-                        : "checkbox-blank-outline"
-                    }
-                    size={24}
-                    color="#000"
-                  />
-                </Pressable>
-                <Text>{item.tituloTarefa}</Text>
-              </View>
-            </View>
-          </Card>
-        )}
+        renderItem={handleFilterTask(task, projetoTarefaId)}
+        //renderItem={({ item }) => (
+        // <Card style={{ margin: 5 }}>
+        //   <View style={styles.card}>
+        //     <View
+        //       style={{
+        //         flexDirection: "row",
+        //         flex: 1,
+        //         justifyContent: "space-between",
+        //       }}
+        //     >
+        //       <Pressable onPress={() => handleChange(item.id)}>
+        //         <MaterialCommunityIcons
+        //           name={
+        //             item.isChecked
+        //               ? "checkbox-marked"
+        //               : "checkbox-blank-outline"
+        //           }
+        //           size={24}
+        //           color="#000"
+        //         />
+        //       </Pressable>
+        //       <Text>{item.tituloTarefa}</Text>
+        //     </View>
+        //   </View>
+        // </Card>
+        // )}
       />
     );
   };

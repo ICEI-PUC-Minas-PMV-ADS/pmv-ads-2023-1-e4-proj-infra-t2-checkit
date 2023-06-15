@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
   textBtn: {
     fontSize: 16,
     color: "white",
-    fontWeight:"orange"
+    fontWeight: "bold",
   },
   infoInputText: {
     fontSize: 14,

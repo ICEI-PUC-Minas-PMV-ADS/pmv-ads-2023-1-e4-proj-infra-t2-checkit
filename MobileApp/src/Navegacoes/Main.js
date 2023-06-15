@@ -40,20 +40,20 @@ const Main = () => {
           header: () => null,
         }}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="Home"
         component={Home}
         options={{
           header: () => null,
         }}
-      />
-      <Stack.Screen
+      /> */}
+      {/* <Stack.Screen
         name="MainHome"
         component={MainHome}
         options={{
           header: () => null,
         }}
-      />
+      /> */}
       <Stack.Screen
         name="EditarUsuario"
         component={EditarUsuario}
