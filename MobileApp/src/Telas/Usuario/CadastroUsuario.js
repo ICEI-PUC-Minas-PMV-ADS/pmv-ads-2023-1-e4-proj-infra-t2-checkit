@@ -15,10 +15,10 @@ const {postUsuario,getUsuario}= useContext(UserContext)
 
   const [escondeSenha, setEscondeSenha] = useState(true);
   const [escondeConfirmaSenha, setEscondeConfirmaSenha] = useState(true);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [name, setName] = useState("dddd");
+  const [email, setEmail] = useState("biel@gmail.com");
   const [password, setPassword] = useState("1234");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("1234");
   const [aviso, setAviso] = useState("");
 
   const [visible, setVisible] = useState(false);
@@ -46,12 +46,19 @@ const {postUsuario,getUsuario}= useContext(UserContext)
     } else {
       console.log("Ir para tela inicial");
     }
-    // postUsuario({
-    //   name:name.trim(),
-    //   email:email.trim(),
-    //   password:password.trim(),
+    postUsuario({
+      name:name.trim(),
+      email:email.trim(),
+      password:password.trim(),
   
-    // }).then().catch(e=>console.log(e))
+    }).then(response=>{
+      if(response[0].message =="Usuário ja cadastrado"){
+        onToggleSnackBar();
+        setAviso("Email ja cadastrado");
+      }
+      navigation.navigate("Login")
+
+    }).catch(e=>console.log(e))
   };
 
 
