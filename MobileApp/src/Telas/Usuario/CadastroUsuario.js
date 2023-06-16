@@ -17,7 +17,7 @@ const {postUsuario,getUsuario}= useContext(UserContext)
   const [escondeConfirmaSenha, setEscondeConfirmaSenha] = useState(true);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("1234");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [aviso, setAviso] = useState("");
 
@@ -27,26 +27,11 @@ const {postUsuario,getUsuario}= useContext(UserContext)
   // Temrinar
   const [missInfo, setMissInfo] = useState(false);
 
-  // const onPressLogin = async () => {
-  //   console.log("funciona");
 
-  //   fetch(
-  //     "https://api.nasa.gov/planetary/apod?api_key=gkimsne4yrAAj6jBFaTrAIUn9DxWkRlq4ZGDWqen"
-  //   )
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //       // Do something with the data
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       // Handle any errors
-  //     });
-  // };
 
   const handleRegister = () => {
-    getUsuario("6488f79c3b4a1321921c86fc").then(a=> console.log(a))
-    //console.log(`${name}, ${email}, ${password}, ${confirmPassword}`);
+    console.log(password + "and" + confirmPassword);
+    
     // Validando senha
     if (!name || !email || !password || !confirmPassword) {
       console.log("missinfo");
@@ -55,17 +40,20 @@ const {postUsuario,getUsuario}= useContext(UserContext)
       setAviso("Preencha todos os campos para realizarmos o seu cadastro");
     }
     if (password !== confirmPassword) {
+      setMissInfo(true);
+      onToggleSnackBar();
       setAviso("Insira senhas iguais");
     } else {
       console.log("Ir para tela inicial");
     }
-    
+    // postUsuario({
+    //   name:name.trim(),
+    //   email:email.trim(),
+    //   password:password.trim(),
+  
+    // }).then().catch(e=>console.log(e))
   };
-  postLogin({
-    nome:name,
-    email:email,
 
-  })
 
   return (
     <View style={styles.container}>
@@ -82,6 +70,7 @@ const {postUsuario,getUsuario}= useContext(UserContext)
             outlineColor={"#262626"}
             activeOutlineColor={"#262626"}
             placeholderTextColor="#003f5c"
+            value={name}
             onChangeText={(name) => setName(name)}
             right={<TextInput.Icon icon="account-circle-outline" />}
           />
@@ -91,6 +80,7 @@ const {postUsuario,getUsuario}= useContext(UserContext)
             outlineColor={"#262626"}
             activeOutlineColor={"#262626"}
             placeholderTextColor="#003f5c"
+            value={email}
             onChangeText={(email) => setEmail(email)}
             right={<TextInput.Icon icon="email-outline" />}
           />
@@ -100,6 +90,7 @@ const {postUsuario,getUsuario}= useContext(UserContext)
             activeOutlineColor={"#262626"}
             outlineColor={"#262626"}
             secureTextEntry={escondeSenha}
+            value={password}
             placeholderTextColor="#003f5c"
             right={
               <TextInput.Icon
@@ -116,6 +107,7 @@ const {postUsuario,getUsuario}= useContext(UserContext)
             mode="outlined"
             outlineColor={"#262626"}
             activeOutlineColor={"#262626"}
+              value={confirmPassword}
             secureTextEntry={escondeConfirmaSenha}
             placeholderTextColor="#003f5c"
             right={
