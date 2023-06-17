@@ -6,7 +6,6 @@ export const UserContext = createContext({});
 const UserProvider = ({ children }) => {
 
   const [usuario, setUsuario] = useState();
-
   const getUsuario = async(id)=>{
     return await fetch(`${baseURL}/api/users/${id}`, {
       method: "GET",
@@ -34,7 +33,9 @@ const UserProvider = ({ children }) => {
       
     })
       .then((response) => response.json())
-      .then((data) => console.log(data))
+      .then(data=>{
+        return data.statusCode
+      })
       .catch((error) => console.error(error));
   }
 

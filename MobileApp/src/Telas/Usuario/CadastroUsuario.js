@@ -29,7 +29,7 @@ const {postUsuario,getUsuario}= useContext(UserContext)
 
 
 
-  const handleRegister = () => {
+  const handleRegister = async  () => {
     console.log(password + "and" + confirmPassword);
     
     // Validando senha
@@ -46,7 +46,7 @@ const {postUsuario,getUsuario}= useContext(UserContext)
     } else {
       console.log("Ir para tela inicial");
     }
-    postUsuario({
+   const a = await postUsuario({
       name:name.trim(),
       email:email.trim(),
       password:password.trim(),
@@ -56,10 +56,13 @@ const {postUsuario,getUsuario}= useContext(UserContext)
       //   onToggleSnackBar();
       //   setAviso("Email ja cadastrado");
       // }
-      console.log(response)
-      navigation.navigate("Login")
+      // navigation.navigate("Login")
 
-    }).catch(e=>console.log(e))
+    }).then(data=>console.log(data))
+    
+    
+    .catch(e=>console.log(e))
+    console.log(a)
   };
 
 
