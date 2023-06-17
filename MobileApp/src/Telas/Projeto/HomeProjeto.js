@@ -125,7 +125,7 @@ export default function HomeProjeto() {
         .then((data) => console.log(data))
         .catch((error) => console.error(error));
     };
-    getAllProjects("648b8b47a571e0b8cffb5061");
+    getAllProjects();
 
     //   // GET id
     //   const getProject = async (id) => {
