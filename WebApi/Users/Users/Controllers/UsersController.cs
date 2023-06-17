@@ -31,8 +31,6 @@ namespace Users.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(UserDto model)
         {
-
-
             var alredyRegister = await _userCollection.GetByEmailAsync(model.Email);
             if (alredyRegister != null) return BadRequest();
             

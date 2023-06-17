@@ -19,14 +19,15 @@ namespace ApiGateway.Controllers.Projects
             _httpClient = new HttpClient();
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllProjectsThisUserAsync()
+        [HttpGet("GetAllProjectsThisUser")]
+        public async Task<IActionResult> GetAllProjectsThisUser()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var result = await _httpClient.GetAsync($"https://checkit-project-manager.up.railway.app/api/Projects/getAllProjectsThisUser/{userId}");
 
             var allProjects = await result.Content.ReadAsStringAsync();
+            //Console.WriteLine(allProjects);
 
             return allProjects is null ? NotFound() : Ok(allProjects);
         }
@@ -76,7 +77,7 @@ namespace ApiGateway.Controllers.Projects
         public async Task<IActionResult> GetTaskFromProject([FromRoute] string id)
         {
             var result = await _httpClient.GetAsync($"https://checkit-project-manager.up.railway.app/api/Projects/GetTaskFromProject/{id}");
-            var data = await result.Content.ReadAsStringAsync();            
+            var data = await result.Content.ReadAsStringAsync();
 
             return Ok(data);
         }
