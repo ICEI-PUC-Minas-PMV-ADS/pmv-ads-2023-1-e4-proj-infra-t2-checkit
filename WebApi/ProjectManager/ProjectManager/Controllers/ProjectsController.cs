@@ -19,7 +19,7 @@ namespace ProjectManager.Controllers
         }
 
 
-        [HttpGet("GetAllProjectsThisUserAsync/{userId}")]
+        [HttpGet("GetAllProjectsThisUser/{userId}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType((int)HttpStatusCode.Forbidden)]
