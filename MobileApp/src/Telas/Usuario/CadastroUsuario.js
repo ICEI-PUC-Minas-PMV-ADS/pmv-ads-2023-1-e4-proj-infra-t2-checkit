@@ -52,10 +52,11 @@ const {postUsuario,getUsuario}= useContext(UserContext)
       password:password.trim(),
   
     }).then(response=>{
-      if(response[0].message =="Usuário ja cadastrado"){
-        onToggleSnackBar();
-        setAviso("Email ja cadastrado");
-      }
+      // if(response[0].message =="Usuário ja cadastrado"){
+      //   onToggleSnackBar();
+      //   setAviso("Email ja cadastrado");
+      // }
+      console.log(response)
       navigation.navigate("Login")
 
     }).catch(e=>console.log(e))
