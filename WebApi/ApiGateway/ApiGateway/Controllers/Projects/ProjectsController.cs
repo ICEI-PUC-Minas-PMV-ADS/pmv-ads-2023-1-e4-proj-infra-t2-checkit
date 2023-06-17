@@ -20,7 +20,7 @@ namespace ApiGateway.Controllers.Projects
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllProjectsThisUserAsync()
+        public async Task<IActionResult> GetAllProjectsThisUser()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 

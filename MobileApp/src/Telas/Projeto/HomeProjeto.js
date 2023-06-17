@@ -102,7 +102,7 @@ export default function HomeProjeto() {
   }, []);
 
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI2NDhiOGI0N2E1NzFlMGI4Y2ZmYjUwNjEiLCJuYmYiOjE2ODY4NjY3NzcsImV4cCI6MTY4Njg5NTU3NywiaWF0IjoxNjg2ODY2Nzc3fQ.hGmfEE6KSGDOSP0GqukXWqWz80HlkXEtl5-JxLTv3Qs";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI2NDhiOGI0N2E1NzFlMGI4Y2ZmYjUwNjEiLCJuYmYiOjE2ODcwMzA5MjksImV4cCI6MTY4NzA1OTcyOSwiaWF0IjoxNjg3MDMwOTI5fQ.s6uaX3MuGVxutLlfH_2ABXCu9w9pkzy71lW6Q40TN_s";
 
   // Testes API
   useEffect(() => {
@@ -112,7 +112,7 @@ export default function HomeProjeto() {
       // );
       //console.log(token)
       return await fetch(
-        `${baseURL}/api/projects/getAllProjectsThisUserAsync/${userId}`,
+        `${baseURL}/api/projects/getAllProjectsThisUser/${userId}`,
         {
           method: "GET",
           headers: {
