@@ -16,6 +16,7 @@ namespace Users.Controllers
         {
             _userCollection = userCollection;
         }
+        [AllowAnonymous]
 
         [HttpGet("{id:length(24)}")]
         public async Task<ActionResult<User>> GetById(string id)
