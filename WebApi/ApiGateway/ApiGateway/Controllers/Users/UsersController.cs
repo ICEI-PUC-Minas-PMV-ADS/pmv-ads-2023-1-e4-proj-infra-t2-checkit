@@ -30,7 +30,7 @@ namespace ApiGateway.Controllers.Users
         [HttpPost]
         public async Task<IActionResult> PostUser([FromBody] User user)
         {
-            var result = await _httpClient.PostAsJsonAsync($"https://checkit-users-production.up.railway.app/api", user);
+            var result = await _httpClient.PostAsJsonAsync($"https://checkit-users-production.up.railway.app/api/Users", user);
 
             return result.ReasonPhrase=="Bad Request"?BadRequest() : Ok(result);
         }

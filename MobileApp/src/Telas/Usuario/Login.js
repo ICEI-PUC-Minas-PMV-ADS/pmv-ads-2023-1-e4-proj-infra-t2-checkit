@@ -6,12 +6,13 @@ import { TextInput, Snackbar } from "react-native-paper";
 import { AuthUserContext } from "../../Contexts/AuthUserProvider";
 import Container from "../../Componentes/Container";
 import Body from "../../Componentes/Body";
+import { baseURL } from "../../Services/URL";
 const Login = () => {
   const navigation = useNavigation();
-  const { postLogin, user, setUser } = useContext(AuthUserContext);
+  const { postLogin, user, setUser,authToken,setAuthToken } = useContext(AuthUserContext);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("biel@gmail.com");
+  const [password, setPassword] = useState("1234");
   const [aviso, setAviso] = useState("");
   const [missInfo, setMissInfo] = useState(false);
   const [escondeSenha, setEscondeSenha] = useState(true);
@@ -21,12 +22,47 @@ const Login = () => {
   const onDismissSnackBar = () => setVisible(false);
 
   const onPressLogin = () => {
-    console.log("funciona");
-   postLogin({
-    email:email,
-    senha:password
-   }).then(a=>console.log(a))
+    fetch(`${baseURL}/api/Users/authenticate`,{
+      method:"POST",
+      headers:{
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(
+        {
+            email:email.trim(),
+            password:password.trim(),
+        
+          }
+      ),
+      
+    })
+      .then((response) => response.json())
+      .then(data=>{
+        setAuthToken(data.jwtToken)
 
+        fetch(`${baseURL}/api/Users/${data.userId}`,{
+          method:"GET",
+          headers:{
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${data.jwtToken}`
+          },
+         
+        }).then(user=>{
+
+          console.log(user)
+          if(user!=undefined) setUser(user)
+        })
+
+
+
+
+
+
+
+
+
+      })
+      .catch((error) => console.error(error));
 
 
 
@@ -73,6 +109,7 @@ const Login = () => {
               mode="outlined"
               outlineColor={"#262626"}
               style={styles.inputText}
+              value={password}
               activeOutlineColor="#262626"
               error={missInfo || (missInfo && !password) ? true : false}
               secureTextEntry={escondeSenha}

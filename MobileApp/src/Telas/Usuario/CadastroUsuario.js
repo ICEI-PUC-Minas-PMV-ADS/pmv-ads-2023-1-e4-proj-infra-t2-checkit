@@ -8,6 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 import { TextInput } from "react-native-paper";
 import { AuthUserContext } from "../../Contexts/AuthUserProvider";
 import { UserContext } from "../../Contexts/UserProvider";
+import { baseURL } from "../../Services/URL";
 const CadastroUsuario = () => {
   const { postLogin, setUser } = useContext(AuthUserContext);
 const {postUsuario,getUsuario}= useContext(UserContext)
@@ -46,23 +47,37 @@ const {postUsuario,getUsuario}= useContext(UserContext)
     } else {
       console.log("Ir para tela inicial");
     }
-   const a = await postUsuario({
-      name:name.trim(),
-      email:email.trim(),
-      password:password.trim(),
-  
-    }).then(response=>{
+    fetch(`${baseURL}/api/users`,{
+      method:"POST",
+      headers:{
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(
+        {
+    
+    
+          name:name.trim(),
+            email:email.trim(),
+            password:password.trim(),
+        
+          }
+      ),
+      
+    })
+      .then((response) => response.json())
+      .then(data=>{
+        console.log(data)
+      })
+      .catch((error) => console.error(error));
+
       // if(response[0].message =="Usuário ja cadastrado"){
       //   onToggleSnackBar();
       //   setAviso("Email ja cadastrado");
       // }
       // navigation.navigate("Login")
 
-    }).then(data=>console.log(data))
     
-    
-    .catch(e=>console.log(e))
-    console.log(a)
+      
   };
 
 

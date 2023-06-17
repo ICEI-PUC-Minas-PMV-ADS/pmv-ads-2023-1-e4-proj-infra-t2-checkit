@@ -8,7 +8,7 @@ export const AuthUserContext = createContext({});
 import API from "../Services/webapiservices";
 export const AuthUserProvider = ({ children }) => {
   const [user, setUser] = useState();
-
+  const[authToken,setAuthToken] = useState("")
   const postLogin = async (param) => {
     return await API.post(URLUSER, param)
       .then((response) => {
@@ -26,6 +26,8 @@ export const AuthUserProvider = ({ children }) => {
           postLogin,
           user,
           setUser,
+          setAuthToken,
+          authToken
         }}
       >
         {children}
