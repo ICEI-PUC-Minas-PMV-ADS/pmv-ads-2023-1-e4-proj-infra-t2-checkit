@@ -34,7 +34,7 @@ namespace Users.Controllers
 
 
             var alredyRegister = await _userCollection.GetByEmailAsync(model.Email);
-            if (alredyRegister != null) return Ok(new { message = "Usuário ja cadastrado" });
+            if (alredyRegister != null) return BadRequest();
             
             User newUser = new()
             {
