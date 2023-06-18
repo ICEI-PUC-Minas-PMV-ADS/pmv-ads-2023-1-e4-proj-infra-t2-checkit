@@ -95,14 +95,12 @@ export default function NovoProjeto({ route }) {
   };
 
   const handleTask = (projectId) => {
-    console.log(projectId);
-
     const param = {
       tituloTarefa: tituloTarefa,
     };
 
-    postTask(param).then();
-   // getTask().then();
+    postTask(param).then((data) => console.log(data));
+    // getTask().then();
 
     // getProject(projectId).then((data) => {
     //   console.log(data);
@@ -114,7 +112,7 @@ export default function NovoProjeto({ route }) {
       dueDate: item.dueDate,
       tarefaId: [],
     };
-   // putProject(projectId, param);
+    // putProject(projectId, param);
 
     //var objetoClonado = Object.assign({}, objetoOrigem);
 
