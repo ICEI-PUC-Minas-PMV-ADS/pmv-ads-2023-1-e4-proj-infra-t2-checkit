@@ -19,10 +19,12 @@ import Dialog from "react-native-dialog";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ProjectContext } from "../../Contexts/ProjectsProvider";
 import { useNavigation } from "@react-navigation/native";
+import { TaskContext } from "../../Contexts/TaskProvider";
 
 export default function NovoProjeto({ route }) {
   const { item } = route.params ? route.params : {};
   const navigation = useNavigation();
+  const { getTaskFromProject } = useContext(TaskContext);
 
   const [tarefas, setTarefas] = useState([]);
   const [inputTarefas, setInputTarefas] = useState("");
@@ -110,7 +112,14 @@ export default function NovoProjeto({ route }) {
     };
 
     postProject(param).then();
-    navigation.goBack();
+    navigation.navigate("HomeProjeto");
+  };
+
+  const handleTask = (projectId) => {
+    console.log(projectId);
+    setShowDialog(false);
+    setInputTarefas("");
+    getTaskFromProject(projectId).then();
   };
 
   return (
@@ -199,6 +208,7 @@ export default function NovoProjeto({ route }) {
             <Dialog.Description>Digite o nome da sua Tarefa</Dialog.Description>
 
             <Dialog.Input
+              color="#000"
               onChangeText={(text) => setInputTarefas(text)}
               value={inputTarefas}
             />
@@ -209,7 +219,8 @@ export default function NovoProjeto({ route }) {
             />
             <Dialog.Button
               label={`Adicionar Tarefa`}
-              onPress={() => addTask()}
+              // onPress={() => addTask()}
+              onPress={() => handleTask(item.id)}
             />
           </Dialog.Container>
           <SafeAreaView>
@@ -252,11 +263,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   Titulo: {
-    fontSize: 26,
+    fontSize: 22,
     marginTop: 10,
     marginTop: 40,
     marginLeft: 13,
-    marginBottom: 15,
     color: "#fff",
     fontWeight: "bold",
     textAlign: "center",

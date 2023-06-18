@@ -20,7 +20,7 @@ export const AuthUserProvider = ({ children }) => {
       // .then((json) => console.log(json))
       .then((data) => {
         setAuthToken(data.jwtToken);
-        //console.log(authToken);
+       // console.log(authToken);
         setUserId(data.userId);
         // console.log(data.userId);
       })
@@ -37,7 +37,7 @@ export const AuthUserProvider = ({ children }) => {
       },
     })
       .then((response) => response.json())
-      //.then((json) => console.log(json))
+      .then((json) => json)
       // .then((data) => console.log(data))
       .catch((e) => console.error(e));
   };
