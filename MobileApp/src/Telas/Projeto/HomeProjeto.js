@@ -18,35 +18,7 @@ import { combineTransition } from "react-native-reanimated";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { baseURL } from "../../Services/URL";
 import { ProjectContext } from "../../Contexts/ProjectsProvider";
-
-const item = [
-  {
-    id: "646559d730418929632cee6c",
-    title: "Reformar Casa",
-    createdAt: "2023-05-17T22:48:55.604Z",
-    createdBy: "",
-    updatedAt: "2023-05-17T22:48:55.604Z",
-    updatedBy: "",
-    status: "Em Andamento",
-    dueDate: "2023-05-17T22:43:44.243Z",
-    members: null,
-    tarefaId: ["64655877d423bfb671802d70", "64655877d423bfb671802d10"],
-    userId: null,
-  },
-  {
-    id: "646559d730418929632cef6c",
-    title: "Estudar Inglês",
-    createdAt: "2023-05-17T22:48:55.604Z",
-    createdBy: "",
-    updatedAt: "2023-05-17T22:48:55.604Z",
-    updatedBy: "",
-    status: "Em Andamento",
-    dueDate: "2023-05-17T22:43:44.243Z",
-    members: null,
-    tarefaId: ["64655877d423bfb671812d11", "64655877d423bfb671812d12"],
-    userId: null,
-  },
-];
+import moment from "moment";
 
 const tasks = [
   {
@@ -93,34 +65,14 @@ const tasks = [
 
 export default function HomeProjeto() {
   const navigation = useNavigation();
-  const { project, getProject } = useContext(ProjectContext);
-
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI2NDhiOGI0N2E1NzFlMGI4Y2ZmYjUwNjEiLCJuYmYiOjE2ODcwMzA5MjksImV4cCI6MTY4NzA1OTcyOSwiaWF0IjoxNjg3MDMwOTI5fQ.s6uaX3MuGVxutLlfH_2ABXCu9w9pkzy71lW6Q40TN_s";
-
+  const { project, getAllProjects, deleteProject } = useContext(ProjectContext);
+  const [showDialog, setShowDialog] = useState(false);
   // Testes API
   useEffect(() => {
-    const getAllProjects = async (userId) => {
-      return await fetch(
-        `${baseURL}/api/projects/getAllProjectsThisUser/${userId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-        .then((response) => response.json())
-        .then((data) => console.log(data))
-        .catch((error) => console.error(error));
-    };
-    //getAllProjects();
-   
+    getAllProjects().then();
   }, []);
 
   const [task, setTask] = useState(tasks);
-  const [test, setTest] = useState();
 
   const handleChange = (id) => {
     //console.log(id);
@@ -135,8 +87,6 @@ export default function HomeProjeto() {
     });
     setTask(temp);
   };
-
-  const handleFilterTask = (task) => {};
 
   // Renderiza accordion
   const handleTask = (tarefa, projetoTarefaId) => {
@@ -185,8 +135,8 @@ export default function HomeProjeto() {
     );
   };
 
-  const handleExcluir = (item) => {
-    console.log("Excluir Item");
+  const handleDeleteProject = (item) => {
+    deleteProject(item.id).then();
   };
 
   const renderItem = ({ item }) => (
@@ -196,7 +146,7 @@ export default function HomeProjeto() {
         description={
           <View>
             <Text style={styles.textList}>{item.descricao}</Text>
-            <Text>Vence 01/01/2001</Text>
+            <Text>{moment(item.dueDate).format("DD/MM/YYYY")}</Text>
             {/* <ProgressBar progresso={20} />  */}
             <View style={styles.viewProgressBar}>
               <ProgressBar progresso={10} />
@@ -205,9 +155,10 @@ export default function HomeProjeto() {
         }
         right={(props) => (
           <>
-            <TouchableOpacity onPress={() => handleExcluir(item)}>
+            <TouchableOpacity onPress={() => handleDeleteProject(item)}>
               <List.Icon {...props} icon="trash-can" />
             </TouchableOpacity>
+
             <TouchableOpacity
               onPress={() => navigation.navigate("NovoProjeto", { item })}
             >
@@ -233,11 +184,11 @@ export default function HomeProjeto() {
         <View>
           <Text style={styles.welcomeText}>Bem vindx USER!</Text>
           <Text style={styles.projectText}>
-            Você tem X projetos em andamento
+            Você tem {project.length} projetos em andamento
           </Text>
         </View>
         <FlatList
-          data={item}
+          data={project}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />

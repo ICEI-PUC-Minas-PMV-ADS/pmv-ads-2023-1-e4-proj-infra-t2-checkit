@@ -90,18 +90,18 @@ export default function NovoProjeto({ route }) {
   const { project, postProject } = useContext(ProjectContext);
 
   useEffect(() => {
-    // Se vier dados da rota    
+    // Se vier dados da rota
     if (item) {
       setTitle(item.title);
       setDescricao(item.descricao);
-      
+      setDate(item.dueDate);
     }
   }, [item]);
 
   const handleProject = () => {
     const param = {
       title: title.trim(),
-      dueDate: new Date(),
+      dueDate: moment(new Date()).format("DD/MM/YYYY"),
       status: "Em Andamento",
       tarefaId: [],
       userId: "648b8b47a571e0b8cffb5061",
@@ -157,10 +157,14 @@ export default function NovoProjeto({ route }) {
                 />
               )
             }
-            <TouchableOpacity onPress={() => setShow(true)}>
+            <TouchableOpacity
+              disabled={item ? true : false}
+              onPress={() => setShow(true)}
+            >
               <Input
                 label="Data"
-                value={data}
+                value={item ? moment(item.dueDate).format("DD/MM/YYYY") : data}
+                disabled={item ? true : false}
                 left={<TextInput.Icon icon="calendar" />}
                 editable={false}
               />

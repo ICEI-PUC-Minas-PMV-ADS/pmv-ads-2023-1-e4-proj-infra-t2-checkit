@@ -9,8 +9,8 @@ export const ProjectProvider = ({ children }) => {
   const token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI2NDhiOGI0N2E1NzFlMGI4Y2ZmYjUwNjEiLCJuYmYiOjE2ODcwMzA5MjksImV4cCI6MTY4NzA1OTcyOSwiaWF0IjoxNjg3MDMwOTI5fQ.s6uaX3MuGVxutLlfH_2ABXCu9w9pkzy71lW6Q40TN_s";
 
-  const getAllProjects = async (id) => {
-    return await fetch(`${baseURL}/api/projects/getAllProjectsThisUser/${id}`, {
+  const getAllProjects = async () => {
+    return await fetch(`${baseURL}/api/projects/getAllProjectsThisUser`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -18,7 +18,9 @@ export const ProjectProvider = ({ children }) => {
       },
     })
       .then((response) => response.json())
-      .then((data) => console.log(data))
+      .then((data) => {
+        setProject(data), console.log(data);
+      })
       .catch((error) => console.error(error));
   };
 
@@ -87,6 +89,7 @@ export const ProjectProvider = ({ children }) => {
         project,
         setProject,
         getProject,
+        getAllProjects,
         postProject,
         putProject,
         deleteProject,
