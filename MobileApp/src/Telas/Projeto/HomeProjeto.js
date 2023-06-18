@@ -64,17 +64,19 @@ const tasks = [
   },
 ];
 
-export default function HomeProjeto() {
+export default function HomeProjeto({ route }) {
   const navigation = useNavigation();
   const focused = useIsFocused();
 
   const { project, getAllProjects, deleteProject } = useContext(ProjectContext);
-  const { user } = useContext(AuthUserContext);
+  const { user, userId, authToken } = useContext(AuthUserContext);
+  //const { user } = route.params ? route.params : {};
 
   const [showDialog, setShowDialog] = useState(false);
   // Testes API
   useEffect(() => {
-   // console.log("USER in Project: ", user);
+  //  console.log("USER in Project: ", userId);
+   // console.log(authToken);
     //console.log(`Você tem ${project.length} projetos em andamento`);
     getAllProjects().then();
   }, [focused]);

@@ -6,6 +6,19 @@ export const TaskContext = createContext({});
 export const TaskProvider = ({ children }) => {
   const [task, setTask] = useState([]);
 
+  const getTaskFromProject = async (projectId) => {
+    console.log(`${baseURL}/api/tarefas/${projectId}`);
+    return await fetch(`${baseURL}/api/tarefas/${projectId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
+  };
   // GET
   const getTask = async (id) => {
     //console.log(`${baseURL}/api/projects/${id}`);
@@ -74,6 +87,7 @@ export const TaskProvider = ({ children }) => {
         postTask,
         putTask,
         deleteTask,
+        getTaskFromProject,
       }}
     >
       {children}

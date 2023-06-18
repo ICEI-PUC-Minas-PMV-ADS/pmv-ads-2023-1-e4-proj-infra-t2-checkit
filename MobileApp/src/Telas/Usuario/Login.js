@@ -12,7 +12,7 @@ const Login = () => {
   const { postLogin, getUser, user, setUser, userId, authToken, setAuthToken } =
     useContext(AuthUserContext);
 
-  const [email, setEmail] = useState("maria@gmail.com");
+  const [email, setEmail] = useState("joao@gmail.com");
   const [password, setPassword] = useState("123456");
   const [aviso, setAviso] = useState("");
   const [missInfo, setMissInfo] = useState(false);
@@ -21,8 +21,6 @@ const Login = () => {
 
   const onToggleSnackBar = () => setVisible(!visible);
   const onDismissSnackBar = () => setVisible(false);
-
-  const [test, setTest] = useState();
 
   const onPressLogin = () => {
     if (!email && !password) {
@@ -37,57 +35,61 @@ const Login = () => {
       onToggleSnackBar();
       setAviso("Por favor insira a sua Senha");
     } else {
-      // const param = {
-      //   email: email.trim(),
-      //   password: password.trim(),
-      // };
-      // postLogin(param).then(() => {
-      //   if (authToken == undefined) {
-      //     onToggleSnackBar();
-      //     setAviso("Email ou/e Senha incorretos");
-      //   } else {
-      //     console.log("-------------------------");
-      //     console.log("---->>>", userId);
-      //     getUser(userId).then();
-      //     console.log("---->>>", user);
-      //     console.log("-------------------------");
+      const param = {
+        email: email.trim(),
+        password: password.trim(),
+      };
+      postLogin(param).then(() => {
+        if (authToken == undefined) {
+          onToggleSnackBar();
+          setAviso("Email ou/e Senha incorretos");
+        } else {
+          navigation.navigate("HomeProjeto");
+        }
+      });
+      // if (userId != null) {
+      //   console.log("-------------------------");
+      //   console.log("---->>>", userId);
+      //   getUser(userId).then((x) => console.log(x));
+      //   console.log("-------------------------");
 
-      //     navigation.navigate("HomeProjeto");
-      //   }
-      // });
+      //   navigation.navigate("HomeProjeto");
+      // }
 
-      fetch(`${baseURL}/api/Users/authenticate`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email.trim(),
-          password: password.trim(),
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.status == 401) {
-            onToggleSnackBar();
-            setAviso("Email ou/e Senha incorretos");
-          }
-          setAuthToken(data.jwtToken);
-          console.log(authToken);
-          fetch(`${baseURL}/api/Users/${data.userId}`, {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${data.jwtToken}`,
-            },
-          })
-            .then((response) => response.json())
-            .then((user) => {
-             // console.log(dado);
-              if (user != undefined) navigation.navigate("HomeProjeto");
-            });
-        })
-        .catch((error) => console.error(error));
+      // fetch(`${baseURL}/api/Users/authenticate`, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     email: email.trim(),
+      //     password: password.trim(),
+      //   }),
+      // })
+      //   .then((response) => response.json())
+      //   .then((data) => {
+      //     if (data.status == 401) {
+      //       onToggleSnackBar();
+      //       setAviso("Email ou/e Senha incorretos");
+      //     }
+      //     setAuthToken(data.jwtToken);
+      //     console.log(authToken);
+      //     fetch(`${baseURL}/api/Users/${data.userId}`, {
+      //       method: "GET",
+      //       headers: {
+      //         "Content-Type": "application/json",
+      //         Authorization: `Bearer ${data.jwtToken}`,
+      //       },
+      //     })
+      //       .then((response) => response.json())
+      //       .then((user) => {
+      //         console.log(user);
+      //         if (user != undefined) {
+      //           navigation.navigate("HomeProjeto", { user });
+      //         }
+      //       });
+      //   })
+      //   .catch((error) => console.error(error));
     }
   };
 

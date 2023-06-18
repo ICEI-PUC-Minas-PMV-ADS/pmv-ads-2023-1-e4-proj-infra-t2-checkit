@@ -1,12 +1,14 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { baseURL, token } from "../Services/URL";
 
 export const ProjectContext = createContext({});
 
 export const ProjectProvider = ({ children }) => {
+  //const { authToken } = useContext("AuthUserContext");
   const [project, setProject] = useState([]);
 
   const getAllProjects = async () => {
+    //  console.log(authToken);
     return await fetch(`${baseURL}/api/projects/getAllProjectsThisUser`, {
       method: "GET",
       headers: {
