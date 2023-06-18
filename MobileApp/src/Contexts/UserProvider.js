@@ -34,7 +34,7 @@ const UserProvider = ({ children }) => {
     })
       .then((response) => response.json())
       .then(data=>{
-        return data.statusCode
+        console.log(data)
       })
       .catch((error) => console.error(error));
   }

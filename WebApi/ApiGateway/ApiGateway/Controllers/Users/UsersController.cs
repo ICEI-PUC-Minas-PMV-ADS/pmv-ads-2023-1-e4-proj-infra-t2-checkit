@@ -16,11 +16,12 @@ namespace ApiGateway.Controllers.Users
         {
             _httpClient = new HttpClient();
         }
+        [AllowAnonymous]
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser([FromRoute] string id)
         {
-            var result = await _httpClient.GetAsync($"https://checkit-users-production.up.railway.app/api/Users/{id}");
+            var result = await _httpClient.GetAsync($"https://localhost:7295/api/Users/{id}");
             var userResult = await result.Content.ReadAsStringAsync();            
 
             return userResult is null ? NotFound() : Ok(userResult);
@@ -30,9 +31,11 @@ namespace ApiGateway.Controllers.Users
         [HttpPost]
         public async Task<IActionResult> PostUser([FromBody] User user)
         {
-             var result = await _httpClient.PostAsJsonAsync($"https://checkit-users-production.up.railway.app/api", user);
-            //var result = await _httpClient.PostAsJsonAsync($"https://localhost:7295/api/users", user);
+
+            var result = await _httpClient.PostAsJsonAsync($"https://checkit-users-production.up.railway.app/api/Users", user);
+    
            
+
 
             return result.ReasonPhrase=="Bad Request"?BadRequest() : Ok(result);
         }
