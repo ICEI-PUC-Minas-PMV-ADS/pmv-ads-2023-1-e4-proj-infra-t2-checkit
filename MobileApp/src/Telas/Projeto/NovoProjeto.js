@@ -120,6 +120,7 @@ export default function NovoProjeto({ route }) {
     console.log(projectId);
 
     const param = {
+      links: [],
       tituloTarefa: tituloTarefa,
       descricao: "Minhas Task",
       dataInicio: new Date(),
