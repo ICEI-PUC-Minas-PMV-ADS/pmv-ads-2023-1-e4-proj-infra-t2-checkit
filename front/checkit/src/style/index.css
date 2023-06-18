@@ -1,0 +1,13 @@
+.project-card {
+  width: 30%;
+}
+
+.colorpicker .p-inputtext {
+border-radius: 50%;
+height: 5px;
+width: 5px;
+}
+
+.p-progressbar-label	{
+  opacity: 0;
+}
