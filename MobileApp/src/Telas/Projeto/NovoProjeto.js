@@ -1,38 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
-  FlatList,
   ScrollView,
 } from "react-native";
-import {
-  TextInput,
-  Portal,
-  Provider,
-  RadioButton,
-  Button,
-  FAB,
-  List,
-} from "react-native-paper";
+import { TextInput, Button, List } from "react-native-paper";
 import moment from "moment/moment";
 import Container from "../../Componentes/Container";
 import Input from "../../Componentes/Input";
 import Body from "../../Componentes/Body";
 import TextOverInput from "../../Componentes/TextOverInput";
-import { BASEPROJECTSURL } from "../../Services/URL";
-import { Botao } from "../../Componentes/Botao";
-import {
-  NativeViewGestureHandler,
-  GestureHandlerRootView,
-} from "react-native-gesture-handler";
+
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 import Dialog from "react-native-dialog";
 import { SafeAreaView } from "react-native-safe-area-context";
-
-// import { useIsFocused } from '@react-navigation/native-stack';
+import { ProjectContext } from "../../Contexts/ProjectsProvider";
 
 export default function NovoProjeto({ route }) {
   const { item } = route.params ? route.params : {};
@@ -47,7 +32,7 @@ export default function NovoProjeto({ route }) {
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false); // pop up
   const [data, setData] = useState(moment(new Date()).format("DD/MM/YYYY"));
-  const [nomeProjeto, setNomeProjeto] = useState("");
+  const [title, setTitle] = useState("");
   const [descricao, setDescricao] = useState("");
   const [isEditing, setIsEditing] = useState();
   const [showDialog, setShowDialog] = useState(false);
@@ -102,14 +87,28 @@ export default function NovoProjeto({ route }) {
     tarefas[index] = s;
   };
 
+  const { project, postProject } = useContext(ProjectContext);
+
   useEffect(() => {
-    // Se vier dados da rota
-    console.log(item);
+    // Se vier dados da rota    
     if (item) {
-      setNomeProjeto(item.title);
+      setTitle(item.title);
       setDescricao(item.descricao);
+      
     }
   }, [item]);
+
+  const handleProject = () => {
+    const param = {
+      title: title.trim(),
+      dueDate: new Date(),
+      status: "Em Andamento",
+      tarefaId: [],
+      userId: "648b8b47a571e0b8cffb5061",
+    };
+
+    postProject(param).then();
+  };
 
   return (
     <Container>
@@ -120,9 +119,9 @@ export default function NovoProjeto({ route }) {
           <TextOverInput>Nome do Projeto</TextOverInput>
           <Input
             mode="outlined"
-            value={nomeProjeto}
-            onChangeText={(text) => setNomeProjeto(text)}
-            error={missInfo && !nomeProjeto ? true : false}
+            value={title}
+            onChangeText={(text) => setTitle(text)}
+            error={missInfo && !title ? true : false}
             activeOutlineColor={"#262626"}
             left={<TextInput.Icon icon="book-edit-outline" />}
           />
@@ -230,7 +229,7 @@ export default function NovoProjeto({ route }) {
           </SafeAreaView>
         </View>
         <View style={styles.viewBtn}>
-          <TouchableOpacity onPress={createProject}>
+          <TouchableOpacity onPress={handleProject}>
             <Button style={styles.button} textColor="#fff">
               <Text style={styles.textBtn}>Salvar Novo Projeto</Text>
             </Button>
