@@ -67,12 +67,16 @@ const {postUsuario,getUsuario}= useContext(UserContext)
       .then((response) => response.json())
       .then(data=>{
         console.log(data)
+        if(data.status==400){
+          onToggleSnackBar();
+        setAviso("Email ja cadastrado");
+        }
+        navigation.navigate("Login")
       })
       .catch((error) => console.error(error));
 
       // if(response[0].message =="Usuário ja cadastrado"){
-      //   onToggleSnackBar();
-      //   setAviso("Email ja cadastrado");
+      //   
       // }
       // navigation.navigate("Login")
 

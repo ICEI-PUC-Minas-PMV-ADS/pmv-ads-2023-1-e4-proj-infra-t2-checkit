@@ -21,7 +21,7 @@ namespace ApiGateway.Controllers.Users
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser([FromRoute] string id)
         {
-            var result = await _httpClient.GetAsync($"https://localhost:7295/api/Users/{id}");
+            var result = await _httpClient.GetAsync($"https://checkit-users-production.up.railway.app/api/Users/{id}");
             var userResult = await result.Content.ReadAsStringAsync();            
 
             return userResult is null ? NotFound() : Ok(userResult);

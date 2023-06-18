@@ -22,64 +22,75 @@ const Login = () => {
   const onDismissSnackBar = () => setVisible(false);
 
   const onPressLogin = () => {
-    fetch(`${baseURL}/api/Users/authenticate`,{
-      method:"POST",
-      headers:{
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(
-        {
-            email:email.trim(),
-            password:password.trim(),
+   
+   
+    if (!email && !password) {
+      setMissInfo(true); // Ausência de email e/ou senha
+      onToggleSnackBar();
+      setAviso("Por favor insira o seu Email e Senha");
+      // setAviso("Por favor, insira o email e a senha");
+    } else if (email.length == 0) {
+      onToggleSnackBar();
+      setAviso("Por favor insira o seu Email");
+    } else if (password.length == 0) {
+      onToggleSnackBar();
+      setAviso("Por favor insira a sua Senha");
+    }
+    else{
+
+      fetch(`${baseURL}/api/Users/authenticate`,{
+        method:"POST",
+        headers:{
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(
+          {
+              email:email.trim(),
+              password:password.trim(),
+          
+            }
+        ),
         
-          }
-      ),
-      
-    })
-      .then((response) => response.json())
-      .then(data=>{
-        setAuthToken(data.jwtToken)
-
-        fetch(`${baseURL}/api/Users/${data.userId}`,{
-          method:"GET",
-          headers:{
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${data.jwtToken}`
-          },
-         
-        }).then(user=>{
-
-          console.log(user)
-          if(user!=undefined) setUser(user)
-        })
-
-
-
-
-
-
-
-
-
       })
-      .catch((error) => console.error(error));
+        .then((response) => response.json())
+        .then(data=>{
+          
+           if(data.status==401){
+
+            onToggleSnackBar();
+            setAviso("Email ou/e Senha incorretos");
+           }
+          setAuthToken(data.jwtToken)
+          console.log(authToken)
+          fetch(`${baseURL}/api/Users/${data.userId}`,{
+            method:"GET",
+            headers:{
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${data.jwtToken}`
+            },
+           
+          }).then((response) => response.json())
+          .then((user) => {
+            console.log(dado)
+            if(user!= undefined) navigation.navigate('HomeProjeto')
+          })
+  
+  
+  
+  
+  
+  
+  
+  
+        })
+        .catch((error) => console.error(error));
+    }
 
 
 
 
     
-    // if (!email && !password) {
-    //   setMissInfo(true); // Ausência de email e/ou senha
-    //   onToggleSnackBar();
-    //   setAviso("Por favor insira o seu Email e Senha");
-    //   // setAviso("Por favor, insira o email e a senha");
-    // } else if (email.length == 0) {
-    //   onToggleSnackBar();
-    //   setAviso("Por favor insira o seu Email");
-    // } else if (password.length == 0) {
-    //   onToggleSnackBar();
-    //   setAviso("Por favor insira a sua Senha");
-    // }
+    
   };
 
   return (
@@ -100,7 +111,7 @@ const Login = () => {
               value={email}
               right={<TextInput.Icon icon="email-outline" />}
               placeholderTextColor="#003f5c"
-              error={missInfo || (missInfo && !email) ? true : false}
+              error={missInfo && !email ? true : false}
               onChangeText={(text) => setEmail(text)}
             />
 
@@ -109,9 +120,9 @@ const Login = () => {
               mode="outlined"
               outlineColor={"#262626"}
               style={styles.inputText}
-              value={password}
+
               activeOutlineColor="#262626"
-              error={missInfo || (missInfo && !password) ? true : false}
+              error={missInfo && !password ? true : false}
               secureTextEntry={escondeSenha}
               right={
                 <TextInput.Icon
@@ -151,6 +162,7 @@ const Login = () => {
         <Snackbar
           visible={visible}
           onDismiss={onDismissSnackBar}
+          duration={1500}
           action={{
             label: "Ok",
           }}
