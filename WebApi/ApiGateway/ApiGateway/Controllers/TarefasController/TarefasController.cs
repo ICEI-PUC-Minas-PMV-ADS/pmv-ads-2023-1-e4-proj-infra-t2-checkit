@@ -22,7 +22,7 @@ namespace ApiGateway.Controllers.TarefasCosntroller
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTarefaById([FromRoute] string id)
         {
-            var result = await _httpClient.GetAsync($"https://checkit-tasks-production.up.railway.app/swagger/api/Tarefas/{id}");
+            var result = await _httpClient.GetAsync($"https://checkit-tasks-production.up.railway.app/api/Tarefas/{id}");
             var taskResult = await result.Content.ReadAsStringAsync();
 
             return taskResult is null ? NotFound() : Ok(taskResult);
@@ -31,7 +31,7 @@ namespace ApiGateway.Controllers.TarefasCosntroller
         [HttpPost()]
         public async Task<IActionResult> PostTarefa([FromBody] Tarefa tarefa)
         {
-            var result = await _httpClient.PostAsJsonAsync($"https://checkit-tasks-production.up.railway.app/swagger/api/Tarefas/", tarefa);
+            var result = await _httpClient.PostAsJsonAsync($"https://checkit-tasks-production.up.railway.app/api/Tarefas/", tarefa);
 
             return Ok(result);
         }
@@ -39,7 +39,7 @@ namespace ApiGateway.Controllers.TarefasCosntroller
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateTarefa([FromRoute] string id, [FromBody] Tarefa tarefa)
         {
-            var result = await _httpClient.PutAsJsonAsync($"https://checkit-tasks-production.up.railway.app/swagger/api/Tarefas/{id}", tarefa);
+            var result = await _httpClient.PutAsJsonAsync($"https://checkit-tasks-production.up.railway.app/api/Tarefas/{id}", tarefa);
 
             return Ok(result);
         }
@@ -47,7 +47,7 @@ namespace ApiGateway.Controllers.TarefasCosntroller
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTarefa([FromRoute] string id)
         {
-            await _httpClient.DeleteAsync($"https://checkit-tasks-production.up.railway.app/swagger/api/Tarefas/{id}");
+            await _httpClient.DeleteAsync($"https://checkit-tasks-production.up.railway.app/api/Tarefas/{id}");
 
             return Ok();
         }
