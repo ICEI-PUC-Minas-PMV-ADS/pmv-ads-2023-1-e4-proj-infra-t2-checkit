@@ -7,7 +7,7 @@ import {
   FlatList,
   Pressable,
 } from "react-native";
-import { List, Checkbox, Card } from "react-native-paper";
+import { List, Checkbox, Card, FAB } from "react-native-paper";
 import Container from "../../Componentes/Container";
 import Body from "../../Componentes/Body";
 import { Botao } from "../../Componentes/Botao";
@@ -16,9 +16,10 @@ import { ScrollView } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import { combineTransition } from "react-native-reanimated";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { baseURL } from "../../Services/URL";
 import { ProjectContext } from "../../Contexts/ProjectsProvider";
 import moment from "moment";
+import { useIsFocused } from "@react-navigation/native";
+import { AuthUserContext } from "../../Contexts/AuthUserProvider";
 
 const tasks = [
   {
@@ -65,12 +66,18 @@ const tasks = [
 
 export default function HomeProjeto() {
   const navigation = useNavigation();
+  const focused = useIsFocused();
+
   const { project, getAllProjects, deleteProject } = useContext(ProjectContext);
+  const { user } = useContext(AuthUserContext);
+
   const [showDialog, setShowDialog] = useState(false);
   // Testes API
   useEffect(() => {
+   // console.log("USER in Project: ", user);
+    //console.log(`Você tem ${project.length} projetos em andamento`);
     getAllProjects().then();
-  }, []);
+  }, [focused]);
 
   const [task, setTask] = useState(tasks);
 
@@ -137,6 +144,8 @@ export default function HomeProjeto() {
 
   const handleDeleteProject = (item) => {
     deleteProject(item.id).then();
+    getAllProjects().then();
+    console.log(`Você tem ${project.length} projetos em andamento`);
   };
 
   const renderItem = ({ item }) => (
@@ -182,9 +191,19 @@ export default function HomeProjeto() {
     <Container>
       <Body>
         <View>
-          <Text style={styles.welcomeText}>Bem vindx USER!</Text>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <Text style={styles.welcomeText}>Bem vindx {user}!</Text>
+            <FAB
+              style={styles.fab}
+              size="small"
+              icon="plus"
+              onPress={() => navigation.navigate("NovoProjeto")}
+            />
+          </View>
           <Text style={styles.projectText}>
-            Você tem {project.length} projetos em andamento
+            {/* Você tem {project.length} projetos em andamento */}
           </Text>
         </View>
         <FlatList
@@ -201,6 +220,7 @@ const styles = StyleSheet.create({
   welcomeText: {
     fontSize: 28,
     marginTop: 40,
+    marginLeft: 10,
     textAlign: "center",
     color: "#fff",
   },
@@ -226,7 +246,13 @@ const styles = StyleSheet.create({
     margin: "auto",
     marginTop: 14,
   },
-
+  fab: {
+    position: "absolute",
+    margin: 16,
+    right: 0,
+    top: 20,
+    backgroundColor: "#F9E79F",
+  },
   icons: {
     flexDirection: "row",
     marginLeft: 40,

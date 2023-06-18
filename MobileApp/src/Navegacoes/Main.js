@@ -14,9 +14,10 @@ import EditarUsuario from "../Telas/Usuario/EditarUsuario";
 import MeuPerfil from "../Telas/Usuario/MeuPerfil";
 const Stack = createNativeStackNavigator();
 // HomeProjeto
+// NovoProjeto
 const Main = () => {
   return (
-    <Stack.Navigator initialRouteName="CadastroUsuario">
+    <Stack.Navigator initialRouteName="Login">
       <Stack.Screen
         name="Login"
         component={Login}

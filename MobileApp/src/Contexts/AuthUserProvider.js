@@ -1,36 +1,61 @@
 import { createContext, useState } from "react";
+import { baseURL } from "../Services/URL";
 
-import { useNavigation } from "@react-navigation/native";
-
-import { URLUSER } from "../Services/URL";
 export const AuthUserContext = createContext({});
 
-import API from "../Services/webapiservices";
 export const AuthUserProvider = ({ children }) => {
   const [user, setUser] = useState();
-  const[authToken,setAuthToken] = useState("")
+  const [userId, setUserId] = useState();
+  const [authToken, setAuthToken] = useState("");
+
   const postLogin = async (param) => {
-    return await API.post(URLUSER, param)
-      .then((response) => {
-        
-        if (response) setUser(response);
-
-        return response;
+    return await fetch(`${baseURL}/api/Users/authenticate`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(param),
+    })
+      .then((response) => response.json())
+      // .then((json) => console.log(json))
+      .then((data) => {
+        setAuthToken(data.jwtToken);
+        //console.log(authToken);
+        setUserId(data.userId);
+        // console.log(data.userId);
       })
-      .catch((error) => console.log(error));
-    };
+      .catch((error) => console.error(error));
+  };
 
-    return (
-      <AuthUserContext.Provider
-        value={{
-          postLogin,
-          user,
-          setUser,
-          setAuthToken,
-          authToken
-        }}
-      >
-        {children}
-      </AuthUserContext.Provider>
-    );
+  const getUser = async (userId) => {
+    console.log(`${baseURL}/api/Users/${userId}`);
+    return await fetch(`${baseURL}/api/Users/${userId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authToken}`,
+      },
+    })
+      .then((response) => response.json())
+      //.then((json) => console.log(json))
+      // .then((data) => console.log(data))
+      .catch((e) => console.error(e));
+  };
+
+  return (
+    <AuthUserContext.Provider
+      value={{
+        postLogin,
+        user,
+        setUser,
+        setAuthToken,
+        authToken,
+        postLogin,
+        userId,
+        getUser,
+      }}
+    >
+      {children}
+    </AuthUserContext.Provider>
+  );
 };
