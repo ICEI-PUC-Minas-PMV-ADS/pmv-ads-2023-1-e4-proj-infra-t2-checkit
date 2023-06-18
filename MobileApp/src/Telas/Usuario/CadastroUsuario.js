@@ -11,7 +11,7 @@ import { UserContext } from "../../Contexts/UserProvider";
 import { baseURL } from "../../Services/URL";
 const CadastroUsuario = () => {
   const { postLogin, setUser } = useContext(AuthUserContext);
-const {postUsuario,getUsuario}= useContext(UserContext)
+  const { postUsuario, getUsuario } = useContext(UserContext);
   const navigation = useNavigation();
 
   const [escondeSenha, setEscondeSenha] = useState(true);
@@ -28,11 +28,9 @@ const {postUsuario,getUsuario}= useContext(UserContext)
   // Temrinar
   const [missInfo, setMissInfo] = useState(false);
 
-
-
-  const handleRegister = async  () => {
+  const handleRegister = async () => {
     console.log(password + "and" + confirmPassword);
-    
+
     // Validando senha
     if (!name || !email || !password || !confirmPassword) {
       console.log("missinfo");
@@ -47,43 +45,33 @@ const {postUsuario,getUsuario}= useContext(UserContext)
     } else {
       console.log("Ir para tela inicial");
     }
-    fetch(`${baseURL}/api/users`,{
-      method:"POST",
-      headers:{
+    fetch(`${baseURL}/api/users`, {
+      method: "POST",
+      headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(
-        {
-    
-    
-          name:name.trim(),
-            email:email.trim(),
-            password:password.trim(),
-        
-          }
-      ),
-      
+      body: JSON.stringify({
+        name: name.trim(),
+        email: email.trim(),
+        password: password.trim(),
+      }),
     })
       .then((response) => response.json())
-      .then(data=>{
-        console.log(data)
-        if(data.status==400){
+      .then((data) => {
+        console.log(data);
+        if (data.status == 400) {
           onToggleSnackBar();
-        setAviso("Email ja cadastrado");
+          setAviso("Email ja cadastrado");
         }
-        navigation.navigate("Login")
+        navigation.navigate("Login");
       })
       .catch((error) => console.error(error));
 
-      // if(response[0].message =="Usuário ja cadastrado"){
-      //   
-      // }
-      // navigation.navigate("Login")
-
-    
-      
+    // if(response[0].message =="Usuário ja cadastrado"){
+    //
+    // }
+    // navigation.navigate("Login")
   };
-
 
   return (
     <View style={styles.container}>
@@ -137,7 +125,7 @@ const {postUsuario,getUsuario}= useContext(UserContext)
             mode="outlined"
             outlineColor={"#262626"}
             activeOutlineColor={"#262626"}
-              value={confirmPassword}
+            value={confirmPassword}
             secureTextEntry={escondeConfirmaSenha}
             placeholderTextColor="#003f5c"
             right={

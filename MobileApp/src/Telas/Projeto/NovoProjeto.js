@@ -18,9 +18,11 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import Dialog from "react-native-dialog";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ProjectContext } from "../../Contexts/ProjectsProvider";
+import { useNavigation } from "@react-navigation/native";
 
 export default function NovoProjeto({ route }) {
   const { item } = route.params ? route.params : {};
+  const navigation = useNavigation();
 
   const [tarefas, setTarefas] = useState([]);
   const [inputTarefas, setInputTarefas] = useState("");
@@ -101,13 +103,14 @@ export default function NovoProjeto({ route }) {
   const handleProject = () => {
     const param = {
       title: title.trim(),
-      dueDate: moment(new Date()).format("DD/MM/YYYY"),
+      dueDate: new Date(),
       status: "Em Andamento",
       tarefaId: [],
       userId: "648b8b47a571e0b8cffb5061",
     };
 
     postProject(param).then();
+    navigation.goBack();
   };
 
   return (
@@ -163,7 +166,7 @@ export default function NovoProjeto({ route }) {
             >
               <Input
                 label="Data"
-                value={item ? moment(item.dueDate).format("DD/MM/YYYY") : data}
+                value={data}
                 disabled={item ? true : false}
                 left={<TextInput.Icon icon="calendar" />}
                 editable={false}
@@ -249,10 +252,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   Titulo: {
-    fontSize: 22,
+    fontSize: 26,
     marginTop: 10,
     marginTop: 40,
     marginLeft: 13,
+    marginBottom: 15,
+    color: "#fff",
+    fontWeight: "bold",
+    textAlign: "center",
   },
   viewInput: {
     flex: 1,

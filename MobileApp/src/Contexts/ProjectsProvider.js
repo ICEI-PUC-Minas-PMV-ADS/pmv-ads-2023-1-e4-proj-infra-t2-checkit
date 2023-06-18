@@ -1,13 +1,10 @@
 import { createContext, useState } from "react";
-import { baseURL } from "../Services/URL";
+import { baseURL, token } from "../Services/URL";
 
 export const ProjectContext = createContext({});
 
 export const ProjectProvider = ({ children }) => {
   const [project, setProject] = useState([]);
-
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI2NDhiOGI0N2E1NzFlMGI4Y2ZmYjUwNjEiLCJuYmYiOjE2ODcwMzA5MjksImV4cCI6MTY4NzA1OTcyOSwiaWF0IjoxNjg3MDMwOTI5fQ.s6uaX3MuGVxutLlfH_2ABXCu9w9pkzy71lW6Q40TN_s";
 
   const getAllProjects = async () => {
     return await fetch(`${baseURL}/api/projects/getAllProjectsThisUser`, {
@@ -19,7 +16,8 @@ export const ProjectProvider = ({ children }) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        setProject(data), console.log(data);
+        setProject(data);
+        //console.log(data);
       })
       .catch((error) => console.error(error));
   };

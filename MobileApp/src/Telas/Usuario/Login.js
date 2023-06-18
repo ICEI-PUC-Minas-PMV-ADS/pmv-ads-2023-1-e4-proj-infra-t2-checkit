@@ -9,10 +9,11 @@ import Body from "../../Componentes/Body";
 import { baseURL } from "../../Services/URL";
 const Login = () => {
   const navigation = useNavigation();
-  const { postLogin, user, setUser,authToken,setAuthToken } = useContext(AuthUserContext);
+  const { postLogin, getUser, user, setUser, userId, authToken, setAuthToken } =
+    useContext(AuthUserContext);
 
-  const [email, setEmail] = useState("biel@gmail.com");
-  const [password, setPassword] = useState("1234");
+  const [email, setEmail] = useState("maria@gmail.com");
+  const [password, setPassword] = useState("123456");
   const [aviso, setAviso] = useState("");
   const [missInfo, setMissInfo] = useState(false);
   const [escondeSenha, setEscondeSenha] = useState(true);
@@ -21,9 +22,9 @@ const Login = () => {
   const onToggleSnackBar = () => setVisible(!visible);
   const onDismissSnackBar = () => setVisible(false);
 
+  const [test, setTest] = useState();
+
   const onPressLogin = () => {
-   
-   
     if (!email && !password) {
       setMissInfo(true); // Ausência de email e/ou senha
       onToggleSnackBar();
@@ -35,62 +36,59 @@ const Login = () => {
     } else if (password.length == 0) {
       onToggleSnackBar();
       setAviso("Por favor insira a sua Senha");
-    }
-    else{
+    } else {
+      // const param = {
+      //   email: email.trim(),
+      //   password: password.trim(),
+      // };
+      // postLogin(param).then(() => {
+      //   if (authToken == undefined) {
+      //     onToggleSnackBar();
+      //     setAviso("Email ou/e Senha incorretos");
+      //   } else {
+      //     console.log("-------------------------");
+      //     console.log("---->>>", userId);
+      //     getUser(userId).then();
+      //     console.log("---->>>", user);
+      //     console.log("-------------------------");
 
-      fetch(`${baseURL}/api/Users/authenticate`,{
-        method:"POST",
-        headers:{
+      //     navigation.navigate("HomeProjeto");
+      //   }
+      // });
+
+      fetch(`${baseURL}/api/Users/authenticate`, {
+        method: "POST",
+        headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(
-          {
-              email:email.trim(),
-              password:password.trim(),
-          
-            }
-        ),
-        
+        body: JSON.stringify({
+          email: email.trim(),
+          password: password.trim(),
+        }),
       })
         .then((response) => response.json())
-        .then(data=>{
-          
-           if(data.status==401){
-
+        .then((data) => {
+          if (data.status == 401) {
             onToggleSnackBar();
             setAviso("Email ou/e Senha incorretos");
-           }
-          setAuthToken(data.jwtToken)
-          console.log(authToken)
-          fetch(`${baseURL}/api/Users/${data.userId}`,{
-            method:"GET",
-            headers:{
+          }
+          setAuthToken(data.jwtToken);
+          console.log(authToken);
+          fetch(`${baseURL}/api/Users/${data.userId}`, {
+            method: "GET",
+            headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${data.jwtToken}`
+              Authorization: `Bearer ${data.jwtToken}`,
             },
-           
-          }).then((response) => response.json())
-          .then((user) => {
-            console.log(dado)
-            if(user!= undefined) navigation.navigate('HomeProjeto')
           })
-  
-  
-  
-  
-  
-  
-  
-  
+            .then((response) => response.json())
+            .then((user) => {
+             // console.log(dado);
+              if (user != undefined) navigation.navigate("HomeProjeto");
+            });
         })
         .catch((error) => console.error(error));
     }
-
-
-
-
-    
-    
   };
 
   return (
@@ -120,7 +118,6 @@ const Login = () => {
               mode="outlined"
               outlineColor={"#262626"}
               style={styles.inputText}
-
               activeOutlineColor="#262626"
               error={missInfo && !password ? true : false}
               secureTextEntry={escondeSenha}
