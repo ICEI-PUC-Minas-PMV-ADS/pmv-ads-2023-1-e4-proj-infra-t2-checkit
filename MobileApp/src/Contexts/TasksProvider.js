@@ -1,46 +1,85 @@
-import { Children, createContext, useState } from "react";
-import { URLTASK } from "../Services/URL";
-import API from "../Services/webapiservices";
-export const TasksContext = createContext({});
+import { createContext, useState } from "react";
+import { baseURL } from "../Services/URL";
 
-export const TasksProvider = () => {
-  //Como geralmente são TAREFAS, logo ,talvez,usa-se um array
-  const [tasks, setTasks] = useState([]);
+export const ProjectContext = createContext({});
 
-  const postTask = async (param) => {
-    await API.post(URLTASK, param)
-      .then((response) => {
-        if (response) setTasks(response);
+export const ProjectProvider = ({ children }) => {
+  const [task, setTask] = useState([]);
 
-        return response;
-      })
-      .catch((error) => console.log(error));
-  };
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI2NDhiOGI0N2E1NzFlMGI4Y2ZmYjUwNjEiLCJuYmYiOjE2ODcwMzA5MjksImV4cCI6MTY4NzA1OTcyOSwiaWF0IjoxNjg3MDMwOTI5fQ.s6uaX3MuGVxutLlfH_2ABXCu9w9pkzy71lW6Q40TN_s";
 
-  //Estudar como será de fato o get e post de tarefas,no caso a variável de context,
+  // GET
   const getTask = async (id) => {
-    return await API.get(`${URLTASK}/${id}`)
-      .then((response) => {
-        if (response) setTasks(response);
-      })
-      .catch((error) => console.log(error));
+    //console.log(`${baseURL}/api/projects/${id}`);
+    return await fetch(`${baseURL}/api/projects/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
   };
-  const putTask = async (param) => {
-    return await API.put(URLTASK, param)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => console.log(error));
+
+  // POST
+  const postTask = async (param) => {
+    console.log("param: ", param);
+    return await fetch(`${baseURL}/api/projects/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(param),
+    })
+      .then((response) => response.json())
+      .then((json) => console.log(json))
+      .then((data) => setProject(data))
+      .catch((e) => console.error(e));
+  };
+
+  // PUT
+  const putTask = async (id, param) => {
+    return await fetch(`${baseURL}/api/projects/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(param),
+    })
+      .then((response) => console.log(response.status))
+      .catch((error) => console.error(error));
+  };
+
+  // DELETE
+  const deleteTask = async (id) => {
+    return await fetch(`${baseURL}/api/projects/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => console.log(response.status))
+      .catch((error) => console.error(error));
   };
 
   return (
-    <TasksContext.Provider
+    <ProjectContext.Provider
       value={{
-        tasks,
-        setTasks,
+        task,
+        setTask,
+        getTask,
+        postTask,
+        putTask,
+        deleteTask,
       }}
     >
-      {Children}
-    </TasksContext.Provider>
+      {children}
+    </ProjectContext.Provider>
   );
 };

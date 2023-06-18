@@ -13,7 +13,7 @@ import HomeProjeto from "../Telas/Projeto/HomeProjeto";
 import EditarUsuario from "../Telas/Usuario/EditarUsuario";
 import MeuPerfil from "../Telas/Usuario/MeuPerfil";
 const Stack = createNativeStackNavigator();
-
+// HomeProjeto
 const Main = () => {
   return (
     <Stack.Navigator initialRouteName="CadastroUsuario">
