@@ -32,8 +32,9 @@ namespace ApiGateway.Controllers.TarefasCosntroller
         public async Task<IActionResult> PostTarefa([FromBody] Tarefa tarefa)
         {
             var result = await _httpClient.PostAsJsonAsync($"https://checkit-tasks-production.up.railway.app/api/Tarefas/", tarefa);
+            var taskResult = await result.Content.ReadAsStringAsync();
 
-            return Ok(result);
+            return taskResult is null ? BadRequest() : Ok(taskResult);
         }
 
         [HttpPut("{id}")]

@@ -24,7 +24,9 @@ import { TaskContext } from "../../Contexts/TaskProvider";
 export default function NovoProjeto({ route }) {
   const { item } = route.params ? route.params : {};
   const navigation = useNavigation();
-  const { task, getTaskFromProject, postTask } = useContext(TaskContext);
+  const { task, getTaskFromProject, postTask, getTask } =
+    useContext(TaskContext);
+  const { postProject, getProject, putProject } = useContext(ProjectContext);
 
   const [tarefas, setTarefas] = useState([]);
   const [inputTarefas, setInputTarefas] = useState("");
@@ -43,28 +45,6 @@ export default function NovoProjeto({ route }) {
   const [showDialog, setShowDialog] = useState(false);
   const [missInfo, setMissInfo] = useState(false);
 
-  const DATA = [
-    {
-      id: "1",
-      title: "Fiarst Item",
-    },
-    {
-      id: "2",
-      title: "Firsst Item",
-    },
-    {
-      id: "3",
-      title: "Fifrst Item",
-    },
-    {
-      id: "b4",
-      title: "Fgfirst Item",
-    },
-    {
-      id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-      title: "Firfsst Item",
-    },
-  ];
   useEffect(() => {
     setInputTarefas("");
   }, [tarefas]);
@@ -92,8 +72,6 @@ export default function NovoProjeto({ route }) {
   //   tarefas[index] = s;
   // };
 
-  const { project, postProject } = useContext(ProjectContext);
-
   useEffect(() => {
     // Se vier dados da rota
     if (item) {
@@ -120,19 +98,29 @@ export default function NovoProjeto({ route }) {
     console.log(projectId);
 
     const param = {
-      //links:[],
-      tituloTarefa: "Comprar Tijolo",
-      descricao: "Depósito São Miguel",
-      dataInicio: "2023-04-22T18:35:05.334Z",
-      dataVencimento: "2023-04-22T18:35:05.334Z",
-      //status: 0,
-      prioridade: 0,
+      tituloTarefa: tituloTarefa,
     };
 
     postTask(param).then();
+   // getTask().then();
+
+    // getProject(projectId).then((data) => {
+    //   console.log(data);
+    // });
+
+    const proj = {
+      title: item.title,
+      descricao: item.descricao,
+      dueDate: item.dueDate,
+      tarefaId: [],
+    };
+   // putProject(projectId, param);
+
+    //var objetoClonado = Object.assign({}, objetoOrigem);
 
     setShowDialog(false);
     setInputTarefas("");
+
     //getTaskFromProject(projectId).then();
   };
 
