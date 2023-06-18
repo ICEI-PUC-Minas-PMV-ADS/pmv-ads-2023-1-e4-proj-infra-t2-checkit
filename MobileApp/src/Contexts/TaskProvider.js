@@ -7,8 +7,8 @@ export const TaskProvider = ({ children }) => {
   const [task, setTask] = useState([]);
 
   const getTaskFromProject = async (projectId) => {
-    console.log(`${baseURL}/api/tarefas/${projectId}`);
-    return await fetch(`${baseURL}/api/tarefas/${projectId}`, {
+    console.log(`${baseURL}/api/projects/${projectId}`);
+    return await fetch(`${baseURL}/api/projects/${projectId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -37,6 +37,7 @@ export const TaskProvider = ({ children }) => {
   // POST
   const postTask = async (param) => {
     console.log("param: ", param);
+    console.log(`${baseURL}/api/Tarefas/`);
     return await fetch(`${baseURL}/api/Tarefas/`, {
       method: "POST",
       headers: {
@@ -47,7 +48,7 @@ export const TaskProvider = ({ children }) => {
     })
       .then((response) => response.json())
       .then((json) => console.log(json))
-      .then((data) => setProject(data))
+      .then((data) => setTask(data))
       .catch((e) => console.error(e));
   };
 

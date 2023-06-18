@@ -24,10 +24,11 @@ import { TaskContext } from "../../Contexts/TaskProvider";
 export default function NovoProjeto({ route }) {
   const { item } = route.params ? route.params : {};
   const navigation = useNavigation();
-  const { getTaskFromProject } = useContext(TaskContext);
+  const { task, getTaskFromProject, postTask } = useContext(TaskContext);
 
   const [tarefas, setTarefas] = useState([]);
   const [inputTarefas, setInputTarefas] = useState("");
+  const [tituloTarefa, setTituloTarefa] = useState();
 
   const textTask =
     tarefas.length == 0
@@ -68,28 +69,28 @@ export default function NovoProjeto({ route }) {
     setInputTarefas("");
   }, [tarefas]);
 
-  const createProject = async () => {
-    console.log(tarefas);
-  };
-  const addTask = () => {
-    tarefas.push(inputTarefas);
+  // const createProject = async () => {
+  //   console.log(tarefas);
+  // };
+  // const addTask = () => {
+  //   tarefas.push(inputTarefas);
 
-    setShowDialog(false);
-    setInputTarefas("");
-  };
+  //   setShowDialog(false);
+  //   setInputTarefas("");
+  // };
   const deleteTask = (tarefa) => {
     const newListTask = tarefas.filter((task) => tarefa != task);
 
     setTarefas(newListTask);
   };
-  const editTask = (tarefa) => {
-    setShowDialog(true);
-    setIsEditing(true);
-    setInputTarefas(tarefa);
+  // const editTask = (tarefa) => {
+  //   setShowDialog(true);
+  //   setIsEditing(true);
+  //   setInputTarefas(tarefa);
 
-    const index = tarefas.findIndex((task) => task == tarefa);
-    tarefas[index] = s;
-  };
+  //   const index = tarefas.findIndex((task) => task == tarefa);
+  //   tarefas[index] = s;
+  // };
 
   const { project, postProject } = useContext(ProjectContext);
 
@@ -117,15 +118,26 @@ export default function NovoProjeto({ route }) {
 
   const handleTask = (projectId) => {
     console.log(projectId);
+
+    const param = {
+      tituloTarefa: tituloTarefa,
+      descricao: "Minhas Task",
+      dataInicio: new Date(),
+      dataVencimento: "2023-06-18T18:10:36.210Z",
+      prioridade: 0,
+    };
+
+    postTask(param).then();
+
     setShowDialog(false);
     setInputTarefas("");
-    getTaskFromProject(projectId).then();
+    //getTaskFromProject(projectId).then();
   };
 
   return (
     <Container>
       <Body>
-        <Text style={styles.Titulo}>Novo Projeto</Text>
+        <Text style={styles.Titulo}>{item ? "Projeto" : "Novo Projeto"}</Text>
 
         <View style={styles.viewInput}>
           <TextOverInput>Nome do Projeto</TextOverInput>
@@ -209,8 +221,8 @@ export default function NovoProjeto({ route }) {
 
             <Dialog.Input
               color="#000"
-              onChangeText={(text) => setInputTarefas(text)}
-              value={inputTarefas}
+              onChangeText={(text) => setTituloTarefa(text)}
+              //value={tituloTarefa}
             />
 
             <Dialog.Button
