@@ -1,45 +1,30 @@
 import axios from "axios";
 import validateToken from "./ValidateToken";
 
-const api = axios.create({
+const tokenObject = validateToken();
+
+export const api = axios.create({
+  baseURL: "https://checkit-api-gateway-production.up.railway.app/api/",
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${tokenObject.jwtToken}`,
   }
 });
 
-export const getProjects = async () => {
-
-  const tokenObject = validateToken();
- const response = await api.get(`https://localhost:5278/api/Projects`, {
-  headers: {
-    Authorization: `Bearer ${tokenObject.jwtToken}`,
-    },
- } );
-return response.data;
-};
-
 export const login = async (email, password) => {
-  const response = await api.post("https://localhost:5278/api/users/authenticate", { email, password });
+  const response = await api.post("/users/authenticate", { email, password });
   localStorage.setItem("jwtToken", JSON.stringify(response.data));
-  console.log(response.data)
+  console.log(response.data);
   return response.data;
 };
-
 
 export const register = async (name, email, password, role = 1) => {
-  const response = await api.post("https://localhost:5278/api/users", { name, email, password, role });
+  const response = await api.post("/users", { name, email, password, role });
   return response.data;
 };
-
-export const getTasksByProject = async (projectId) => {
-  const response = await axios.get(`https://localhost:7152/api/Projects/GetTaskFromProject/${projectId}`);
-  return response.data;
-};
-
 
 export const updateUser = async (name, password, email) => {
-  // Fetch user data to get the ID
-  const userDataResponse = await api.get("https://localhost:5278/api/users");
+  const userDataResponse = await api.get("/users");
   const user = userDataResponse.data.find((user) => user.email === email);
 
   if (!user) {
@@ -48,38 +33,6 @@ export const updateUser = async (name, password, email) => {
 
   const id = user.id;
 
-  // Update user data
   const response = await api.put(`/users/${id}`, { name, email, password });
   return response.data;
 };
-
-// export const getTodos = async (id) => {
-//   const token = validateToken();
-//   console.log(`${token}`);
-//   const response = await api.get(`/tarefas/${id}`, {
-//     headers: {
-//       Authorization: `${token}`,
-//     },
-//   });
-//   console.log(response.data);
-//   return response.data;
-// };
-
-
-// export const createTodo = async (todo, token) => {
-//   const response = await api.post('/todos', todo, {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
-//   return response.data;
-// };
-
-// export const deleteTodo = async (id, token) => {
-//   const response = await api.delete(`/todos/${id}`, {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
-//   return response.data;
-// };
