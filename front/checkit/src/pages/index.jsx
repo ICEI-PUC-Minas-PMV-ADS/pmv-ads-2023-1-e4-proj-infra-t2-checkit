@@ -1,10 +1,20 @@
-import ProjectCard from '../components/Card.jsx'
 import MenuBar from "../components/Header";
-import ProjectList from '../components/ProjectList';
+import { useEffect } from "react";
+import { useProjects } from "../contexts/ProjectsProvider";
+
 
 
 export default function IndexGrid() {
-  // const projects = ProjectList();
+  const { getAllProjects, projects } = useProjects();
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      const projectsData = await getAllProjects();
+      console.log(projectsData)
+    };
+
+    fetchProjects();
+  }, []);
 
   return (
     <>
@@ -13,8 +23,6 @@ export default function IndexGrid() {
     <div className="container p-3">
       <div className="d-flex flex-wrap text-center">
       {/* {projects.map(project => <ProjectCard project={project} key={project.id} />)} */}
-      <ProjectList />
-
       </div>
     </div>
     </>
