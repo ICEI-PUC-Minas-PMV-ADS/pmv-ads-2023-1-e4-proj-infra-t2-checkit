@@ -95,26 +95,26 @@ export default function NovoProjeto({ route }) {
   };
 
   const handleTask = (projectId) => {
-    const param = {
-      tituloTarefa: tituloTarefa,
-    };
+    console.log(tituloTarefa)
 
-    postTask(param).then((data) => console.log(data));
-    // getTask().then();
+     const param = {
+       tituloTarefa: tituloTarefa.trim(),
+     };
+   console.log(tituloTarefa)
+     postTask(param).then((data) => console.log(data));
+    // // getTask().then();
 
-    // getProject(projectId).then((data) => {
-    //   console.log(data);
-    // });
+    // // getProject(projectId).then((data) => {
+    // //   console.log(data);
+    // // });
 
-    const proj = {
-      title: item.title,
-      descricao: item.descricao,
-      dueDate: item.dueDate,
-      tarefaId: [],
-    };
+    // const proj = {
+    //   title: item.title,
+    //   descricao: item.descricao,
+    //   dueDate: item.dueDate,
+    //   tarefaId: [],
+    // };
     // putProject(projectId, param);
-
-    //var objetoClonado = Object.assign({}, objetoOrigem);
 
     setShowDialog(false);
     setInputTarefas("");
@@ -220,7 +220,7 @@ export default function NovoProjeto({ route }) {
             <Dialog.Button
               label={`Adicionar Tarefa`}
               // onPress={() => addTask()}
-              onPress={() => handleTask(item.id)}
+              onPress={() => handleTask()}
             />
           </Dialog.Container>
           <SafeAreaView>
