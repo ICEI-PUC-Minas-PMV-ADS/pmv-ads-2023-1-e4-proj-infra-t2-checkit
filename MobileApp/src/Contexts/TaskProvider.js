@@ -38,7 +38,7 @@ export const TaskProvider = ({ children }) => {
   const postTask = async (param) => {
     // console.log("param: ", param);
     console.log(`${baseURL}/api/Tarefas/`);
-    return await fetch(`${baseURL}/api/Tarefas/`, {
+    return await fetch(`${baseURL}/api/Tarefas`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

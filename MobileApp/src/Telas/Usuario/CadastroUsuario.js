@@ -60,10 +60,14 @@ const CadastroUsuario = () => {
       .then((data) => {
         console.log(data);
         if (data.status == 400) {
+          console.log("Oiii")
           onToggleSnackBar();
           setAviso("Email ja cadastrado");
         }
-        navigation.navigate("Login");
+        else{
+
+          navigation.navigate("Login");
+        }
       })
       .catch((error) => console.error(error));
 
@@ -98,6 +102,8 @@ const CadastroUsuario = () => {
             outlineColor={"#262626"}
             activeOutlineColor={"#262626"}
             placeholderTextColor="#003f5c"
+            error={aviso=="Email ja cadastrado" ? true : false}
+          
             value={email}
             onChangeText={(email) => setEmail(email)}
             right={<TextInput.Icon icon="email-outline" />}
