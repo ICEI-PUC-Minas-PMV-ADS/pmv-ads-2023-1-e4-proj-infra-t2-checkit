@@ -50,7 +50,7 @@ export default function ProjectCard(props) {
         <h6 className="h6 text-light mt-1 pt-3">Prazo final em {diffDays} dias</h6>
         <h3 className="p-3 text-light"> {project.title}</h3>
          <ProgressBar className="mt-3 mx-3 progress-bar" style={{ height: '10px' }} value={progress}></ProgressBar>
-        {/* < TaskItem tasks={project.tasks} onProgressChange={setProgress} className="text-light"/> */}
+        < TaskItem tasks={project.tarefaId} onProgressChange={setProgress} className="text-light"/>
       </Card>
   );
 }
