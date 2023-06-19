@@ -9,16 +9,60 @@ export const ProjectsProvider = ({ children }) => {
   const getAllProjects = async () => {
     try {
       const response = await api.get(`projects/getAllProjectsThisUser`);
-      setProjects(response.data);
-      return response.data;
+      const projectsData = response.data;
+      const updatedProjects = await Promise.all(
+        projectsData.map(async (project) => {
+          const taskIds = project.tarefaId;
+          const tasks = await Promise.all(
+            taskIds.map(async (taskId) => {
+              const task = await getTask(taskId);
+              return { id: taskId, title: task.tituloTarefa };
+            })
+          );
+          return { ...project, tarefaId: tasks };
+        })
+      );
+
+      setProjects(updatedProjects)
+      return updatedProjects;
     } catch (error) {
       console.error(error);
       return [];
     }
   };
 
+  const getTask = async (id) => {
+    try {
+      const response = await api.get (`/Tarefas/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
+  }
+
+  const getTaskFromProject = async (projectId) => {
+    try {
+      const response = await api.get (`/projects/${projectId}`);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
+  }
+
+  const getProjectById = async (id) => {
+    try {
+      const response = await api.get (`/projects/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
+  }
+
   return (
-    <ProjectsContext.Provider value={{ getAllProjects, projects }}>
+    <ProjectsContext.Provider value={{ getAllProjects, getTaskFromProject, getProjectById, projects }}>
       {children}
     </ProjectsContext.Provider>
   );
