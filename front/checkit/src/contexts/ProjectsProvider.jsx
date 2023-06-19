@@ -22,7 +22,7 @@ export const ProjectsProvider = ({ children }) => {
           return { ...project, tarefaId: tasks };
         })
       );
-
+      console.log(updatedProjects)
       setProjects(updatedProjects)
       return updatedProjects;
     } catch (error) {
