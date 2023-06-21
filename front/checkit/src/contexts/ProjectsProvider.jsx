@@ -61,8 +61,18 @@ export const ProjectsProvider = ({ children }) => {
     }
   }
 
+  const updateProject = async (projectId, projectData) => {
+    try {
+      const response = await api.put(`/projects/${projectId}`, projectData);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  };
+
   return (
-    <ProjectsContext.Provider value={{ getAllProjects, getTaskFromProject, getProjectById, projects }}>
+    <ProjectsContext.Provider value={{ getAllProjects, getTaskFromProject, getProjectById, updateProject, projects }}>
       {children}
     </ProjectsContext.Provider>
   );

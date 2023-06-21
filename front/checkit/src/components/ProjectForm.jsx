@@ -17,12 +17,13 @@ export default function ProjectForm({ project, onSubmit }) {
       setTitle(project.title || "");
       setDueDate(project.dueDate || null);
     }
+
+    if (project.tarefaId) {
+      const initialTasks = project.tarefaId.map((task) => task.title || "");
+      setTasks(initialTasks);
+    }
   }, [project]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log(e);
-    navigate("/index");
 
   // // Save the project data
   // const projectData = {
@@ -45,8 +46,6 @@ export default function ProjectForm({ project, onSubmit }) {
   // };
   // onSubmit(updatedProject);
 
-  };
-
   const handleTaskChange = (index, value) => {
     const updatedTasks = [...tasks];
     updatedTasks[index] = value;
@@ -61,6 +60,12 @@ export default function ProjectForm({ project, onSubmit }) {
     const updatedTasks = [...tasks];
     updatedTasks.splice(index, 1);
     setTasks(updatedTasks);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit();
+    navigate("/index");
   };
 
   return (

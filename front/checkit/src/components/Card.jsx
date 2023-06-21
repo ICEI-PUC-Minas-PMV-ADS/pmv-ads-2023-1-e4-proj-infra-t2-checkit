@@ -19,6 +19,16 @@ export default function ProjectCard(props) {
     setDisplayEditForm(false);
   };
 
+  const handleSubmit = (editedProject) => {
+    try {
+      // Call your API or update logic here
+      console.log("Updated project:", editedProject);
+    } catch (error) {
+      console.error(error);
+      // Handle error as needed
+    }
+  };
+
 
   const { project } = props
 
@@ -32,6 +42,8 @@ export default function ProjectCard(props) {
   const [color2, setColor2] = useState('9198e5');
   const hashtag = '#';
 
+
+
   return (
       <Card className="shadow-sm border border-light rounded project-card m-1"
       style={{background: `radial-gradient(${hashtag}${color},${hashtag}${color2} )`}}>
@@ -44,7 +56,7 @@ export default function ProjectCard(props) {
             <Button icon="pi pi-pencil" onClick={() => setDisplayEditForm(true)}/>
             </div>
           <Dialog visible={displayEditForm} onHide={onHide} header="Editar projeto">
-            <EditProject />
+            <EditProject  projectId={project.id} project={project} onSubmit={handleSubmit} />
           </Dialog>
         </div>
         <h6 className="h6 text-light mt-1 pt-3">Prazo final em {diffDays} dias</h6>
