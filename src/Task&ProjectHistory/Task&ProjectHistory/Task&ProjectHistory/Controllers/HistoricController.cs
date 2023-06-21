@@ -9,21 +9,21 @@ namespace Task_ProjectHistory.Controllers
     [Authorize]
     [ApiController]
     [Route("api/[controller]")]
-    public class HistoricController:ControllerBase
+    public class HistoricController : ControllerBase
     {
         private readonly HistoricServices _historicCollection;
 
         public HistoricController(HistoricServices historicCollection) =>
             _historicCollection = historicCollection;
 
-  
+
         [HttpGet]
         public async Task<List<Historic>> GetAll()
         {
             return await _historicCollection.GetAllAsync();
         }
 
-        
+
         [HttpGet("{id:length(24)}")]
         public async Task<ActionResult<Historic>> Get(string id)
         {
@@ -37,6 +37,8 @@ namespace Task_ProjectHistory.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(Historic newHistoric)
         {
+            newHistoric.IsCompleted = false;
+
             await _historicCollection.CreateAsync(newHistoric);
 
             return CreatedAtAction(nameof(Get), new { id = newHistoric.Id }, newHistoric);
@@ -50,7 +52,7 @@ namespace Task_ProjectHistory.Controllers
 
             if (historic is null) return NotFound();
 
-            updateHistoric.Id = historic.Id;
+            updateHistoric.IsCompleted = historic.IsCompleted;
 
             await _historicCollection.UpdateAsync(id, updateHistoric);
 

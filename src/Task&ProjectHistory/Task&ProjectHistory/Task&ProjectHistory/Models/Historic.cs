@@ -11,8 +11,7 @@ namespace Task_ProjectHistory.Models
 
         public string TituloTarefa { get; set; }
         public string TituloProjeto { get; set; }
-
         public DateTime DataConclusao { get; set; }
-
+        public bool IsCompleted { get; set; }
     }
 }
