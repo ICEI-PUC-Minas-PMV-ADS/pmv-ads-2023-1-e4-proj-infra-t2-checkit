@@ -24,7 +24,7 @@ import { TaskContext } from "../../Contexts/TaskProvider";
 export default function NovoProjeto({ route }) {
   const { item } = route.params ? route.params : {};
   const navigation = useNavigation();
-  const { task, getTaskFromProject, postTask, getTask } =
+  const { idTasks,task, getTaskFromProject, postTask, getTask } =
     useContext(TaskContext);
   const { postProject, getProject, putProject } = useContext(ProjectContext);
 
@@ -48,16 +48,10 @@ export default function NovoProjeto({ route }) {
   useEffect(() => {
     setInputTarefas("");
   }, [tarefas]);
+  useEffect(() => {
+    console.log(idTasks)
+  }, [idTasks]);
 
-  // const createProject = async () => {
-  //   console.log(tarefas);
-  // };
-  // const addTask = () => {
-  //   tarefas.push(inputTarefas);
-
-  //   setShowDialog(false);
-  //   setInputTarefas("");
-  // };
   const deleteTask = (tarefa) => {
     const newListTask = tarefas.filter((task) => tarefa != task);
 
@@ -82,16 +76,19 @@ export default function NovoProjeto({ route }) {
   }, [item]);
 
   const handleProject = () => {
+    
+    
     const param = {
       title: title.trim(),
       dueDate: new Date(),
       status: "Em Andamento",
-      tarefaId: [],
+      tarefaId: idTasks,
       userId: "648b8b47a571e0b8cffb5061",
     };
 
     postProject(param).then();
     navigation.navigate("HomeProjeto");
+    
   };
 
   const handleTask = (projectId) => {
@@ -101,7 +98,8 @@ export default function NovoProjeto({ route }) {
        tituloTarefa: tituloTarefa.trim(),
      };
    console.log(tituloTarefa)
-     postTask(param).then((data) => console.log(data));
+     const a =  postTask(param).then((data) => console.log(data));
+     console.log(a)
     // // getTask().then();
 
     // // getProject(projectId).then((data) => {

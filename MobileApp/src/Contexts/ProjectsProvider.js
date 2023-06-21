@@ -52,7 +52,7 @@ export const ProjectProvider = ({ children }) => {
     })
       .then((response) => response.json())
       .then((json) => console.log(json))
-      .then((data) => setProject(data))
+      // .then((data) => setProject(data))
       .catch((e) => console.error(e));
   };
 

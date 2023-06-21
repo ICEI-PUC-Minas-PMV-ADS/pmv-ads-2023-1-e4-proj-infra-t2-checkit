@@ -20,7 +20,7 @@ export const AuthUserProvider = ({ children }) => {
       // .then((json) => console.log(json))
       .then((data) => {
         setAuthToken(data.jwtToken);
-        console.log(authToken);
+        console.log(data.jwtToken);
         setUserId(data.userId);
         // console.log(data.userId);
       })

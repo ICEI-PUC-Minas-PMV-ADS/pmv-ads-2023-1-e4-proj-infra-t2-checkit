@@ -75,11 +75,12 @@ export default function HomeProjeto({ route }) {
   const [showDialog, setShowDialog] = useState(false);
   // Testes API
   useEffect(() => {
-  //  console.log("USER in Project: ", userId);
-   // console.log(authToken);
-    //console.log(`Você tem ${project.length} projetos em andamento`);
+
+ 
+
     getAllProjects().then();
-  }, [focused]);
+    console.log(project)
+  }, [focused],[]);
 
   const [task, setTask] = useState(tasks);
 
@@ -98,7 +99,7 @@ export default function HomeProjeto({ route }) {
   };
 
   // Renderiza accordion
-  const handleTask = (tarefa, projetoTarefaId) => {
+  const handleTask = (projeto, projetoTarefaId) => {
     const arr = [];
     // console.log(projetoTarefaId)
     // projetoTarefaId.forEach((projetoTarefaId) => {
@@ -110,6 +111,11 @@ export default function HomeProjeto({ route }) {
     //   });
     // });
     //console.log(test.id);
+
+    projeto.map((x,y)=>{
+      return x.title
+    })
+
 
     return (
       <FlatList
@@ -145,9 +151,9 @@ export default function HomeProjeto({ route }) {
   };
 
   const handleDeleteProject = (item) => {
-    deleteProject(item.id).then();
-    getAllProjects().then();
-    console.log(`Você tem ${project.length} projetos em andamento`);
+    // deleteProject(item.id).then();
+    // getAllProjects().then();
+    // console.log(`Você tem ${project.length} projetos em andamento`);
   };
 
   const renderItem = ({ item }) => (
@@ -178,14 +184,17 @@ export default function HomeProjeto({ route }) {
           </>
         )}
       />
+   
+
       <List.Section>
         <List.Accordion
           title="Tarefas"
           left={(props) => <List.Icon {...props} icon="view-dashboard" />}
         >
-          {item.tarefaId != "" && handleTask(tasks, item.tarefaId)}
+          {item.tarefaId != "" && handleTask(item.tarefaId)}
         </List.Accordion>
       </List.Section>
+    
     </View>
   );
 
