@@ -50,7 +50,7 @@ export const ProjectsProvider = ({ children }) => {
     }
   }
 
-  const getProjectById = async (id) => {
+  const deleteProject = async (id) => {
     try {
       const response = await api.get (`/projects/${id}`);
       return response.data;
@@ -102,7 +102,7 @@ export const ProjectsProvider = ({ children }) => {
 
 
   return (
-    <ProjectsContext.Provider value={{ getAllProjects, getTaskFromProject, getProjectById, updateProject, updateTask, createTask, deleteTask, projects }}>
+    <ProjectsContext.Provider value={{ getAllProjects, getTaskFromProject, deleteProject, updateProject, updateTask, createTask, deleteTask, projects }}>
       {children}
     </ProjectsContext.Provider>
   );
