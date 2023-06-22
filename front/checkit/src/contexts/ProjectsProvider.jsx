@@ -90,6 +90,16 @@ export const ProjectsProvider = ({ children }) => {
     }
   };
 
+  const createProject = async (params) => {
+    try {
+      const response = await api.post(`/projects/`, params);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  };
+
   const deleteTask = async (taskId) => {
     try {
       const response = await api.delete(`/Tarefas/${taskId}`);
@@ -102,7 +112,7 @@ export const ProjectsProvider = ({ children }) => {
 
 
   return (
-    <ProjectsContext.Provider value={{ getAllProjects, getTaskFromProject, deleteProject, updateProject, updateTask, createTask, deleteTask, projects }}>
+    <ProjectsContext.Provider value={{ getAllProjects, getTaskFromProject, deleteProject, createProject, updateProject, updateTask, createTask, deleteTask, projects }}>
       {children}
     </ProjectsContext.Provider>
   );
