@@ -34,7 +34,7 @@ export default function ProjectCard(props) {
     };
 
     const reject = () => {
-        toast.current.show({ severity: 'warn', summary: 'Cancelado', detail: 'Deletar projeto cancelado', life: 3000 });
+        toast.current.show({ severity: 'warn', summary: 'Operação não confirmada', detail: 'Projeto não deletado', life: 3000 });
     }
 
   const onHide = () => {

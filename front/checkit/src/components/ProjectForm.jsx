@@ -4,7 +4,7 @@ import { Button } from "primereact/button";
 import { Calendar } from "primereact/calendar";
 import { useNavigate } from "react-router-dom";
 
-export default function ProjectForm({ project, onSubmit, onChange }) {
+export default function ProjectForm({ project, onSubmit }) {
   const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
@@ -29,33 +29,25 @@ export default function ProjectForm({ project, onSubmit, onChange }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit();
+    onSubmit({
+      title,
+      dueDate: dueDate ? dueDate.toISOString() : null,
+      tarefaId: tasks.map((task) => ({ title: task })),
+    });
     navigate("/index");
   };
 
   useEffect(() => {
-    setTitle(project.title || "");
-    setDueDate(project.dueDate ? new Date(project.dueDate) : null);
-    setTasks(project.tarefaId ? project.tarefaId.map((task) => task.title || "") : []);
+    if (project) {
+      setTitle(project.title || "");
+      setDueDate(project.dueDate ? new Date(project.dueDate) : null);
+      setTasks(project.tarefaId ? project.tarefaId.map((task) => task.title || "") : []);
+    } else {
+      setTitle("");
+      setDueDate(null);
+      setTasks([""]);
+    }
   }, [project]);
-
-  useEffect(() => {
-    if (title !== project.title) {
-      onChange({ target: { name: "title", value: title } });
-    }
-  }, [title, onChange, project.title]);
-
-  useEffect(() => {
-    if (dueDate !== project.dueDate) {
-      onChange({ target: { name: "dueDate", value: dueDate } });
-    }
-  }, [dueDate, onChange, project.dueDate]);
-
-  useEffect(() => {
-    if (tasks.join(",") !== project.tarefaId?.map((task) => task.title).join(",")) {
-      onChange({ target: { name: "tasks", value: tasks } });
-    }
-  }, [tasks, onChange, project.tarefaId]);
 
   return (
     <form onSubmit={handleSubmit} className="px-5 form-background">
