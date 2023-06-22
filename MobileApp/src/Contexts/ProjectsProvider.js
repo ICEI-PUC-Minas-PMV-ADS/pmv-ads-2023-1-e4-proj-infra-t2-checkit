@@ -8,7 +8,6 @@ export const ProjectProvider = ({ children }) => {
   const [project, setProject] = useState([]);
 
   const getAllProjects = async () => {
-    //  console.log(authToken);
     return await fetch(`${baseURL}/api/projects/getAllProjectsThisUser`, {
       method: "GET",
       headers: {
@@ -19,14 +18,11 @@ export const ProjectProvider = ({ children }) => {
       .then((response) => response.json())
       .then((data) => {
         setProject(data);
-        //console.log(data);
       })
       .catch((error) => console.error(error));
   };
 
-  // GET
   const getProject = async (id) => {
-    //console.log(`${baseURL}/api/projects/${id}`);
     return await fetch(`${baseURL}/api/projects/${id}`, {
       method: "GET",
       headers: {

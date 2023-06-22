@@ -16,7 +16,6 @@ export default function EditUserForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(e);
     navigate("/index");
   };
 

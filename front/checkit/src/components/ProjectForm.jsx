@@ -1,53 +1,15 @@
 import { useEffect, useState } from "react";
 import { InputText } from "primereact/inputtext";
-import { Button } from 'primereact/button';
-import { Calendar } from 'primereact/calendar';
+import { Button } from "primereact/button";
+import { Calendar } from "primereact/calendar";
 import { useNavigate } from "react-router-dom";
 
-
-export default function ProjectForm({ project, onSubmit }) {
+export default function ProjectForm({ project, onSubmit, onChange }) {
   const navigate = useNavigate();
 
-  const [title, setTitle] = useState(null);
+  const [title, setTitle] = useState("");
   const [dueDate, setDueDate] = useState(null);
-  const [tasks, setTasks] = useState(['']);
-
-  useEffect(() => {
-    if (project) {
-      setTitle(project.title || "");
-      const formattedDueDate = project.dueDate ? new Date(project.dueDate) : null;
-      setDueDate(formattedDueDate);
-      console.log(dueDate)
-    }
-
-    if (project.tarefaId) {
-      const initialTasks = project.tarefaId.map((task) => task.title || "");
-      setTasks(initialTasks);
-    }
-  }, [project]);
-
-
-
-  // // Save the project data
-  // const projectData = {
-  //   title: title,
-  //   dueDate: dueDate,
-  // };
-
-  // // Assuming you have a separate API endpoint to save projects
-  // const savedProject = await saveProject(projectData); // Save the project data
-
-  // // Save each task separately with the project ID
-  // const savedTasks = await Promise.all(
-  //   tasks.map((task) => saveTask({ projectId: savedProject.id, title: task.title }))
-  // );
-
-  // // Combine the saved project and tasks
-  // const updatedProject = {
-  //   ...savedProject,
-  //   tasks: savedTasks,
-  // };
-  // onSubmit(updatedProject);
+  const [tasks, setTasks] = useState([""]);
 
   const handleTaskChange = (index, value) => {
     const updatedTasks = [...tasks];
@@ -56,7 +18,7 @@ export default function ProjectForm({ project, onSubmit }) {
   };
 
   const handleAddTask = () => {
-    setTasks([...tasks, '']);
+    setTasks([...tasks, ""]);
   };
 
   const handleRemoveTask = (index) => {
@@ -71,33 +33,86 @@ export default function ProjectForm({ project, onSubmit }) {
     navigate("/index");
   };
 
+  useEffect(() => {
+    setTitle(project.title || "");
+    setDueDate(project.dueDate ? new Date(project.dueDate) : null);
+    setTasks(project.tarefaId ? project.tarefaId.map((task) => task.title || "") : []);
+  }, [project]);
+
+  useEffect(() => {
+    if (title !== project.title) {
+      onChange({ target: { name: "title", value: title } });
+    }
+  }, [title, onChange, project.title]);
+
+  useEffect(() => {
+    if (dueDate !== project.dueDate) {
+      onChange({ target: { name: "dueDate", value: dueDate } });
+    }
+  }, [dueDate, onChange, project.dueDate]);
+
+  useEffect(() => {
+    if (tasks.join(",") !== project.tarefaId?.map((task) => task.title).join(",")) {
+      onChange({ target: { name: "tasks", value: tasks } });
+    }
+  }, [tasks, onChange, project.tarefaId]);
+
   return (
     <form onSubmit={handleSubmit} className="px-5 form-background">
-          <div className="p-inputgroup flex-1 py-4">
-            <span className="p-float-label">
-              <InputText id="title" value={title} onChange={(e) => setTitle(e.value)} placeholder="Título do seu projeto"/>
-              <label className="px-2" htmlFor="title">Título</label>
-            </span>
-          </div>
-          <div className="p-inputgroup flex-1 py-3">
-            <span className="p-float-label">
-              <Calendar value={dueDate} onChange={(e) => setDueDate(e.value)}  />
-              <label className="px-2" htmlFor="duedate">Prazo</label>
-            </span>
-          </div>
-          {tasks.map((task, index) => (
-          <div key={index} className="p-inputgroup flex-1 py-3">
-              <span className="p-float-label">
-               <InputText placeholder="Tarefa" value={task} onChange={(e) => handleTaskChange(index, e.target.value)} />
-               <Button icon="pi pi-times" className="btn" onClick={() => handleRemoveTask(index)}  />
-               <label className="px-2" htmlFor="tarefa">Tarefa</label>
-              </span>
-          </div>
-          ))}
-          <Button type="button" className="py-2 btn-gradient" label="Add tarefa" icon="pi pi-plus" onClick={handleAddTask} />
-          <div className="justify-content-around py-4">
-            <Button className="btn cyan-50" label="Salvar" type="submit"/>
-          </div>
-      </form>
-  )
+      <div className="p-inputgroup flex-1 py-4">
+        <span className="p-float-label">
+          <InputText
+            id="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Título do seu projeto"
+          />
+          <label className="px-2" htmlFor="title">
+            Título
+          </label>
+        </span>
+      </div>
+      <div className="p-inputgroup flex-1 py-3">
+        <span className="p-float-label">
+          <Calendar
+            value={dueDate}
+            onChange={(e) => setDueDate(e.value)}
+            placeholder="Prazo"
+          />
+          <label className="px-2" htmlFor="duedate">
+            Prazo
+          </label>
+        </span>
+      </div>
+      {tasks.map((task, index) => (
+        <div key={index} className="p-inputgroup flex-1 py-3">
+          <span className="p-float-label">
+            <InputText
+              placeholder="Tarefa"
+              value={task}
+              onChange={(e) => handleTaskChange(index, e.target.value)}
+            />
+            <Button
+              icon="pi pi-times"
+              className="btn"
+              onClick={() => handleRemoveTask(index)}
+            />
+            <label className="px-2" htmlFor={`task-${index}`}>
+              Tarefa
+            </label>
+          </span>
+        </div>
+      ))}
+      <Button
+        type="button"
+        className="py-2 btn-gradient"
+        label="Add tarefa"
+        icon="pi pi-plus"
+        onClick={handleAddTask}
+      />
+      <div className="justify-content-around py-4">
+        <Button className="btn cyan-50" label="Salvar" type="submit" />
+      </div>
+    </form>
+  );
 }

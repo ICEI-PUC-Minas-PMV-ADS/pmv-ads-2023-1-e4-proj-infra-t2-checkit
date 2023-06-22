@@ -23,21 +23,13 @@ const [nameUser,setNameUser] = useState('')
       // .then((json) => console.log(json))
       .then((data) => {
         setAuthToken(data.jwtToken);
-        
-        
-        console.log(data.jwtToken);
-        setNameUser(data.name)
+        console.log(authToken);
         setUserId(data.userId);
-
-
-        setUserId(data.userId);
-        // console.log(data.userId);
       })
       .catch((error) => console.error(error));
   };
-  
+
   const getUser = async (userId) => {
-    console.log(`${baseURL}/api/Users/${userId}`);
     return await fetch(`${baseURL}/api/Users/${userId}`, {
       method: "GET",
       headers: {

@@ -1,26 +1,20 @@
-import { useState } from "react";
 import ProjectForm from "./ProjectForm";
 import { useProjects } from "../contexts/ProjectsProvider";
 
 export default function EditProjectForm({ projectId, project, onSubmit }) {
-  const [editedProject, setEditedProject] = useState(project);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setEditedProject((prevProject) => ({
-      ...prevProject,
-      [name]: value,
-    }));
-  };
-
   const { updateProject } = useProjects();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-
+    if (e) {
+      e.preventDefault();
+    }
     try {
-      await updateProject(projectId, editedProject);
-      onSubmit(editedProject);
+      const updatedProjectData = {
+        ...project,
+        tarefaId: project.tarefaId.map((task) => task.id), // Send only task IDs
+      };
+
+      onSubmit(updatedProjectData);
     } catch (error) {
       console.error(error);
       // Handle error as needed
@@ -29,9 +23,9 @@ export default function EditProjectForm({ projectId, project, onSubmit }) {
 
   return (
     <ProjectForm
-      project={editedProject}
+      project={project}
       onSubmit={handleSubmit}
-      onChange={handleInputChange}
+      onChange={onSubmit}
     />
   );
 }
