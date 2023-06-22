@@ -2,7 +2,7 @@ import { Card } from 'primereact/card';
 import TaskItem from './TaskItem';
 import { ProgressBar } from 'primereact/progressbar';
 import '../style/index.css';
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { ColorPicker } from 'primereact/colorpicker';
 import { Button } from 'primereact/button';
 import EditProject from './EditProject';
@@ -15,28 +15,57 @@ import { useProjects } from "../contexts/ProjectsProvider";
 
 
 export default function ProjectCard(props) {
+  const { project } = props
+  const { getTaskFromProject } = useProjects();
   const { deleteProject } = useProjects();
+  const [tasks, setTasks] = useState([]);
 
   const [progress, setProgress] = useState(0);
   const [displayEditForm, setDisplayEditForm] = useState(false);
 
-  const [visible, setVisible] = useState(false);
-    const toast = useRef(null);
+  const startDate = new Date(project.dueDate);
+  const currentDate = new Date();
 
-    const accept = async () => {
+  const timeDiff = Math.abs(startDate.getTime() - currentDate.getTime());
+  const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+  const [color, setColor] = useState('e66465');
+  const [color2, setColor2] = useState('9198e5');
+  const hashtag = '#';
+
+  const [visible, setVisible] = useState(false);
+
+  const toast = useRef(null);
+
+  useEffect(() => {
+    const fetchTasksForProject = async () => {
       try {
-        await deleteProject(props.project.id);
-        toast.current.show({ severity: 'info', summary: 'Confirmado', detail: 'Projeto deletado', life: 3000 });
-        window.location.reload();
+        const tasks = await getTaskFromProject(props.project.id);
+        setTasks(tasks);
+        // console.log(tasks)
       } catch (error) {
         console.error(error);
-        // Handle error as needed
       }
     };
 
-    const reject = () => {
-        toast.current.show({ severity: 'warn', summary: 'Operação não confirmada', detail: 'Projeto não deletado', life: 3000 });
+    fetchTasksForProject();
+  }, [getTaskFromProject, props.project.id]);
+
+  const accept = async () => {
+    try {
+      await deleteProject(props.project.id);
+      toast.current.show({ severity: 'info', summary: 'Confirmado', detail: 'Projeto deletado', life: 3000 });
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+      // Handle error as needed
     }
+  };
+
+
+  const reject = () => {
+      toast.current.show({ severity: 'warn', summary: 'Operação não confirmada', detail: 'Projeto não deletado', life: 3000 });
+  }
 
   const onHide = () => {
     setDisplayEditForm(false);
@@ -53,17 +82,6 @@ export default function ProjectCard(props) {
   };
 
 
-  const { project } = props
-
-  const startDate = new Date(project.dueDate);
-  const currentDate = new Date();
-
-  const timeDiff = Math.abs(startDate.getTime() - currentDate.getTime());
-  const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-
-  const [color, setColor] = useState('e66465');
-  const [color2, setColor2] = useState('9198e5');
-  const hashtag = '#';
 
   const confirm = () => {
     confirmDialog({
@@ -103,7 +121,7 @@ export default function ProjectCard(props) {
         <h6 className="h6 text-light mt-1 pt-3">Prazo final em {diffDays} dias</h6>
         <h3 className="p-3 text-light"> {project.title}</h3>
          <ProgressBar className="mt-3 mx-3 progress-bar" style={{ height: '10px' }} value={progress}></ProgressBar>
-        < TaskItem tasks={project.tarefaId} onProgressChange={setProgress} className="text-light"/>
+        < TaskItem tasks={tasks} onProgressChange={setProgress} className="text-light"/>
       </Card>
   );
 }

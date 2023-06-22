@@ -46,7 +46,7 @@ export default function TaskItem(props) {
                 onBlur={(e) => handleTaskTitleChange(task, e.target.textContent)}
                 className="ml-2 text-light"
               >
-                {task.title}
+                {task.tituloTarefa}
               </span>
               <Checkbox
                 inputId={task.id}
