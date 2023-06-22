@@ -7,8 +7,7 @@ export default function CreateProjectForm({ onSubmit }) {
   const handleSubmit = async (project) => {
     try {
       const updatedProject = {
-        ...project,
-        tarefaId: project.tarefaId.map((task) => task.id), // Send only task IDs
+        ...project
       };
 
       const createdProjectData = await createProject(updatedProject);
@@ -19,5 +18,5 @@ export default function CreateProjectForm({ onSubmit }) {
     }
   };
 
-  return <ProjectForm onSubmit={handleSubmit} />;
+  return <ProjectForm onSubmit={handleSubmit}  />;
 }

@@ -76,7 +76,7 @@ export default function ProjectForm({ project, onSubmit }) {
           </label>
         </span>
       </div>
-      {tasks.map((task, index) => (
+      {/* {tasks.map((task, index) => (
         <div key={index} className="p-inputgroup flex-1 py-3">
           <span className="p-float-label">
             <InputText
@@ -94,14 +94,14 @@ export default function ProjectForm({ project, onSubmit }) {
             </label>
           </span>
         </div>
-      ))}
-      <Button
+      ))} */}
+      {/* <Button
         type="button"
         className="py-2 btn-gradient"
         label="Add tarefa"
         icon="pi pi-plus"
         onClick={handleAddTask}
-      />
+      /> */}
       <div className="justify-content-around py-4">
         <Button className="btn cyan-50" label="Salvar" type="submit" />
       </div>
