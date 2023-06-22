@@ -52,7 +52,7 @@ export const ProjectsProvider = ({ children }) => {
 
   const deleteProject = async (id) => {
     try {
-      const response = await api.get (`/projects/${id}`);
+      const response = await api.delete(`/projects/${id}`);
       return response.data;
     } catch (error) {
       console.error(error);

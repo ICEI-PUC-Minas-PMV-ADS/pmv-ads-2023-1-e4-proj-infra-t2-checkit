@@ -27,6 +27,7 @@ export default function ProjectCard(props) {
       try {
         await deleteProject(props.project.id);
         toast.current.show({ severity: 'info', summary: 'Confirmado', detail: 'Projeto deletado', life: 3000 });
+        window.location.reload();
       } catch (error) {
         console.error(error);
         // Handle error as needed
