@@ -15,7 +15,9 @@ export default function ProjectForm({ project, onSubmit }) {
   useEffect(() => {
     if (project) {
       setTitle(project.title || "");
-      setDueDate(project.dueDate || null);
+      const formattedDueDate = project.dueDate ? new Date(project.dueDate) : null;
+      setDueDate(formattedDueDate);
+      console.log(dueDate)
     }
 
     if (project.tarefaId) {
@@ -23,6 +25,7 @@ export default function ProjectForm({ project, onSubmit }) {
       setTasks(initialTasks);
     }
   }, [project]);
+
 
 
   // // Save the project data
@@ -78,7 +81,7 @@ export default function ProjectForm({ project, onSubmit }) {
           </div>
           <div className="p-inputgroup flex-1 py-3">
             <span className="p-float-label">
-              <Calendar value={dueDate} onChange={(e) => setDueDate(e.value)} />
+              <Calendar value={dueDate} onChange={(e) => setDueDate(e.value)}  />
               <label className="px-2" htmlFor="duedate">Prazo</label>
             </span>
           </div>
