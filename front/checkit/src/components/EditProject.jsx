@@ -9,10 +9,14 @@ export default function EditProjectForm({ projectId, project, onSubmit }) {
       e.preventDefault();
     }
     try {
-      const updatedProjectData = {
+      // Update the project
+
+      const updatedProject = {
         ...project,
         tarefaId: project.tarefaId.map((task) => task.id), // Send only task IDs
       };
+
+      const updatedProjectData = await updateProject(projectId, updatedProject);
 
       onSubmit(updatedProjectData);
     } catch (error) {
