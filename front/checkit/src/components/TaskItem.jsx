@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { Checkbox } from "primereact/checkbox";
-
-
+import { useProjects } from "../contexts/ProjectsProvider";
 
 export default function TaskItem(props) {
-  const { tasks, onProgressChange } = props
+  const { updateTask } = useProjects();
+
+  const { tasks, onProgressChange, updateTaskTitle } = props;
   const [selectedTasks, setSelectedTasks] = useState([]);
 
   const onTaskChange = (event) => {
@@ -21,26 +22,43 @@ export default function TaskItem(props) {
     const completedTasks = selectedTasks.length;
     const totalTasks = tasks.length;
     const progress = (completedTasks / totalTasks) * 100;
-    onProgressChange(progress); // Invoke the callback function to update the progress value in the Card component
+    onProgressChange(progress);
   }, [selectedTasks, tasks, onProgressChange]);
+  const handleTaskTitleChange = async (task, newTitle) => {
+    try {
+      const updatedTask = { ...task, tituloTarefa: newTitle };
+      await updateTask(task.id, updatedTask);
+    } catch (error) {
+      console.error(error);
+      // Handle error as needed
+    }
+  };
 
-    return (
-
-        <div className="p-3">
-            <div>
-            {tasks.map((task) => {
-                    return (
-                        <div key={task.id} className="d-flex justify-content-between border border-light rounded my-2 p-2">
-                            <label htmlFor={task.id} className="ml-2 text-light">
-                                {task.title}
-                            </label>
-                            <Checkbox inputId={task.id} name="task" value={task} onChange={onTaskChange}
-                              checked={selectedTasks.some((item) => item.id === task.id)}/>
-                        </div>
-                    );
-                  })}
-
+  return (
+    <div className="p-3">
+      <div>
+        {tasks.map((task) => {
+          return (
+            <div key={task.id} className="d-flex justify-content-between border border-light rounded my-2 p-2">
+              <span
+                contentEditable={true}
+                suppressContentEditableWarning={true}
+                onBlur={(e) => handleTaskTitleChange(task, e.target.textContent)}
+                className="ml-2 text-light"
+              >
+                {task.title}
+              </span>
+              <Checkbox
+                inputId={task.id}
+                name="task"
+                value={task}
+                onChange={onTaskChange}
+                checked={selectedTasks.some((item) => item.id === task.id)}
+              />
             </div>
-        </div>
-    )
+          );
+        })}
+      </div>
+    </div>
+  );
 }

@@ -23,6 +23,7 @@ export const ProjectsProvider = ({ children }) => {
         })
       );
       setProjects(updatedProjects)
+      console.log(updatedProjects)
       return updatedProjects;
     } catch (error) {
       console.error(error);
