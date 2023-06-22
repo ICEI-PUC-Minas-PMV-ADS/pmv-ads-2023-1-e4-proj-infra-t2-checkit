@@ -4,7 +4,7 @@ import { useProjects } from "../contexts/ProjectsProvider";
 import ProjectCard from "../components/Card";
 
 export default function IndexGrid() {
-  const { getAllProjects, projects } = useProjects();
+  const { getAllProjects, projects, getTaskFromProject } = useProjects();
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -14,6 +14,16 @@ export default function IndexGrid() {
     fetchProjects();
   }, []);
 
+  const fetchTasksForProject = async (projectId) => {
+    try {
+      const tasks = await getTaskFromProject(projectId);
+      // Handle the tasks data as needed
+      console.log(tasks);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <MenuBar />
@@ -21,7 +31,7 @@ export default function IndexGrid() {
       <div className="container p-3">
         <div className="d-flex flex-wrap text-center">
           {projects.map((project) => (
-            <ProjectCard project={project} key={project.id} />
+            <ProjectCard project={project} key={project.id}  fetchTasks={() => fetchTasksForProject(project.id)}/>
           ))}
         </div>
       </div>

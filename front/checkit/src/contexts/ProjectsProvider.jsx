@@ -10,36 +10,16 @@ export const ProjectsProvider = ({ children }) => {
     try {
       const response = await api.get(`projects/getAllProjectsThisUser`);
       const projectsData = response.data;
-      const updatedProjects = await Promise.all(
-        projectsData.map(async (project) => {
-          const taskIds = project.tarefaId;
-          const tasks = await Promise.all(
-            taskIds.map(async (taskId) => {
-              const task = await getTask(taskId);
-              return { id: taskId, title: task.tituloTarefa };
-            })
-          );
-          return { ...project, tarefaId: tasks };
-        })
-      );
-      setProjects(updatedProjects)
-      console.log(updatedProjects)
-      return updatedProjects;
+
+      setProjects(projectsData); // Set the fetched projects to the state
+
+      return projectsData;
     } catch (error) {
       console.error(error);
       return [];
     }
   };
 
-  const getTask = async (id) => {
-    try {
-      const response = await api.get (`/Tarefas/${id}`);
-      return response.data;
-    } catch (error) {
-      console.error(error);
-      return [];
-    }
-  }
 
   const getTaskFromProject = async (projectId) => {
     try {
