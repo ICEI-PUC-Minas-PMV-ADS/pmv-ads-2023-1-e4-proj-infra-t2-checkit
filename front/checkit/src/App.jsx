@@ -15,7 +15,6 @@ import AllRoutes from './routes/all.routes';
 
 export default function App() {
   const { auth } = useContext(AuthContext)
-  console.log("auth", auth)
   // return auth ? <PrivateRoutes /> : <PublicRoutes />
   return auth ? <AllRoutes /> : <AllRoutes />
 }

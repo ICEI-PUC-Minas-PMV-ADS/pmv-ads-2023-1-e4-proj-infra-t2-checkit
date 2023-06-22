@@ -22,7 +22,6 @@ export const ProjectsProvider = ({ children }) => {
           return { ...project, tarefaId: tasks };
         })
       );
-      console.log(updatedProjects)
       setProjects(updatedProjects)
       return updatedProjects;
     } catch (error) {
@@ -71,8 +70,39 @@ export const ProjectsProvider = ({ children }) => {
     }
   };
 
+  const updateTask = async (taskId, taskData) => {
+    try {
+      const response = await api.put(`/Tarefas/${taskId}`, taskData);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  };
+
+  const createTask = async (params) => {
+    try {
+      const response = await api.post(`/Tarefas/`, params);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  };
+
+  const deleteTask = async (taskId) => {
+    try {
+      const response = await api.delete(`/Tarefas/${taskId}`);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  };
+
+
   return (
-    <ProjectsContext.Provider value={{ getAllProjects, getTaskFromProject, getProjectById, updateProject, projects }}>
+    <ProjectsContext.Provider value={{ getAllProjects, getTaskFromProject, getProjectById, updateProject, updateTask, createTask, deleteTask, projects }}>
       {children}
     </ProjectsContext.Provider>
   );

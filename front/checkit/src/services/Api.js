@@ -14,7 +14,6 @@ export const api = axios.create({
 export const login = async (email, password) => {
   const response = await api.post("/users/authenticate", { email, password });
   localStorage.setItem("jwtToken", JSON.stringify(response.data));
-  console.log(response.data);
   return response.data;
 };
 
