@@ -3,9 +3,9 @@ import { Checkbox } from "primereact/checkbox";
 import { useProjects } from "../contexts/ProjectsProvider";
 
 export default function TaskItem(props) {
-  const { updateTask } = useProjects();
+  const { updateTask, createTask, updateProject } = useProjects();
 
-  const { tasks, onProgressChange, updateTaskTitle } = props;
+  const { tasks, onProgressChange, project } = props;
   const [selectedTasks, setSelectedTasks] = useState([]);
 
   const onTaskChange = (event) => {
@@ -24,6 +24,7 @@ export default function TaskItem(props) {
     const progress = (completedTasks / totalTasks) * 100;
     onProgressChange(progress);
   }, [selectedTasks, tasks, onProgressChange]);
+
   const handleTaskTitleChange = async (task, newTitle) => {
     try {
       const updatedTask = { ...task, tituloTarefa: newTitle };
@@ -33,6 +34,27 @@ export default function TaskItem(props) {
       // Handle error as needed
     }
   };
+  const handleAddNewTask = async () => {
+    try {
+      const newTask = {
+        tituloTarefa: "",
+      };
+      const createdTask = await createTask(newTask);
+
+      const updatedProject = {
+        ...project,
+        tarefaId: [...project.tarefaId, createdTask.id],
+      };
+      await updateProject(project.id, updatedProject);
+
+      // Handle the created task as needed
+    } catch (error) {
+      console.error(error);
+      // Handle error as needed
+    }
+  };
+
+
 
   return (
     <div className="p-3">
@@ -58,6 +80,9 @@ export default function TaskItem(props) {
             </div>
           );
         })}
+        <button className="btn btn-link" onClick={handleAddNewTask}>
+          Add new task
+        </button>
       </div>
     </div>
   );
