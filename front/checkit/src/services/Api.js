@@ -47,3 +47,24 @@ export const updateUser = async (name, password, email) => {
   const response = await api.put(`/users/${userId}`, { name, email, password });
   return response.data;
 };
+
+export const deleteUser = async (name, password, email) => {
+  const jwtToken = localStorage.getItem("jwtToken");
+
+  // Decode the JWT token to extract the user ID
+  const decodedToken = jwt_decode(jwtToken);
+  console.log(decodedToken)
+  const userId = decodedToken.nameid;
+  const userDataResponse = await api.delete(`/users/${userId}`);
+  // const user = userDataResponse.data.find((user) => user.email === email);
+  const user = userDataResponse.data;
+
+  if (!user) {
+    throw new Error("User not found.");
+  }
+
+  // const id = user.id;
+
+  const response = await api.put(`/users/${userId}`, { name, email, password });
+  return response.data;
+};
