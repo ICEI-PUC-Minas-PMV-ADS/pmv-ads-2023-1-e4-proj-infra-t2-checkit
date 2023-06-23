@@ -6,7 +6,10 @@ public class Tarefa
 
     public string TituloTarefa { get; set; }
 
-     public string Status { get; set;}
+//False não foi concluída, true foi concluída
+
+     public bool Status { get; set;}
+
     //public string Descricao { get; set; }
 
     //public Datetime DataInicio { get; set; }
