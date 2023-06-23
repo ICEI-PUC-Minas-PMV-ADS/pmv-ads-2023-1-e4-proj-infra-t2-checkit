@@ -7,7 +7,7 @@ import { ColorPicker } from 'primereact/colorpicker';
 import { Button } from 'primereact/button';
 import EditProject from './EditProject';
 import { Dialog } from 'primereact/dialog';
-import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
+import { ConfirmDialog } from 'primereact/confirmdialog';
 import { Toast } from 'primereact/toast';
 import { useProjects } from "../contexts/ProjectsProvider";
 
@@ -88,18 +88,6 @@ export default function ProjectCard(props) {
     }
   };
 
-  const confirm = () => {
-    confirmDialog({
-        message: 'Are you sure you want to proceed?',
-        header: 'Confirmation',
-        icon: 'pi pi-exclamation-triangle',
-        accept,
-        reject
-    });
-};
-
-
-
   return (
       <Card className="shadow-sm border border-light rounded project-card m-1"
       style={{background: `radial-gradient(${hashtag}${color},${hashtag}${color2} )`}}>
@@ -114,8 +102,8 @@ export default function ProjectCard(props) {
             </div>
             <div>
             <Toast ref={toast} />
-            <ConfirmDialog visible={visible} onHide={() => setVisible(false)} message="Are you sure you want to proceed?"
-            header="Confirmation" icon="pi pi-exclamation-triangle" accept={accept} reject={reject} />
+            <ConfirmDialog visible={visible} onHide={() => setVisible(false)} message="Tem certeza que deseja apagar este projeto?"
+            header="Confirmação" icon="pi pi-exclamation-triangle" accept={accept} reject={reject} />
             <Button icon="pi pi-trash" onClick={() => setVisible(true)}/>
             </div>
             </div>
@@ -126,7 +114,7 @@ export default function ProjectCard(props) {
         <h6 className="h6 text-light mt-1 pt-3">Prazo final em {diffDays} dias</h6>
         <h3 className="p-3 text-light"> {project.title}</h3>
          <ProgressBar className="mt-3 mx-3 progress-bar" style={{ height: '10px' }} value={progress}></ProgressBar>
-        < TaskItem tasks={tasks} onProgressChange={setProgress} className="text-light"/>
+        < TaskItem tasks={tasks} onProgressChange={setProgress} className="text-light" project={project} />
       </Card>
   );
 }
