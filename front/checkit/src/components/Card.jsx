@@ -16,7 +16,7 @@ import { useProjects } from "../contexts/ProjectsProvider";
 
 export default function ProjectCard(props) {
   const { project } = props
-  const { getTaskFromProject } = useProjects();
+  const { getTaskFromProject, getTask } = useProjects();
   const { deleteProject } = useProjects();
   const [tasks, setTasks] = useState([]);
 
@@ -40,9 +40,16 @@ export default function ProjectCard(props) {
   useEffect(() => {
     const fetchTasksForProject = async () => {
       try {
-        const tasks = await getTaskFromProject(props.project.id);
-        setTasks(tasks);
-        // console.log(tasks)
+        const tasksId = await getTaskFromProject(props.project.id);
+
+        const tasksData = await Promise.all(tasksId.map(async (taskId) => {
+          const task = await getTask(taskId);
+          return { id: taskId, tituloTarefa: task.tituloTarefa };
+        }));
+
+        // Handle the tasks data as needed
+        setTasks(tasksData);
+
       } catch (error) {
         console.error(error);
       }
@@ -80,8 +87,6 @@ export default function ProjectCard(props) {
       // Handle error as needed
     }
   };
-
-
 
   const confirm = () => {
     confirmDialog({

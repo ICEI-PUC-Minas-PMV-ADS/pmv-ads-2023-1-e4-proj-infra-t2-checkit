@@ -23,7 +23,7 @@ export const ProjectsProvider = ({ children }) => {
 
   const getTaskFromProject = async (projectId) => {
     try {
-      const response = await api.get (`/projects/${projectId}`);
+      const response = await api.get (`/projects/GetTaskFromProject/${projectId}`);
       return response.data;
     } catch (error) {
       console.error(error);
@@ -91,9 +91,19 @@ export const ProjectsProvider = ({ children }) => {
     }
   };
 
+  const getTask = async (taskId) => {
+    try {
+      const response = await api.get(`/Tarefas/${taskId}`);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  };
+
 
   return (
-    <ProjectsContext.Provider value={{ getAllProjects, getTaskFromProject, deleteProject, createProject, updateProject, updateTask, createTask, deleteTask, projects }}>
+    <ProjectsContext.Provider value={{ getAllProjects, getTaskFromProject, deleteProject, createProject, updateProject, updateTask, createTask, deleteTask, getTask, projects }}>
       {children}
     </ProjectsContext.Provider>
   );
