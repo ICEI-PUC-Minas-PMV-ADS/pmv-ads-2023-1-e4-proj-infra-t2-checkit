@@ -11,7 +11,7 @@ export const ProjectsProvider = ({ children }) => {
       const response = await api.get(`projects/getAllProjectsThisUser`);
       const projectsData = response.data;
 
-      setProjects(projectsData); // Set the fetched projects to the state
+      setProjects(projectsData);
 
       return projectsData;
     } catch (error) {
@@ -84,6 +84,7 @@ export const ProjectsProvider = ({ children }) => {
   const deleteTask = async (taskId) => {
     try {
       const response = await api.delete(`/Tarefas/${taskId}`);
+      console.log(response)
       return response.data;
     } catch (error) {
       console.error(error);
