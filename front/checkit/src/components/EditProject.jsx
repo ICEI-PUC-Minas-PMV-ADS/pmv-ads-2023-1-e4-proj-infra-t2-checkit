@@ -6,10 +6,9 @@ export default function EditProjectForm({ projectId, project, onSubmit }) {
 
   const handleSubmit = async (updatedProject) => {
     try {
-      const updatedTarefaIds = updatedProject.tarefaId.map((task) => task.id);
       const updatedProjectData = {
         ...updatedProject,
-        tarefaId: updatedTarefaIds,
+        tarefaId: project.tarefaId
       };
 
       const updatedData = await updateProject(projectId, updatedProjectData);
