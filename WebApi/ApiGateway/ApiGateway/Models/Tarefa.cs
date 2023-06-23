@@ -5,6 +5,8 @@ public class Tarefa
     public string Id { get; set; }
 
     public string TituloTarefa { get; set; }
+
+     public string Status { get; set;}
     //public string Descricao { get; set; }
 
     //public Datetime DataInicio { get; set; }
