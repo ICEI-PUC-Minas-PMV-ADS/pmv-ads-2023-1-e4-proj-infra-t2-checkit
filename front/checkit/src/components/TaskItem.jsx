@@ -4,9 +4,9 @@ import { useProjects } from "../contexts/ProjectsProvider";
 import { Button } from 'primereact/button';
 
 export default function TaskItem(props) {
-  const { updateTask, createTask, updateProject, deleteTask } = useProjects();
+  const { updateTask, createTask, updateProject  } = useProjects();
 
-  const { tasks, setTasks, onDeleteTask, onProgressChange, project } = props;
+  const { tasks, setTasks,  onProgressChange, project } = props;
   const [selectedTasks, setSelectedTasks] = useState([]);
 
   const onTaskChange = (event) => {
@@ -28,8 +28,13 @@ export default function TaskItem(props) {
 
   const handleTaskTitleChange = async (task, newTitle) => {
     try {
+      console.log(task)
       const updatedTask = { ...task, tituloTarefa: newTitle };
-      await updateTask(task.id, updatedTask);
+      const response = await updateTask(task, updatedTask);
+      if (response) {
+        const updatedTasks = tasks.map((t) => (t.id === response.id ? response : t));
+        setTasks(updatedTasks);
+      }
     } catch (error) {
       console.error(error);
       // Handle error as needed
@@ -39,15 +44,21 @@ export default function TaskItem(props) {
   const handleAddNewTask = async () => {
     try {
       const newTask = {
-        tituloTarefa: "",
+        tituloTarefa: "Editar Tarefa",
+        status: "false",
       };
       const createdTask = await createTask(newTask);
+      console.log(newTask)
 
-      const updatedProject = {
-        ...project,
-        tarefaId: [...project.tarefaId, createdTask.id],
-      };
-      await updateProject(project.id, updatedProject);
+      if (createdTask) {
+        console.log(createdTask)
+        setTasks([...tasks, createdTask]);
+        const updatedProject = {
+          ...project,
+          tarefaId: [...project.tarefaId, createdTask.id],
+        };
+        await updateProject(project.id, updatedProject);
+      }
     } catch (error) {
       console.error(error);
       // Handle error as needed

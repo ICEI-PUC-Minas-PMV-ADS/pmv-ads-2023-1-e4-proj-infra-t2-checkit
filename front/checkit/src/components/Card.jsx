@@ -16,7 +16,7 @@ import { useProjects } from "../contexts/ProjectsProvider";
 
 export default function ProjectCard(props) {
   const { project } = props
-  const { getTaskFromProject, getTask, deleteProject, deleteTask } = useProjects();
+  const { getTaskFromProject, getTask, deleteProject, updateProject, deleteTask } = useProjects();
   const [tasks, setTasks] = useState([]);
 
   const [progress, setProgress] = useState(0);
@@ -59,6 +59,7 @@ export default function ProjectCard(props) {
     try {
       await deleteTask(taskId);
       setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+      updateProject(project.id, { ...project, tarefaId: project.tarefaId.filter(id => id !== taskId) });
     } catch (error) {
       console.error(error);
       // Handle error as needed
