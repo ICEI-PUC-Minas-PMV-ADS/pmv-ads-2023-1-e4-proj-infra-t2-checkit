@@ -6,11 +6,12 @@ export default function CreateProjectForm({ onSubmit }) {
 
   const handleSubmit = async (project) => {
     try {
-      const updatedProject = {
-        ...project
+      const newProject = {
+        ...project,
+        tarefaId: []
       };
 
-      const createdProjectData = await createProject(updatedProject);
+      const createdProjectData = await createProject(newProject);
       onSubmit(createdProjectData);
     } catch (error) {
       console.error(error);
