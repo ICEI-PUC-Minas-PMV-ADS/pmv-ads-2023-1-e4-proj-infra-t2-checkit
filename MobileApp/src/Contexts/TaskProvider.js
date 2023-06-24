@@ -5,8 +5,9 @@ import { set } from "react-native-reanimated";
 export const TaskContext = createContext({});
 
 export const TaskProvider = ({ children }) => {
-  const [task, setTask] = useState([]);
+
   const idTasks = []
+  const task = []
   const getTaskFromProject = async (projectId) => {
     console.log(`${baseURL}/api/projects/${projectId}`);
     return await fetch(`${baseURL}/api/projects/${projectId}`, {
@@ -50,8 +51,8 @@ export const TaskProvider = ({ children }) => {
       .then((response) => response.json())
       .then((json) => {
       idTasks.push(json.id)
-      console.log(json.id)
-      console.log(idTasks)
+       task.push(json)
+      // console.log(idTasks)
       })
       .catch((e) => console.error(e));
   };
@@ -87,7 +88,6 @@ export const TaskProvider = ({ children }) => {
     <TaskContext.Provider
       value={{
         task,
-        setTask,
         getTask,
         postTask,
         putTask,

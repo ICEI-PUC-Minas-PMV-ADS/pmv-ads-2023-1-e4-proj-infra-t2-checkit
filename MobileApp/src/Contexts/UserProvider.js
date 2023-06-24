@@ -1,13 +1,14 @@
 import React, { useState, useContext, createContext } from "react";
 import API from "../Services/webapiservices";
 import { baseURL } from "../Services/URL";
+import { token } from "../Services/URL";
 export const UserContext = createContext({});
 
 const UserProvider = ({ children }) => {
 
   const [usuario, setUsuario] = useState();
   const getUsuario = async(id)=>{
-    return await fetch(`${baseURL}/api/users/${id}`, {
+    return await fetch(`${baseURL}/api/users/${userId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

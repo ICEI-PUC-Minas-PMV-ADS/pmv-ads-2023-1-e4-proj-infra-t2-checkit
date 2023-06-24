@@ -12,8 +12,11 @@ const Login = () => {
   const { postLogin, getUser, user, setUser, userId, authToken, setAuthToken } =
     useContext(AuthUserContext);
 
-  const [email, setEmail] = useState("joao@gmail.com");
-  const [password, setPassword] = useState("123456");
+  // const [email, setEmail] = useState("joao@gmail.com");
+  // const [password, setPassword] = useState("123456");
+  
+   const [email, setEmail] = useState("gab@gmail.com");
+   const [password, setPassword] = useState("1234");
   const [aviso, setAviso] = useState("");
   const [missInfo, setMissInfo] = useState(false);
   const [escondeSenha, setEscondeSenha] = useState(true);
@@ -139,7 +142,7 @@ const Login = () => {
             />
           </View>
         </View>
-
+              
         <View style={{ alignItems: "center" }}>
           {missInfo && <Text style={styles.aviso}>{aviso}</Text>}
           <View style={styles.viewButton}>

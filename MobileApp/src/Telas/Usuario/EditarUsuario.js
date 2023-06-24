@@ -1,13 +1,14 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, Text, View, TouchableOpacity, Alert,BackHandler } from "react-native";
 import Input from "../../Componentes/Input";
 
 import Body from "../../Componentes/Body";
 import { Button } from "react-native-paper";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { TextInput } from "react-native-paper";
 const EditarUsuario = () => {
   const navigation = useNavigation();
+  const rota = useRoute()
   const [escondeSenha, setEscondeSenha] = useState(true);
   const [escondeConfirmaSenha, setEscondeConfirmaSenha] = useState(true);
   const [name, setName] = useState("");
@@ -17,7 +18,22 @@ const EditarUsuario = () => {
 
   // Temrinar
   const [missInfo, setMissInfo] = useState(false);
+useEffect(()=>{
+  if (rota.name === "EditarUsuario") {
+    const backAction = () => {
+      navigation.goBack()
+      return true;
+    };
 
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+    return () => backHandler.remove();
+  }
+
+
+},[])
   // const onPressLogin = async () => {
   //   console.log("funciona");
 

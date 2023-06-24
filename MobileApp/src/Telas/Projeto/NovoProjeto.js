@@ -5,8 +5,10 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  FlatList,
+  BackHandler
 } from "react-native";
-import { TextInput, Button, List } from "react-native-paper";
+import { TextInput, Button, List ,Snackbar} from "react-native-paper";
 import moment from "moment/moment";
 import Container from "../../Componentes/Container";
 import Input from "../../Componentes/Input";
@@ -18,45 +20,73 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import Dialog from "react-native-dialog";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ProjectContext } from "../../Contexts/ProjectsProvider";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation,useIsFocused,useRoute } from "@react-navigation/native";
 import { TaskContext } from "../../Contexts/TaskProvider";
+import { set } from "react-native-reanimated";
 
 export default function NovoProjeto({ route }) {
   const { item } = route.params ? route.params : {};
+  const focused = useIsFocused();
+  const rota = useRoute();
+
   const navigation = useNavigation();
-  const { idTasks,task, getTaskFromProject, postTask, getTask } =
+  const { idTasks,task, getTaskFromProject, postTask, getTask ,deleteTask} =
     useContext(TaskContext);
   const { postProject, getProject, putProject } = useContext(ProjectContext);
-
+  const[guard,setGuard] = useState(0)
   const [tarefas, setTarefas] = useState([]);
   const [inputTarefas, setInputTarefas] = useState("");
   const [tituloTarefa, setTituloTarefa] = useState();
+  const [aviso, setAviso] = useState("");
 
   const textTask =
-    tarefas.length == 0
+    task.length == 0
       ? "Adicione Uma Tarefa a seu Projeto!"
       : "Adicione Mais Tarefas ao seu projeto!";
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false); // pop up
   const [data, setData] = useState(moment(new Date()).format("DD/MM/YYYY"));
   const [title, setTitle] = useState("");
-  const [descricao, setDescricao] = useState("");
+  const [descricao, setDescricao] = useState(!item?"":item.descricao);
   const [isEditing, setIsEditing] = useState();
   const [showDialog, setShowDialog] = useState(false);
   const [missInfo, setMissInfo] = useState(false);
+  const [visible, setVisible] = useState(false);
 
+  const onToggleSnackBar = () => setVisible(!visible);
+  const onDismissSnackBar = () => setVisible(false);
   useEffect(() => {
     setInputTarefas("");
-  }, [tarefas]);
+  }, [task]);
+
   useEffect(() => {
-    console.log(idTasks)
-  }, [idTasks]);
+  
+  }, [guard]);
+  useEffect(() => {
+  
+  },[idTasks]);
+  useEffect(() => {
+    // console.log(item.descricao)
+    if (rota.name === "NovoProjeto") {
+      const backAction = () => {
+        navigation.goBack()
+        return true;
+      };
 
-  const deleteTask = (tarefa) => {
-    const newListTask = tarefas.filter((task) => tarefa != task);
-
-    setTarefas(newListTask);
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        backAction
+      );
+      return () => backHandler.remove();
+    }
+  },[]);
+ 
+  const HandleDeleteTask = (id) => {
+    console.log(guard)
+    deleteTask(id).then().catch()
+    setGuard(guard+1)
   };
+
   // const editTask = (tarefa) => {
   //   setShowDialog(true);
   //   setIsEditing(true);
@@ -77,44 +107,42 @@ export default function NovoProjeto({ route }) {
   }, [item]);
 
   const handleProject = () => {
-    
-    
-    const param = {
-      title: title.trim(),
-      dueDate: new Date(),
-      status: "Em Andamento",
-      tarefaId: idTasks,
-      userId: "648b8b47a571e0b8cffb5061",
-    };
+    console.log(date)
+    if(!title || !date|| !descricao){
+      setMissInfo(true);
+      onToggleSnackBar();
+      setAviso("Favor insira todas a Informações para criação do seu projeto")
 
-    postProject(param).then();
-    navigation.navigate("HomeProjeto");
-    
-  };
+
+    }
+    else{
+
+      const param = {
+        title: title.trim(),
+        dueDate: date,
+        status: "Em Andamento",
+        tarefaId: idTasks,
+        userId: "648b8b47a571e0b8cffb5061",
+      };
+  
+      postProject(param).then();
+      navigation.navigate("HomeProjeto");
+      
+    };
+    }
 
   const handleTask = (projectId) => {
-    console.log(tituloTarefa)
 
+console.log(guard)
      const param = {
        tituloTarefa: tituloTarefa.trim(),
        status:false,
      };
-   console.log(tituloTarefa)
-     const a =  postTask(param).then((data) => console.log(data));
-     console.log(a)
-    // // getTask().then();
 
-    // // getProject(projectId).then((data) => {
-    // //   console.log(data);
-    // // });
+   
 
-    // const proj = {
-    //   title: item.title,
-    //   descricao: item.descricao,
-    //   dueDate: item.dueDate,
-    //   tarefaId: [],
-    // };
-    // putProject(projectId, param);
+     const a =  postTask(param).then().catch(e=>console.log(e));
+      setGuard(guard+1)
 
     setShowDialog(false);
     setInputTarefas("");
@@ -122,6 +150,37 @@ export default function NovoProjeto({ route }) {
     //getTaskFromProject(projectId).then();
   };
 
+  const renderItem = ({ item }) => (
+    <SafeAreaView>
+    <ScrollView>
+    
+
+          <View style={styles.itensList}>
+          <List.Icon icon={"notebook-edit"} />
+
+          <Text  style={styles.taskItens}>
+            {item.tituloTarefa}
+          </Text>
+          <TouchableOpacity onPress={() => setIsEditing(item.id)}>
+            <List.Icon
+              style={{ marginLeft: 170 }}
+              icon={"notebook-edit-outline"}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => HandleDeleteTask(item.id)}>
+            <List.Icon style={{ marginLeft: 20 }} icon={"trash-can"} />
+          </TouchableOpacity>
+        </View>
+  
+    </ScrollView>
+    </SafeAreaView>
+        
+  
+
+
+          
+
+  );
   return (
     <Container>
       <Body>
@@ -131,6 +190,7 @@ export default function NovoProjeto({ route }) {
           <TextOverInput>Nome do Projeto</TextOverInput>
           <Input
             mode="outlined"
+            
             value={title}
             onChangeText={(text) => setTitle(text)}
             error={missInfo && !title ? true : false}
@@ -144,6 +204,8 @@ export default function NovoProjeto({ route }) {
             activeOutlineColor={"#262626"}
             multiline={true}
             value={descricao}
+            error={missInfo && !descricao ? true : false}
+
             onChangeText={(text) => setDescricao(text)}
             numberOfLines={5}
             outlineColor="#262626"
@@ -158,13 +220,16 @@ export default function NovoProjeto({ route }) {
                 <DateTimePicker
                   testID="dateTimePicker"
                   value={date}
+                  error={missInfo && !date ? true : false}
+
                   mode={"date"}
                   is24Hour={true}
                   display="default"
+                  themeVariant="dark"
                   onTouchCancel={() => setShow(false)} // Para fechar
                   onChange={(event, date) => {
                     setShow(false);
-                    setData(moment(date).format("DD/MM/YYYY"));
+                    setData(date.format("DD/MM/YYYY"));
                   }}
                 />
               )
@@ -223,28 +288,22 @@ export default function NovoProjeto({ route }) {
               onPress={() => handleTask()}
             />
           </Dialog.Container>
-          <SafeAreaView>
-            <ScrollView>
-              {tarefas.map((x, y) => (
-                <View style={styles.itensList}>
-                  <List.Icon icon={"notebook-edit"} />
-
-                  <Text key={y} style={styles.taskItens}>
-                    {x}
-                  </Text>
-                  <TouchableOpacity onPress={() => setIsEditing(x)}>
-                    <List.Icon
-                      style={{ marginLeft: 170 }}
-                      icon={"notebook-edit-outline"}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress={() => deleteTask(x)}>
-                    <List.Icon style={{ marginLeft: 20 }} icon={"trash-can"} />
-                  </TouchableOpacity>
-                </View>
-              ))}
-            </ScrollView>
-          </SafeAreaView>
+          
+            <FlatList
+          data={task}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+        />
+   <Snackbar
+          visible={visible}
+          onDismiss={onDismissSnackBar}
+          duration={1500}
+          action={{
+            label: "Ok",
+          }}
+        >
+          {aviso}
+        </Snackbar>
         </View>
         <View style={styles.viewBtn}>
           <TouchableOpacity onPress={handleProject}>
@@ -253,6 +312,11 @@ export default function NovoProjeto({ route }) {
             </Button>
           </TouchableOpacity>
         </View>
+
+
+
+
+        
       </Body>
     </Container>
   );

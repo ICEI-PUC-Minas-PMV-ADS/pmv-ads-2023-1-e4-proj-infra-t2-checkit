@@ -8,7 +8,7 @@ export const AuthUserProvider = ({ children }) => {
   const [user, setUser] = useState();
 
   const [userId, setUserId] = useState();
-
+const [nameUser,setNameUser] = useState('')
   const [authToken, setAuthToken] = useState("");
 
   const postLogin = async (param) => {
@@ -23,9 +23,11 @@ export const AuthUserProvider = ({ children }) => {
       // .then((json) => console.log(json))
       .then((data) => {
         setAuthToken(data.jwtToken);
-
+        
         
         console.log(data.jwtToken);
+        setNameUser(data.name)
+        setUserId(data.userId);
 
 
         setUserId(data.userId);
@@ -60,6 +62,7 @@ export const AuthUserProvider = ({ children }) => {
         postLogin,
         userId,
         getUser,
+        nameUser
       }}
     >
       {children}

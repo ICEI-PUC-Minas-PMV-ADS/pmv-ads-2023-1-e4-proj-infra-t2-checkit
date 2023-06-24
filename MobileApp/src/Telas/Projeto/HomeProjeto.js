@@ -6,7 +6,10 @@ import {
   View,
   FlatList,
   Pressable,
+  BackHandler,
+  Image
 } from "react-native";
+
 import { List, Checkbox, Card, FAB } from "react-native-paper";
 import Container from "../../Componentes/Container";
 import Body from "../../Componentes/Body";
@@ -19,10 +22,12 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { ProjectContext } from "../../Contexts/ProjectsProvider";
 import { TaskContext } from "../../Contexts/TaskProvider";
 import moment from "moment";
-import { useIsFocused } from "@react-navigation/native";
+import { useIsFocused,useRoute } from "@react-navigation/native";
 import { AuthUserContext } from "../../Contexts/AuthUserProvider";
 import { baseURL } from "../../Services/URL";
 import { token } from "../../Services/URL";
+import { UserContext } from "../../Contexts/UserProvider";
+
 const tasks = [
   {
     id: "64655877d423bfb671802d70",
@@ -66,26 +71,58 @@ const tasks = [
   },
 ];
 
-export default function HomeProjeto({ route }) {
+export default function HomeProjeto({ rota }) {
   const navigation = useNavigation();
   const focused = useIsFocused();
+
+  const[guard,setGuard] = useState(0)
+  const[nomeUser,setNomeUser] = useState()
   const{getTask}= useContext(TaskContext)
   const { project, getAllProjects, deleteProject } = useContext(ProjectContext);
-
-  const { user, userId, authToken } = useContext(AuthUserContext);
-  //const { user } = route.params ? route.params : {};
-
+  const {getUsuario} = useContext(UserContext)
+  const route = useRoute();
+  const { user, userId, authToken} = useContext(AuthUserContext);
+  const [task, setTask] = useState(tasks);
   const [showDialog, setShowDialog] = useState(false);
   // Testes API
-  useEffect(() => {
 
+  //Este useEffect serva para quando renderizar a home do projeto,e o botão de back do celular,ao inves de retornar para página de login,fechar o app
  
+  useEffect(() => {
+    console.log(project.length)
+    if (route.name === "HomeProjeto") {
+      const backAction = () => {
+        BackHandler.exitApp()
+        return true;
+      };
 
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        backAction
+      );
+      return () => backHandler.remove();
+    }
+  }, []);
+
+  useEffect(() => {
+  
     getAllProjects().then();
-    console.log(project)
-  }, [focused],[]);
+  
+    fetch(`${baseURL}/api/users/${userId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setNomeUser(data.name))
+      .catch((error) => console.error(error));
 
-  const [task, setTask] = useState(tasks);
+
+
+  }, [focused],[guard]);
+
 
   const handleChange = (id) => {
     //console.log(id);
@@ -101,43 +138,43 @@ export default function HomeProjeto({ route }) {
     setTask(temp);
   };
   const handleDeleteProject = (item) => {
+    console.log(guard)
+    deleteProject(item.id).then();
+    getAllProjects().then();
+    setGuard(guard+1)
+    console.log(`Você tem ${project.length} projetos em andamento`);
 
+    // const tarefas = project.map((x,y)=>{
+    //   console.log(x.tarefaId)
+    //   return x.tarefaId
+    // })
 
+    // for(let array of  tarefas) {
 
-  
-    const tarefas = project.map((x,y)=>{
-      console.log(x.tarefaId)
-      return x.tarefaId
-    })
-
-    for(let array of  tarefas) {
-
-     for(let id of array){
+    //  for(let id of array){
       
-      fetch(`${baseURL}/api/Tarefas/${id}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => console.log(data.tituloTarefa))
-        .catch((error) => console.error(error));
+    //   fetch(`${baseURL}/api/Tarefas/${id}`, {
+    //     method: "GET",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   })
+    //     .then((response) => response.json())
+    //     .then((data) => console.log(data.tituloTarefa))
+    //     .catch((error) => console.error(error));
       
-     }
-    }
-    // deleteProject(item.id).then();
-    // getAllProjects().then();
-    // console.log(`Você tem ${project.length} projetos em andamento`);
+    //  }
+    // }
+   
   };
   // Renderiza accordion
   const handleTask = (projeto, projetoTarefaId) => {
+
     const arr = [];
 
-
-
     projeto.map((x,y)=>{
+
       return x.title
     })
 
@@ -233,23 +270,45 @@ export default function HomeProjeto({ route }) {
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
-            <Text style={styles.welcomeText}>Bem vindx {user}!</Text>
+            <Text style={styles.welcomeText}>Bem vindx,  {nomeUser}!</Text>
+          
             <FAB
-              style={styles.fab}
+              style={styles.account}
               size="small"
-              icon="plus"
-              onPress={() => navigation.navigate("NovoProjeto")}
+              icon="account-circle"
+              onPress={() => navigation.navigate("EditarUsuario")}
             />
+           
           </View>
           <Text style={styles.projectText}>
             {/* Você tem {project.length} projetos em andamento */}
           </Text>
         </View>
+        {project.length == 0 && (
+          <View style={styles.viewProjetoVazio}>
+            <Image
+              style={styles.imgPaper}
+              source={require("../../../assets/empty_paper.png")}
+            />
+            <Text style={styles.textAvisoProjetoVazio}>
+              Ops...Você Não possui nenhum projeto no momento
+            </Text>
+            <Text style={styles.textAvisoProjetoVazio}>
+              Crie algum projeto para aparecer em sua lista de projetos!
+            </Text>
+          </View>
+        )}
         <FlatList
           data={project}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
+           <FAB
+              style={styles.add}
+              size="small"
+              icon="plus"
+              onPress={() => navigation.navigate("NovoProjeto")}
+            />
       </Body>
     </Container>
   );
@@ -273,6 +332,22 @@ const styles = StyleSheet.create({
   textList: {
     fontSize: 16,
   },
+  viewProjetoVazio: {
+    alignSelf: "center",
+    marginTop: 120,
+
+  },
+  imgPaper: {
+    width: 180,
+    height: 200,
+    alignSelf: "center",
+    marginBottom:10
+  },
+  textAvisoProjetoVazio: {
+    fontSize: 18,
+    textAlign: "center",
+    letterSpacing: 2,
+  },
   viewCard: {
     backgroundColor: "#FEC044",
     borderRadius: 10,
@@ -285,13 +360,22 @@ const styles = StyleSheet.create({
     margin: "auto",
     marginTop: 14,
   },
-  fab: {
+  account: {
     position: "absolute",
-    margin: 16,
+    margin: 18,
+    right: 5,
+    top: 40,
+  
+  },
+
+  add: {
+    position: "absolute",
+    margin: 18,
     right: 0,
-    top: 20,
+    top: 670,
     backgroundColor: "#F9E79F",
   },
+  
   icons: {
     flexDirection: "row",
     marginLeft: 40,
