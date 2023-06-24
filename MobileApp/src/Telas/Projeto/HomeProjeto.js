@@ -122,6 +122,12 @@ export default function HomeProjeto({ rota }) {
 
 
   }, [focused],[guard]);
+  useEffect(() => {
+  
+    getAllProjects().then();
+  
+
+  }, [guard]);
 
 
   const handleChange = (id) => {
@@ -141,7 +147,7 @@ export default function HomeProjeto({ rota }) {
     console.log(guard)
     deleteProject(item.id).then();
     getAllProjects().then();
-    setGuard(guard+1)
+    setGuard(1+guard)
     console.log(`Você tem ${project.length} projetos em andamento`);
 
     // const tarefas = project.map((x,y)=>{

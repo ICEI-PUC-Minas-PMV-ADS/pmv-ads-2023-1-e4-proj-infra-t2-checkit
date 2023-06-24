@@ -15,20 +15,19 @@ namespace ProjectManager.Models
             CreatedAt = DateTime.Now;            
             UpdatedAt = DateTime.Now;           
             DueDate = request.DueDate!.Value;  
-            Descricao = request.Descricao!;
+        
             Status = request.Status!;
             TarefaId = request.TarefaId!;
             UserId = request.UserId!;
         }
 
-        public Project(string id, string title, DateTime createdAt, DateTime updatedAt, DateTime dueDate,string descricao, string status, List<string?> tarefaId, string userId)
+        public Project(string id, string title, DateTime createdAt, DateTime updatedAt, DateTime dueDate, string status, List<string?> tarefaId, string userId)
         {
             Id = id;
             Title = title;
             CreatedAt = createdAt;            
             UpdatedAt = updatedAt;            
             DueDate = dueDate;       
-            Descricao = descricao;
             Status = status;
             TarefaId = tarefaId;
             UserId = userId;
@@ -47,7 +46,6 @@ namespace ProjectManager.Models
         public DateTime UpdatedAt { get; set; }        
         public string? Status { get; set; }
         public DateTime DueDate { get; set; }
-        public string Descricao { get; set; }
         public List<string?> TarefaId { get; set; }
         public string UserId { get; set; }
     }
