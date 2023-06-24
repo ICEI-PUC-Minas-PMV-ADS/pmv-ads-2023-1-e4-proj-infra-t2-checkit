@@ -5,14 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { updateUser } from '../services/Api.js';
 
 
-export default function EditUserForm() {
+export default function EditUserForm({ onSubmit }) {
   const navigate = useNavigate();
 
   const [name, setName] = useState(null);
   const [pass, setPass] = useState(null);
   const [email, setEmail] = useState(null);
-
-
 
 
   const handleSubmit = async (e) => {
@@ -41,7 +39,7 @@ export default function EditUserForm() {
       </div>
       <div className="p-inputgroup flex-1 py-4">
         <span className="p-float-label">
-          <InputText id="pass" value={pass} onChange={(e) => setPass(e.value)} placeholder="Senha" />
+          <InputText id="pass" value={pass} onChange={(e) => setPass(e.value)} placeholder="Senha" type="password" />
           <label className="px-2" htmlFor="pass">Senha</label>
         </span>
       </div>
