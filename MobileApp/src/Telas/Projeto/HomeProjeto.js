@@ -17,10 +17,12 @@ import { useNavigation } from "@react-navigation/native";
 import { combineTransition } from "react-native-reanimated";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { ProjectContext } from "../../Contexts/ProjectsProvider";
+import { TaskContext } from "../../Contexts/TaskProvider";
 import moment from "moment";
 import { useIsFocused } from "@react-navigation/native";
 import { AuthUserContext } from "../../Contexts/AuthUserProvider";
-
+import { baseURL } from "../../Services/URL";
+import { token } from "../../Services/URL";
 const tasks = [
   {
     id: "64655877d423bfb671802d70",
@@ -67,8 +69,9 @@ const tasks = [
 export default function HomeProjeto({ route }) {
   const navigation = useNavigation();
   const focused = useIsFocused();
-
+  const{getTask}= useContext(TaskContext)
   const { project, getAllProjects, deleteProject } = useContext(ProjectContext);
+
   const { user, userId, authToken } = useContext(AuthUserContext);
   //const { user } = route.params ? route.params : {};
 
@@ -97,20 +100,42 @@ export default function HomeProjeto({ route }) {
     });
     setTask(temp);
   };
+  const handleDeleteProject = (item) => {
 
+
+
+  
+    const tarefas = project.map((x,y)=>{
+      console.log(x.tarefaId)
+      return x.tarefaId
+    })
+
+    for(let array of  tarefas) {
+
+     for(let id of array){
+      
+      fetch(`${baseURL}/api/Tarefas/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => console.log(data.tituloTarefa))
+        .catch((error) => console.error(error));
+      
+     }
+    }
+    // deleteProject(item.id).then();
+    // getAllProjects().then();
+    // console.log(`Você tem ${project.length} projetos em andamento`);
+  };
   // Renderiza accordion
   const handleTask = (projeto, projetoTarefaId) => {
     const arr = [];
-    // console.log(projetoTarefaId)
-    // projetoTarefaId.forEach((projetoTarefaId) => {
-    //   tarefa.map((tarefa) => {
-    //     if (tarefa.id == projetoTarefaId) {
-    //       arr.push(tarefa);
-    //       // setTest(tarefa);
-    //     }
-    //   });
-    // });
-    //console.log(test.id);
+
+
 
     projeto.map((x,y)=>{
       return x.title
@@ -150,11 +175,7 @@ export default function HomeProjeto({ route }) {
     );
   };
 
-  const handleDeleteProject = (item) => {
-    // deleteProject(item.id).then();
-    // getAllProjects().then();
-    // console.log(`Você tem ${project.length} projetos em andamento`);
-  };
+ 
 
   const renderItem = ({ item }) => (
     <View style={styles.viewCard}>
@@ -185,16 +206,23 @@ export default function HomeProjeto({ route }) {
         )}
       />
    
+         
+                <List.Section>
+                <List.Accordion
+             
+                  title="Tarefas"
+                  left={(props) => <List.Icon {...props} icon="view-dashboard" />}
+                >
+          
+                </List.Accordion>
+              </List.Section>
+           
+             
+        
+  
 
-      <List.Section>
-        <List.Accordion
-          title="Tarefas"
-          left={(props) => <List.Icon {...props} icon="view-dashboard" />}
-        >
-          {item.tarefaId != "" && handleTask(item.tarefaId)}
-        </List.Accordion>
-      </List.Section>
-    
+
+          
     </View>
   );
 

@@ -4,8 +4,11 @@ import { baseURL } from "../Services/URL";
 export const AuthUserContext = createContext({});
 
 export const AuthUserProvider = ({ children }) => {
+
   const [user, setUser] = useState();
+
   const [userId, setUserId] = useState();
+
   const [authToken, setAuthToken] = useState("");
 
   const postLogin = async (param) => {
@@ -20,13 +23,17 @@ export const AuthUserProvider = ({ children }) => {
       // .then((json) => console.log(json))
       .then((data) => {
         setAuthToken(data.jwtToken);
+
+        
         console.log(data.jwtToken);
+
+
         setUserId(data.userId);
         // console.log(data.userId);
       })
       .catch((error) => console.error(error));
   };
-
+  
   const getUser = async (userId) => {
     console.log(`${baseURL}/api/Users/${userId}`);
     return await fetch(`${baseURL}/api/Users/${userId}`, {

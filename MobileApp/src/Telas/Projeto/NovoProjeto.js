@@ -72,6 +72,7 @@ export default function NovoProjeto({ route }) {
       setTitle(item.title);
       setDescricao(item.descricao);
       setDate(item.dueDate);
+      console.log(item.tarefaId)
     }
   }, [item]);
 
@@ -96,6 +97,7 @@ export default function NovoProjeto({ route }) {
 
      const param = {
        tituloTarefa: tituloTarefa.trim(),
+       status:"false",
      };
    console.log(tituloTarefa)
      const a =  postTask(param).then((data) => console.log(data));
@@ -123,7 +125,7 @@ export default function NovoProjeto({ route }) {
   return (
     <Container>
       <Body>
-        <Text style={styles.Titulo}>{item ? "Projeto" : "Novo Projeto"}</Text>
+        <Text style={styles.Titulo}>{item ? item.title : "Novo Projeto"}</Text>
 
         <View style={styles.viewInput}>
           <TextOverInput>Nome do Projeto</TextOverInput>
