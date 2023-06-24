@@ -97,7 +97,7 @@ export default function NovoProjeto({ route }) {
 
      const param = {
        tituloTarefa: tituloTarefa.trim(),
-       status:"false",
+       status:false,
      };
    console.log(tituloTarefa)
      const a =  postTask(param).then((data) => console.log(data));
