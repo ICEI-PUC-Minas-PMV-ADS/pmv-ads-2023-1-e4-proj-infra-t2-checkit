@@ -15,6 +15,10 @@ export default function MenuBar() {
 
   const navigate = useNavigate();
 
+  const handleUserFormSubmit = () => {
+    setDisplayUserForm(false); // Close the form after successful submission
+  };
+
   const handleSubmit = async (e) => {
       e.preventDefault();
       localStorage.removeItem('token');
@@ -39,6 +43,7 @@ export default function MenuBar() {
   ]
   const end = < BsDoorClosedFill className="mx-3" onClick={handleSubmit} />;
 
+
   const onHide = () => {
       setDisplayCreateForm(false);
     };
@@ -54,7 +59,7 @@ export default function MenuBar() {
             <CreateProject />
           </Dialog>
           <Dialog visible={displayUserForm} onHide={onHideUser} header="Editar usuário">
-            <EditUserForm />
+            <EditUserForm onClick={onHideUser}/>
           </Dialog>
         </div>
     )

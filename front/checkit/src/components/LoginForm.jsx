@@ -49,6 +49,7 @@ export function LoginForm() {
                 onChange={(e) => setPass(e.target.value)}
                 placeholder="**************"
                 id="senha"
+                type="password"
               />
               <label className="px-2" htmlFor="senha">Senha</label>
             </span>
