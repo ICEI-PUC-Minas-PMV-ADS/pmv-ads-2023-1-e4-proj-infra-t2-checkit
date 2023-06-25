@@ -23,7 +23,6 @@ const [nameUser,setNameUser] = useState('')
       // .then((json) => console.log(json))
       .then((data) => {
         setAuthToken(data.jwtToken);
-        console.log(authToken);
         setUserId(data.userId);
       })
       .catch((error) => console.error(error));

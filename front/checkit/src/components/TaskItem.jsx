@@ -44,7 +44,7 @@ export default function TaskItem(props) {
   const handleAddNewTask = async () => {
     try {
       const newTask = {
-        tituloTarefa: "",
+        tituloTarefa: "Editar Tarefa",
         status: "false",
       };
       const createdTask = await createTask(newTask);
