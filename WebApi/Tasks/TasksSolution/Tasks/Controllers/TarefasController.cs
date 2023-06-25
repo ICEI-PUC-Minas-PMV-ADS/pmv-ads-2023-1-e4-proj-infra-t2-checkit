@@ -6,7 +6,7 @@ using Tasks.Models;
 using Tasks.Services;
 namespace Tasks.Controllers;
 
-/*[Authorize]*/
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class TarefasController : ControllerBase

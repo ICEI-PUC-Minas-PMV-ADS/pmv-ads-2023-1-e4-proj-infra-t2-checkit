@@ -15,8 +15,8 @@ const Login = () => {
   // const [email, setEmail] = useState("joao@gmail.com");
   // const [password, setPassword] = useState("123456");
   
-   const [email, setEmail] = useState("gab@gmail.com");
-   const [password, setPassword] = useState("1234");
+   const [email, setEmail] = useState("joao@gmail.com");
+   const [password, setPassword] = useState("12345");
   const [aviso, setAviso] = useState("");
   const [missInfo, setMissInfo] = useState(false);
   const [escondeSenha, setEscondeSenha] = useState(true);
@@ -42,57 +42,45 @@ const Login = () => {
         email: email.trim(),
         password: password.trim(),
       };
-      postLogin(param).then(() => {
-        if (authToken == undefined) {
-          onToggleSnackBar();
-          setAviso("Email ou/e Senha incorretos");
-        } else {
-          navigation.navigate("HomeProjeto");
-        }
-      });
-      // if (userId != null) {
-      //   console.log("-------------------------");
-      //   console.log("---->>>", userId);
-      //   getUser(userId).then((x) => console.log(x));
-      //   console.log("-------------------------");
+      // postLogin(param).then((response) => {
 
-      //   navigation.navigate("HomeProjeto");
-      // }
+      //   console.log(response)
+      //   if (authToken == undefined) {
+      //     console.log("Oiii")
+      //     console.log(authToken)
+      //     onToggleSnackBar();
+      //     setAviso("Email ou/e Senha incorretos");
+      //   } else {
+      //     // navigation.navigate("HomeProjeto");
+      //   }
+      // });
+    
 
-      // fetch(`${baseURL}/api/Users/authenticate`, {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({
-      //     email: email.trim(),
-      //     password: password.trim(),
-      //   }),
-      // })
-      //   .then((response) => response.json())
-      //   .then((data) => {
-      //     if (data.status == 401) {
-      //       onToggleSnackBar();
-      //       setAviso("Email ou/e Senha incorretos");
-      //     }
-      //     setAuthToken(data.jwtToken);
-      //     console.log(authToken);
-      //     fetch(`${baseURL}/api/Users/${data.userId}`, {
-      //       method: "GET",
-      //       headers: {
-      //         "Content-Type": "application/json",
-      //         Authorization: `Bearer ${data.jwtToken}`,
-      //       },
-      //     })
-      //       .then((response) => response.json())
-      //       .then((user) => {
-      //         console.log(user);
-      //         if (user != undefined) {
-      //           navigation.navigate("HomeProjeto", { user });
-      //         }
-      //       });
-      //   })
-      //   .catch((error) => console.error(error));
+      fetch(`${baseURL}/api/Users/authenticate`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email.trim(),
+          password: password.trim(),
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data.jwtToken)
+          if (data.status == 401) {
+            onToggleSnackBar();
+            setAviso("Email ou/e Senha incorretos");
+          }
+          else{
+            navigation.navigate("HomeProjeto")
+          }
+       
+          
+          
+        })
+        .catch((error) => console.error(error));
     }
   };
 

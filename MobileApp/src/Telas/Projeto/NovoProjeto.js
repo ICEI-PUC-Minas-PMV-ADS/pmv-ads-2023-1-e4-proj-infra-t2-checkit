@@ -30,13 +30,12 @@ export default function NovoProjeto({ route }) {
   const rota = useRoute();
 
   const navigation = useNavigation();
-  const { idTasks,task, getTaskFromProject, postTask, getTask ,deleteTask} =
+  const { idTasks,task, getTaskFromProject, postTask,putTask, getTask ,deleteTask} =
     useContext(TaskContext);
   const { postProject, getProject, putProject } = useContext(ProjectContext);
   const[guard,setGuard] = useState(0)
   const [tarefas, setTarefas] = useState([]);
-  const [inputTarefas, setInputTarefas] = useState("");
-  const [tituloTarefa, setTituloTarefa] = useState();
+  const [tituloTarefa, setTituloTarefa] = useState("");
   const [aviso, setAviso] = useState("");
 
   const textTask =
@@ -47,8 +46,10 @@ export default function NovoProjeto({ route }) {
   const [show, setShow] = useState(false); // pop up
   const [data, setData] = useState(moment(new Date()).format("DD/MM/YYYY"));
   const [title, setTitle] = useState("");
+  const[isEditing,setIsEditing]= useState()
   const [descricao, setDescricao] = useState(!item?"":item.descricao);
-  const [isEditing, setIsEditing] = useState();
+//Variável que guarda a tarefa que esta sendo editada
+  const[taskEditing,setTaskEditing] = useState()
   const [showDialog, setShowDialog] = useState(false);
   const [missInfo, setMissInfo] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -56,7 +57,7 @@ export default function NovoProjeto({ route }) {
   const onToggleSnackBar = () => setVisible(!visible);
   const onDismissSnackBar = () => setVisible(false);
   useEffect(() => {
-    setInputTarefas("");
+    setTituloTarefa("");
   }, [task]);
 
   useEffect(() => {
@@ -80,6 +81,23 @@ export default function NovoProjeto({ route }) {
       return () => backHandler.remove();
     }
   },[]);
+
+ const handleDialogBox= (isCreating)=>{
+
+  if(!showDialog){
+    setShowDialog(true)
+    console.log(isEditing)
+    if(isCreating)setTituloTarefa("")
+  } 
+
+  else{
+    setShowDialog(false)
+    console.log(isEditing)
+
+  }
+
+ }
+
  
   const HandleDeleteTask = (id) => {
     console.log(guard)
@@ -87,14 +105,47 @@ export default function NovoProjeto({ route }) {
     setGuard(guard+1)
   };
 
-  // const editTask = (tarefa) => {
-  //   setShowDialog(true);
-  //   setIsEditing(true);
-  //   setInputTarefas(tarefa);
+  const editTask = (tarefa) => {
+    setShowDialog(true);
+    setIsEditing(true)
+    console.log(taskEditing)
+     if(!taskEditing){
 
-  //   const index = tarefas.findIndex((task) => task == tarefa);
-  //   tarefas[index] = s;
-  // };
+       const param = {
+         tituloTarefa: tituloTarefa.trim(),
+         status:false,
+       };
+       setTituloTarefa(tarefa.tituloTarefa);
+       putTask(tarefa.id,param)
+
+
+     }
+     else{
+
+     }
+  
+
+  
+  };
+  const handleTask = () => {
+     setIsEditing(false)
+    console.log(isEditing)
+    console.log("oiiiiiiiii")
+    const param = {
+      tituloTarefa: tituloTarefa.trim(),
+      status:false,
+    };
+
+  
+
+    postTask(param).then().catch(e=>console.log(e));
+     setGuard(guard+1)
+
+   setShowDialog(false);
+   setTituloTarefa("");
+
+   //getTaskFromProject(projectId).then();
+ };
 
   useEffect(() => {
     // Se vier dados da rota
@@ -108,12 +159,22 @@ export default function NovoProjeto({ route }) {
 
   const handleProject = () => {
     console.log(date)
-    if(!title || !date|| !descricao){
+    if(!title && !date && !descricao){
       setMissInfo(true);
       onToggleSnackBar();
       setAviso("Favor insira todas a Informações para criação do seu projeto")
 
 
+    }
+    else if(!title){
+      setMissInfo(true);
+      onToggleSnackBar();
+      setAviso("Favor insira um titulo para o seu projeto")
+    }
+    else if(!descricao){
+      setMissInfo(true);
+      onToggleSnackBar();
+      setAviso("Favor insira um Descrição para o seu projeto")
     }
     else{
 
@@ -131,25 +192,7 @@ export default function NovoProjeto({ route }) {
     };
     }
 
-  const handleTask = (projectId) => {
-
-console.log(guard)
-     const param = {
-       tituloTarefa: tituloTarefa.trim(),
-       status:false,
-     };
-
-   
-
-     const a =  postTask(param).then().catch(e=>console.log(e));
-      setGuard(guard+1)
-
-    setShowDialog(false);
-    setInputTarefas("");
-
-    //getTaskFromProject(projectId).then();
-  };
-
+  
   const renderItem = ({ item }) => (
     <SafeAreaView>
     <ScrollView>
@@ -161,7 +204,7 @@ console.log(guard)
           <Text  style={styles.taskItens}>
             {item.tituloTarefa}
           </Text>
-          <TouchableOpacity onPress={() => setIsEditing(item.id)}>
+          <TouchableOpacity onPress={() => editTask(item)}>
             <List.Icon
               style={{ marginLeft: 170 }}
               icon={"notebook-edit-outline"}
@@ -247,7 +290,7 @@ console.log(guard)
               />
             </TouchableOpacity>
           </>
-          <TouchableOpacity onPress={() => setShowDialog(true)}>
+          <TouchableOpacity onPress={() => handleDialogBox(true)}>
             <Button
               textColor="#fff"
               style={styles.plusTask}
@@ -267,7 +310,7 @@ console.log(guard)
           {/* Muda para compontente data */}
           <Dialog.Container
             visible={showDialog}
-            onRequestClose={() => setShowDialog(false)}
+            onRequestClose={() => handleDialogBox(true)}
           >
             <Dialog.Title>Tarefa</Dialog.Title>
             <Dialog.Description>Digite o nome da sua Tarefa</Dialog.Description>
@@ -275,17 +318,17 @@ console.log(guard)
             <Dialog.Input
               color="#000"
               onChangeText={(text) => setTituloTarefa(text)}
-              //value={tituloTarefa}
+              value={tituloTarefa}
             />
 
             <Dialog.Button
               label="Cancelar"
-              onPress={() => setShowDialog(false)}
+              onPress={() => handleDialogBox()}
             />
             <Dialog.Button
-              label={`Adicionar Tarefa`}
+              label={isEditing?`Editar Tarefa`:"Adicionar Tarefa"}
               // onPress={() => addTask()}
-              onPress={() => handleTask()}
+              onPress={() => !isEditing?handleTask():editTask(taskEditing)}
             />
           </Dialog.Container>
           
@@ -297,7 +340,7 @@ console.log(guard)
    <Snackbar
           visible={visible}
           onDismiss={onDismissSnackBar}
-          duration={1500}
+          duration={1900}
           action={{
             label: "Ok",
           }}

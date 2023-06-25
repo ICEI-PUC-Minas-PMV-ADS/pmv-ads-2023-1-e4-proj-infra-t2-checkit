@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Alert,BackHandler } from "react-native";
 import Input from "../../Componentes/Input";
 
 import Body from "../../Componentes/Body";
-import { Button } from "react-native-paper";
+import { Button,Snackbar } from "react-native-paper";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import { baseURL } from "../../Services/URL";
+import { token } from "../../Services/URL";
 import { TextInput } from "react-native-paper";
+import { AuthUserContext } from "../../Contexts/AuthUserProvider";
+import { UserContext } from "../../Contexts/UserProvider";
 const EditarUsuario = () => {
   const navigation = useNavigation();
   const rota = useRoute()
@@ -15,10 +19,39 @@ const EditarUsuario = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const { userId, authToken} = useContext(AuthUserContext);
+  const {putUsuario} = useContext(UserContext)
+  
+  const [aviso, setAviso] = useState("");
 
-  // Temrinar
+  const [visible, setVisible] = useState(false);
+  const onToggleSnackBar = () => setVisible(!visible);
+  const onDismissSnackBar = () => setVisible(false);
   const [missInfo, setMissInfo] = useState(false);
-useEffect(()=>{
+
+
+
+
+  useEffect(()=>{
+    fetch(`${baseURL}/api/users/${userId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setName(data.name)
+        setEmail(data.email)
+        
+      }
+       
+      )
+      .catch((error) => console.error(error));
+
+
+
   if (rota.name === "EditarUsuario") {
     const backAction = () => {
       navigation.goBack()
@@ -34,37 +67,48 @@ useEffect(()=>{
 
 
 },[])
-  // const onPressLogin = async () => {
-  //   console.log("funciona");
 
-  //   fetch(
-  //     "https://api.nasa.gov/planetary/apod?api_key=gkimsne4yrAAj6jBFaTrAIUn9DxWkRlq4ZGDWqen"
-  //   )
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //       // Do something with the data
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       // Handle any errors
-  //     });
-  // };
 
   const handleEdit = () => {
     //console.log(`${name}, ${email}, ${password}, ${confirmPassword}`);
     // Validando senha
-    if (!name || !email || !password || !confirmPassword) {
-      console.log("missinfo");
+    if (!password & !confirmPassword) {
+      onToggleSnackBar();
+      setAviso("Por favor Insira o senha e a confirme!")
       setMissInfo(true);
     }
-    if (password !== confirmPassword) {
-      Alert.alert("Atenção", "Confirmação de senha incorreta");
-    } else {
-      console.log("Ir para tela inicial");
+    else if (!password) {
+      onToggleSnackBar();
+      setAviso("Por favor Insira a sua nova senha!")
+      setMissInfo(true);
+
     }
+    else if (!confirmPassword){
+      onToggleSnackBar();
+      setAviso("Por favor Insira a confirmação de sua senha!")
+      setMissInfo(true);
+    }
+    else if (password !== confirmPassword){
+      onToggleSnackBar();
+      setAviso("Senha diferentes, Por favor verifique!")
+      setMissInfo(true);
+    }
+    else{
+      const param={
+        id:userId,
+        name :name,
+        email:email,
+        password:password.trim()
+      }
+      putUsuario(userId,param).then(response=>console.log(response)).catch(e=>console.log(e))
+     
+
+      navigation.navigate("HomeProjeto")
+    }
+ 
+    
   };
-  navigation.navigate("Home")
+   
 
   return (
     <View style={styles.container}>
@@ -78,9 +122,10 @@ useEffect(()=>{
         <Text style={styles.infoInputText}>Nome</Text>
         <Input
           disabled={true}
-
+          value={name}
           mode="outlined"
-          activeOutlineColor={"#184C78"}
+          activeOutlineColor={"#262626"}
+            outlineColor={"#262626"}
           placeholderTextColor="#003f5c"
           onChangeText={(name) => setName(name)}
           right={<TextInput.Icon icon="account-circle-outline" />}
@@ -89,7 +134,10 @@ useEffect(()=>{
         <Text style={styles.infoInputText}>E-mail</Text>
         <Input
           mode="outlined"
-          activeOutlineColor={"#184C78"}
+          value={email}
+          disabled={true}
+          activeOutlineColor={"#262626"}
+          outlineColor={"#262626"}
           placeholderTextColor="#003f5c"
           onChangeText={(email) => setEmail(email)}
           right={<TextInput.Icon icon="email-outline" />}
@@ -97,7 +145,11 @@ useEffect(()=>{
         <Text style={styles.infoInputText}>Senha</Text>
         <Input
           mode="outlined"
-          activeOutlineColor={"#184C78"}
+          value={password}
+          activeOutlineColor={"#262626"}
+          outlineColor={"#262626"}
+          error={missInfo && !password ? true : false}
+
           secureTextEntry={escondeSenha}
           placeholderTextColor="#003f5c"
           right={
@@ -113,7 +165,11 @@ useEffect(()=>{
         <Text style={styles.infoInputText}>Confirmar senha</Text>
         <Input
           mode="outlined"
-          activeOutlineColor={"#184C78"}
+          activeOutlineColor={"#262626"}
+          outlineColor={"#262626"}
+          value={confirmPassword}
+          error={missInfo && !confirmPassword ? true : false}
+
           secureTextEntry={escondeConfirmaSenha}
           placeholderTextColor="#003f5c"
           right={
@@ -128,9 +184,7 @@ useEffect(()=>{
             setConfirmPassword(confirmPassword);
           }}
         />
-        {/* <TouchableOpacity onPress={onPressLogin} style={styles.loginBtn}>
-            <Text style={styles.loginText}>Estou pronto </Text>
-          </TouchableOpacity> */}
+       
           <View style={styles.viewBtn}>
 
         <TouchableOpacity onPress={handleEdit}>
@@ -139,7 +193,18 @@ useEffect(()=>{
           </Button>
         </TouchableOpacity>
           </View>
-        
+          
+          <Snackbar
+          visible={visible}
+          onDismiss={onDismissSnackBar}
+          duration={1800}
+          
+          action={{
+            label: "Ok",
+          }}
+        >
+          {aviso}
+        </Snackbar>
       </Body>
     </View>
   );
@@ -147,14 +212,14 @@ useEffect(()=>{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ffffff",
+    backgroundColor: "#7D8AFF",
     alignItems: "center",
   },
   title: {
     height: 100,
     fontWeight: "bold",
     fontSize: 25,
-    color: "#000000",
+    color: "#ffffff",
     marginTop: 10,
     marginBottom:5,
     padding: 5,

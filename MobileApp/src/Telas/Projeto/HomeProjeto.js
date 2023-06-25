@@ -77,11 +77,12 @@ export default function HomeProjeto({ rota }) {
 
   const[guard,setGuard] = useState(0)
   const[nomeUser,setNomeUser] = useState()
+  const [user,setUser]= useState()
   const{getTask}= useContext(TaskContext)
   const { project, getAllProjects, deleteProject } = useContext(ProjectContext);
   const {getUsuario} = useContext(UserContext)
   const route = useRoute();
-  const { user, userId, authToken} = useContext(AuthUserContext);
+  const { userId, authToken,nameUser} = useContext(AuthUserContext);
   const [task, setTask] = useState(tasks);
   const [showDialog, setShowDialog] = useState(false);
   // Testes API
@@ -89,6 +90,7 @@ export default function HomeProjeto({ rota }) {
   //Este useEffect serva para quando renderizar a home do projeto,e o botão de back do celular,ao inves de retornar para página de login,fechar o app
  
   useEffect(() => {
+ 
     console.log(project.length)
     if (route.name === "HomeProjeto") {
       const backAction = () => {
@@ -144,10 +146,13 @@ export default function HomeProjeto({ rota }) {
     setTask(temp);
   };
   const handleDeleteProject = (item) => {
-    console.log(guard)
+
     deleteProject(item.id).then();
+
     getAllProjects().then();
+
     setGuard(1+guard)
+
     console.log(`Você tem ${project.length} projetos em andamento`);
 
     // const tarefas = project.map((x,y)=>{
@@ -261,10 +266,6 @@ export default function HomeProjeto({ rota }) {
               </List.Section>
            
              
-        
-  
-
-
           
     </View>
   );
@@ -276,7 +277,7 @@ export default function HomeProjeto({ rota }) {
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
-            <Text style={styles.welcomeText}>Bem vindx,  {nomeUser}!</Text>
+            <Text style={styles.welcomeText}>Bem vindx, {nomeUser} !</Text>
           
             <FAB
               style={styles.account}
@@ -340,12 +341,12 @@ const styles = StyleSheet.create({
   },
   viewProjetoVazio: {
     alignSelf: "center",
-    marginTop: 120,
+    marginTop: 70,
 
   },
   imgPaper: {
-    width: 180,
-    height: 200,
+    width: 230,
+    height: 250,
     alignSelf: "center",
     marginBottom:10
   },

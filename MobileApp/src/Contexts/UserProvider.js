@@ -41,12 +41,19 @@ const UserProvider = ({ children }) => {
   }
 
 
-  const putUsuario = async (param) => {
+  const putUsuario = async (id,param) => {
 
 
-    return await API.put(URLUSER, param).then(
-      response=>console.log(response)
-    )
+    return await fetch(`${baseURL}/api/users/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(param),
+    })
+      .then((response) => console.log(response.status))
+      .catch((error) => console.error(error));
   }
   
 

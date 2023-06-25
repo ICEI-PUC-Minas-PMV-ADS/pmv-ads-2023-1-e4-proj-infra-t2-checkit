@@ -41,7 +41,7 @@ export const ProjectProvider = ({ children }) => {
 
   // POST
   const postProject = async (param) => {
-    console.log("param: ", param);
+
     return await fetch(`${baseURL}/api/projects/`, {
       method: "POST",
       headers: {
